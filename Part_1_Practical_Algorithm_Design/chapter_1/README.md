@@ -8,7 +8,7 @@ An algorithm is a procedure that takes any of the possible input _instances_ and
 We seek algorithms that are _correct_ and _efficient_, while being _easy to implement_.
 
 ## Proof of Correctness
-__The Salesman problem__ or why there is a fundamental difference between _algorithms_, which always produce a correct results, and _heuristics_,which may usually do a good job but without providing any guarantee.
+__The Salesman problem__ or why there is a fundamental difference between _algorithms_, which always produce a correct results, and _heuristics_, which may usually do a good job but without providing any guarantee.
 
 Reasonable-looking algorithms can easily be incorrect. Algorithm correctness is a property that must be carefully demonstrated.
 
@@ -24,7 +24,7 @@ Problems specifications have two parts: (1) the set of allowed input instances, 
 
 An important and honorable technique in algorithm design is to narrow the set of allowable instances until there is a correct and efficient algorithm.
 
-A single _counter example_ providing a bad output for an algorithm is sufficient to prove it's incorrectness.
+A single _counter example_ providing a bad output for an algorithm is sufficient to prove its incorrectness.
 _Verifiability_ and _simplicity_ should characterize good counter examples.
 
 To find counter examples: 
@@ -34,8 +34,8 @@ To find counter examples:
 * _Go for a tie_
 * _Seek extremes_
 
-__Induction and Recursion__, I've heard it said that a computer scientist is mathematician who only knows how to prove things by induction. However one must be careful of _boundary errors_ and _cavalier extension claims_.
-Mathematical induction is the usually the right way to verify the correctness of a recursive or incremental insertion algorithm.
+__Induction and Recursion__, I've heard it said that a computer scientist is a mathematician who only knows how to prove things by induction. However one must be careful of _boundary errors_ and _cavalier extension claims_.
+Mathematical induction is usually the right way to verify the correctness of a recursive or incremental insertion algorithm.
 
 __Summations__,  
 _Arithmetic progressions_ 
