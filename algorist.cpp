@@ -2,6 +2,6 @@
 
 int main()
 {
-	std::cout << "Hello, I'm an Algorist" << std::endl;
+	std::cout << "The Algorist" << std::endl;
 	return 0;
 }

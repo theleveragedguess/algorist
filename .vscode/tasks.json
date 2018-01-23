@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Generate",
+            "type": "shell",
+            "command": "cmake",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "windows": {
+                "args": [
+                    "-G", "'Visual Studio 15 2017 Win64'", "../"
+                ]
+            },
+            
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "windows": {
+                "command": "msbuild",
+                "args": ["algorist.sln"]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
