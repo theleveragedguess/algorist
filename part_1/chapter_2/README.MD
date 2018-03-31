@@ -7,10 +7,10 @@ The two most important tools to compare the efficiency of algorithms without imp
 ## The RAM Model of Computation
 
 Machine-independent algorithm design depends upon a hypothetical computer called the Random Access Machine or RAM, where:
-* Each _simple_ operation (+, *, - =, if, call) takes exactly one time step
-* Loops and subroutines are not considered simple operations
-* Each memory access takes exactly one time step
- 
+* Each _simple_ operation (+, *, - =, if, call) takes exactly one time step.
+* Loops and subroutines are not considered simple operations.
+* Each memory access takes exactly one time step.
+
 To understand how good or bad an algorithm is in general, we must know how it works over _all_ instances:
 * The _worst-case complexity_
 * The _best-case complexity_
@@ -27,25 +27,25 @@ Time complexity functions are very difficult to work precisely with because they
 
 ## Growth Rates and Dominance Relations
 
-* Any algorithm with _n!_ running time becomes useless for _n_ >= 20.
-* Algorithms whose running time is _2^n_ have a greater operating range, but become impractical for _n_ > 40.
-* Quadratic-time algorithms whose running time is _n^2_ remain usable up to about _n_ = 10,000, but quickly deteriorate with larger inputs. They are likely to be hopeless for _n_ > 1,000,000.
+* Any algorithm with _n!_ running time becomes useless for _n >= 20_.
+* Algorithms whose running time is _2^n_ have a greater operating range, but become impractical for _n > 40_.
+* Quadratic-time algorithms whose running time is _n^2_ remain usable up to about _n = 10,000_, but quickly deteriorate with larger inputs. They are likely to be hopeless for _n > 1,000,000_.
 * Linear-time and _n.lg(n)_ algorithms remain practical on inputs of one billion items.
 * An _O(lg(n))_ hardly breaks a sweat for any imaginable value of _n_.
 
-__Dominance Relations__  
+__Dominance Relations__
 The Big Oh notation groups functions into a set of classes, such that all the functions in a particular class are equivalent with respect to the Big Oh.
 We say that a faster-growing function _dominates_ a slower-growing one.
 
 Only a few functions classes tend to occur in the course of basic algorithm analysis
-* _Constant functions_ f(n) = 1
-* _Logarithmic functions_ f(n) = log(n)
-* _Linear functions_ f(n) = n
-* _Superlinear functions_ f(n) = n.log(n)
-* _Quadratic functions_ f(n) = n^2
-* _Cubic functions_  f(n) = n^3
-* _Exponential functions_ f(n) = c^n
-* _Factorial functions_ f(n) = n!
+* _Constant functions f(n) = 1_
+* _Logarithmic functions f(n) = log(n)_
+* _Linear functions f(n) = n_
+* _Superlinear functions f(n) = n.log(n)_
+* _Quadratic functions f(n) = n^2_
+* _Cubic functions f(n) = n^3_
+* _Exponential functions f(n) = c^n_
+* _Factorial functions f(n) = n!_
 
 Although esoteric functions arise in advanced algorithm analysis, a small variety of time complexities suffice and account for most algorithms that are widely used in practice.
 
@@ -54,26 +54,26 @@ Although esoteric functions arise in advanced algorithm analysis, a small variet
 On simplifications of algebraic expressions
 
 __Adding Functions__
-* O(f(n) + O(g(n))) => O(max(f(n), g(n)))
-* Ω(f(n) + Ω(g(n))) => Ω(max(f(n), g(n)))
-* θ(f(n) + θ(g(n))) => θ(max(f(n), g(n)))
+* _O(f(n) + O(g(n))) => O(max(f(n), g(n)))_
+* _Ω(f(n) + Ω(g(n))) => Ω(max(f(n), g(n)))_
+* _θ(f(n) + θ(g(n))) => θ(max(f(n), g(n)))_
 
 Everything is small potatoes besides the dominant terms
 
 __Multiplying Functions__
-* O(c.f(n)) => O(f(n))
-* Ω(c.f(n)) => Ω(f(n))
-* θ(c.f(n)) => θ(f(n))
-* O(f(n)) . O(g(n)) => O(f(n).g(n))
-* Ω(f(n)) . Ω(g(n)) => Ω(f(n).g(n))
-* θ(f(n)) . θ(g(n)) => θ(f(n).g(n))
+* _O(c.f(n)) => O(f(n))_
+* _Ω(c.f(n)) => Ω(f(n))_
+* _θ(c.f(n)) => θ(f(n))_
+* _O(f(n)) . O(g(n)) => O(f(n).g(n))_
+* _Ω(f(n)) . Ω(g(n)) => Ω(f(n).g(n))_
+* _θ(f(n)) . θ(g(n)) => θ(f(n).g(n))_
 
 ## Reasoning about Efficiency
 
-* __Selection Sort__ is O(n^2).
-* __Insertion Sort__ is O(n^2).
-* __String Pattern Match__ is O(n.m) where _m_ is the length of the string we're trying to find in the string of length _n_.
-* __Matrix Multiplication__ is O(n^3).
+* __Selection Sort__ is _O(n^2)_.
+* __Insertion Sort__ is _O(n^2)_.
+* __String Pattern Match__ is _O(n.m)_ where _m_ is the length of the string we're trying to find in the string of length _n_.
+* __Matrix Multiplication__ is _O(n^3)_.
 
 ## Logarithms and Their Applications
 
@@ -82,29 +82,29 @@ Logarithms arise whenever things are repeatedly halved or doubled
 
 ## Properties of Logarithms
 
-* Base b = 2 the _binary logarithm_ or lg(x)
-* Base b = _e_ the _natural log_ or ln(x)
-* Base b = 10 the _common logarithm_ or log(x)
-* log\<a\>(x.y) = log\<a\>(x) + log\<a\>(y)
-* log\<a\>(n^b) = b.log\<a\>(n)
-* log\<a\>(b) = log\<c\>(b)/log\<c\>(a)
+* Base _b_ = 2 the _binary logarithm_ or _lg(x)_
+* Base _b_ = _e_ the _natural log_ or _ln(x)_
+* Base _b_ = 10 the _common logarithm_ or _log(x)_
+* _log\<a\>(x.y) = log\<a\>(x) + log\<a\>(y)_
+* _log\<a\>(n^b) = b.log\<a\>(n)_
+* _log\<a\>(b) = log\<c\>(b)/log\<c\>(a)_
 
 * _The base of the algorithm has no real impact on the growth rate_ Thus we are usually justified in ignoring the base of the logarithm when analyzing algorithms.
 * _Logarithms cut any thing down to size_ The growth rate of the logarithm of any polynomial function is _O(lg(n))_ because _log\<a\>(n^b) = b.log\<a\>(n)_.
- 
+
  ## Advanced Analysis
 
  __Esoteric Functions__
- * Inverse Ackermann's function, f(n) = α(n) the slowest-growing complexity function
- * f(n) = log(log(n)) the log log function i.e binary search on a sorted array of log(n) items
- * f(n) = log(n)/(log(n).log(n)) i.e height of tree of degree log(n)
- * f(n) = log(n)^2 The log squared i.e intricate nested data structures
- * f(n) = sqrt(n) the square root i.e for d-dimensional hypercubes of length n^(1/d) on each side with volume d
- * f(n) = n^(1+ε) to simplify algorithms that runs in (2^c).(n^(1+(1/c)))
+ * Inverse Ackermann's function, _f(n) = α(n)_ the slowest-growing complexity function
+ * _f(n) = log(log(n))_ the log log function i.e binary search on a sorted array of _log(n)_ items
+ * _f(n) = log(n)/(log(n).log(n))_ i.e height of tree of degree _log(n)_
+ * _f(n) = log(n)^2_ The log squared i.e intricate nested data structures
+ * _f(n) = sqrt(n)_ the square root i.e for d-dimensional hypercubes of length _n^(1/d)_ on each side with volume _d_
+ * _f(n) = n^(1+ε)_ to simplify algorithms that runs in _(2^c).(n^(1+(1/c)))_
 
- __Limits and Dominance Relations__  
- We say that _f(n)_ dominates _g(n)_ if _lim\<n to ∞\>g(n)/f(n) = 0_.  
- The higher-Degree polynomial dominates even for _n^1.2_ and _n^1.1999999_.  
+ __Limits and Dominance Relations__
+ We say that _f(n)_ dominates _g(n)_ if _lim\<n to ∞\>g(n)/f(n) = 0_.
+ The higher-Degree polynomial dominates even for _n^1.2_ and _n^1.1999999_.
  The exponential with the higher base dominates.
 
- n! > c^n > n^3 > n^2 > n^(1+ε) > n.log(n) > n > sqrt(n) > log(n)^2 > log(n) > log(n)/(log(n).log(n)) > log(log(n)) > α(n) > 1
+_n! > c^n > n^3 > n^2 > n^(1+ε) > n.log(n) > n > sqrt(n) > log(n)^2 > log(n) > log(n)/(log(n).log(n)) > log(log(n)) > α(n) > 1_

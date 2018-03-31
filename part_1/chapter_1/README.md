@@ -1,7 +1,7 @@
 # Introduction to Algorithm Design
 
-An algorithm is a _procedure_ to accomplish a specific task.  
-An algorithm is the idea behind any reasonable computer program.  
+An algorithm is a _procedure_ to accomplish a specific task.
+An algorithm is the idea behind any reasonable computer program.
 An algorithm is a procedure that takes any of the possible input _instances_ and transforms it to the desired output.
 
 We seek algorithms that are _correct_ and _efficient_, while being _easy to implement_.
@@ -12,7 +12,7 @@ __The Salesman problem__ or why there is a fundamental difference between _algor
 
 Reasonable-looking algorithms can easily be incorrect. Algorithm correctness is a property that must be carefully demonstrated.
 
-A mathematical _proof_ consists of a precise _statement_ of what we try to prove, a set of _assumptions_ and a _chain of reasoning_. This leads to the ▮ QED.  
+A mathematical _proof_ consists of a precise _statement_ of what we try to prove, a set of _assumptions_ and a _chain of reasoning_. This leads to the ▮ QED.
 A proof is a _demonstration_, it should be honest with crisp arguments.
 
 ## Reasoning about Correctness
@@ -23,15 +23,15 @@ Problems specifications have two parts: (1) the set of allowed input instances, 
 
 An important and honorable technique in algorithm design is to narrow the set of allowable instances until there is a correct and efficient algorithm.
 
-A single _counter example_ providing a bad output for an algorithm is sufficient to prove its incorrectness.  
+A single _counter example_ providing a bad output for an algorithm is sufficient to prove its incorrectness.
 _Verifiability_ and _simplicity_ should characterize good counter examples.
 
-To find counter examples: 
-* _Think small_
-* _Think exhaustively_
-* _Hunt for the weakness_ 
-* _Go for a tie_
-* _Seek extremes_
+To find counter examples:
+* _Think small_.
+* _Think exhaustively_.
+* _Hunt for the weakness_.
+* _Go for a tie_.
+* _Seek extremes_.
 
 __Induction and Recursion__, I've heard it said that a computer scientist is a mathematician who only knows how to prove things by induction. However one must be careful of _boundary errors_ and _cavalier extension claims_.
 Mathematical induction is usually the right way to verify the correctness of a recursive or incremental insertion algorithm.
@@ -39,18 +39,18 @@ Mathematical induction is usually the right way to verify the correctness of a r
 __Summations__
 
 _Arithmetic progressions_
-* sum(1, n, i => i) => n(n+1)/2
-* S(n,p) => sum(1, n, i => i^p) => Ө(n^(p+1))
+* _sum(1, n, i => i) => n(n+1)/2_
+* _S(n,p) => sum(1, n, i => i^p) => Ө(n^(p+1))_
 
 _Geometric series_
-* G(n, a) => sum(0, n, i => a^i) => (a^(n+1) - 1)/(a-1)
-* G(n, a) < 2 when a < 1
-* G(n, a) => Ө(a^(n + 1)) when a > 1
+* _G(n, a) => sum(0, n, i => a^i) => (a^(n+1) - 1)/(a-1)_
+* _G(n, a) < 2 when a < 1_
+* _G(n, a) => Ө(a^(n + 1)) when a > 1_
 
 _Harmonic Numbers_
-* H(n) => sum(1, n, i => 1/i) ~> ln(n)
+* _H(n) => sum(1, n, i => 1/i) ~> ln(n)_
 
-## Modeling the problem ##
+## Modeling the problem
 
 To exploit the algorithm literature, one must learn to describe the problem abstractly, in terms of procedures on fundamental structures. Modeling your application in terms of well-defined structures and algorithms is the most important single step towards a solution.
 
@@ -63,12 +63,13 @@ __Combinatorial Objects__
 * _Polygons_
 * _Strings_
 
-__Recursive Objects__  
+__Recursive Objects__
 Learning to think recursively is learning to look for big things that are made from smaller things of _exactly the same type as the big thing_. Recursive descriptions of objects require both _decomposition rules_ and _basis cases_.
 
 
-__Implementation Program__
+## Implementation Program
 _part_1/chapter_1/programs.cpp,.h_
+
 A program that tackles the Lotto Set problem.
 The program find a good ticket set, although it doesn't use any heuristics to optimize the minimum number of tickets in this set. In the contrary it covers all possible subsets.
-By Using the psychic minimal 'promised' numbers we can achieve a way better result.
+By Using the psychic minimal 'promised' numbers in a ticket we can achieve a way better result.

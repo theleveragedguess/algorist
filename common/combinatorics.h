@@ -1,6 +1,6 @@
 #pragma once
 
-namespace combinatorics 
+namespace combinatorics
 {
     typedef unsigned int uint;
 

@@ -7,13 +7,17 @@
             "command": "cmake",
             "options": {
                 "cwd": "${workspaceFolder}/build"
-            },
+            }, 
             "windows": {
                 "args": [
                     "-G", "'Visual Studio 15 2017 Win64'", "../"
                 ]
             },
-            
+            "linux": {
+                "args": [
+                    "-G", "'Unix Makefiles'", "../"
+                ]
+            }
         },
         {
             "label": "Build",
@@ -24,6 +28,9 @@
             "windows": {
                 "command": "msbuild",
                 "args": ["algorist.sln"]
+            },
+            "linux": {
+                "command" : "make",
             },
             "group": {
                 "kind": "build",
