@@ -21,31 +21,32 @@ The important thing to realize is that each of the these time complexities defin
 ## The Big Oh Notation
 
 Time complexity functions are very difficult to work precisely with because they tend _to have too many bumps_ and _require too much detail to specify precisely_. We just need to reason with upper and lower bounds. The Big Oh simplifies our analysis by ignoring levels of detail that do not impact our comparison.
-* _f(n)_ => _O(g(n))_ means _c.g(n)_ is an _upper bound_ on _f(n)_ thus there exists some constant _c_ such that _f(n)_ is always <= _c.g(n)_ for large enough _n_ (i.e _n_ >= _n0_ for some constant _n0_).
-* _f(n)_ => _Ω(g(n))_ means _c.g(n)_ is a _lower bound_ on _f(n)_ thus there exists some constant _c_ such that _f(n)_ is always >= _c.g(n)_ for large enough _n_.
-* _f(n)_ => _θ(g(n))_ means _c1.g(n)_ is an _upper bound_ on _f(n)_ and _c2.g(n)_ is a _lower bound_ on _f(n)_ thus there exists constants _c1_ and _c2_ such that _f(n)_ is always <= _c1.g(n)_ and _f(n)_ >= _c2.g(n)_ for large enough _n_.
+
+* $f(n) = O(g(n))$ means $c.g(n)$ is an _upper bound_ on $f(n)$ thus there exists some constant $c$ such that $f(n)$ is always $\leq c.g(n)$ for large enough $n$ (i.e $n \geq n0$ for some constant $n0$).
+* $f(n) = Ω(g(n))$ means $c.g(n)$ is a _lower bound_ on $f(n)$ thus there exists some constant $c$ such that $f(n)$ is always $\geq c.g(n)$ for large enough $n$.
+* $f(n) = \Theta(g(n))$ means $c1.g(n)$ is an _upper bound_ on $f(n)$ and $c2.g(n)$ is a _lower bound_ on $f(n)$ thus there exists constants $c1$ and $c2$ such that $f(n)$ is always $\leq c1.g(n)$ and $f(n) \geq c2.g(n)$ for large enough $n$.
 
 ## Growth Rates and Dominance Relations
 
-* Any algorithm with _n!_ running time becomes useless for _n >= 20_.
-* Algorithms whose running time is _2^n_ have a greater operating range, but become impractical for _n > 40_.
-* Quadratic-time algorithms whose running time is _n^2_ remain usable up to about _n = 10,000_, but quickly deteriorate with larger inputs. They are likely to be hopeless for _n > 1,000,000_.
-* Linear-time and _n.lg(n)_ algorithms remain practical on inputs of one billion items.
-* An _O(lg(n))_ hardly breaks a sweat for any imaginable value of _n_.
+* Any algorithm with $n!$ running time becomes useless for $n \geq 20$.
+* Algorithms whose running time is $2^n$ have a greater operating range, but become impractical for $n > 40$.
+* Quadratic-time algorithms whose running time is $n^2$ remain usable up to about $n = 10,000$, but quickly deteriorate with larger inputs. They are likely to be hopeless for $n > 1,000,000$.
+* Linear-time and $n.\lg(n)$ algorithms remain practical on inputs of one billion items.
+* An $O(lg(n))$ hardly breaks a sweat for any imaginable value of $n$.
 
 __Dominance Relations__
 The Big Oh notation groups functions into a set of classes, such that all the functions in a particular class are equivalent with respect to the Big Oh.
 We say that a faster-growing function _dominates_ a slower-growing one.
 
 Only a few functions classes tend to occur in the course of basic algorithm analysis
-* _Constant functions f(n) = 1_
-* _Logarithmic functions f(n) = log(n)_
-* _Linear functions f(n) = n_
-* _Superlinear functions f(n) = n.log(n)_
-* _Quadratic functions f(n) = n^2_
-* _Cubic functions f(n) = n^3_
-* _Exponential functions f(n) = c^n_
-* _Factorial functions f(n) = n!_
+* _Constant functions_ $f(n) = 1$
+* _Logarithmic functions_ $f(n) = \log{n}$
+* _Linear functions_ $f(n) = n$
+* _Super linear functions_ $f(n) = n.\log{n}$
+* _Quadratic functions_ $f(n) = n^2$
+* _Cubic functions_ $f(n) = n^3$
+* _Exponential functions_ $f(n) = c^n$
+* _Factorial functions_ $f(n) = n!$
 
 Although esoteric functions arise in advanced algorithm analysis, a small variety of time complexities suffice and account for most algorithms that are widely used in practice.
 
@@ -54,57 +55,57 @@ Although esoteric functions arise in advanced algorithm analysis, a small variet
 On simplifications of algebraic expressions
 
 __Adding Functions__
-* _O(f(n) + O(g(n))) => O(max(f(n), g(n)))_
-* _Ω(f(n) + Ω(g(n))) => Ω(max(f(n), g(n)))_
-* _θ(f(n) + θ(g(n))) => θ(max(f(n), g(n)))_
+* $O(f(n) + O(g(n))) = O(\max(f(n), g(n)))$
+* $Ω(f(n) + Ω(g(n))) = Ω(\max(f(n), g(n)))$
+* $\Theta(f(n) + \Theta(g(n))) = \Theta(\max(f(n), g(n)))$
 
 Everything is small potatoes besides the dominant terms
 
 __Multiplying Functions__
-* _O(c.f(n)) => O(f(n))_
-* _Ω(c.f(n)) => Ω(f(n))_
-* _θ(c.f(n)) => θ(f(n))_
-* _O(f(n)) . O(g(n)) => O(f(n).g(n))_
-* _Ω(f(n)) . Ω(g(n)) => Ω(f(n).g(n))_
-* _θ(f(n)) . θ(g(n)) => θ(f(n).g(n))_
+* $O(c.f(n)) = O(f(n))$
+* $Ω(c.f(n)) = Ω(f(n))$
+* $\Theta(c.f(n)) = \Theta(f(n))$
+* $O(f(n)) . O(g(n)) = O(f(n).g(n))$
+* $Ω(f(n)) . Ω(g(n)) = Ω(f(n).g(n))$
+* $\Theta(f(n)) . \Theta(g(n)) = \Theta(f(n).g(n))$
 
 ## Reasoning about Efficiency
 
-* __Selection Sort__ is _O(n^2)_.
-* __Insertion Sort__ is _O(n^2)_.
-* __String Pattern Match__ is _O(n.m)_ where _m_ is the length of the string we're trying to find in the string of length _n_.
-* __Matrix Multiplication__ is _O(n^3)_.
+* __Selection Sort__ is $O(n^2)$.
+* __Insertion Sort__ is $O(n^2)$.
+* __String Pattern Match__ is $O(n.m)$ where $m$ is the length of the string we're trying to find in the string of length $n$.
+* __Matrix Multiplication__ is $O(n^3)$.
 
 ## Logarithms and Their Applications
 
-Logarithm is an anagram of algorithm, but that's not why we need to know what logarithms are. A _logarithm_ is simply an inverse exponential function. _b^x = y_ so _x = log\<b\>(y)_
+Logarithm is an anagram of algorithm, but that's not why we need to know what logarithms are. A _logarithm_ is simply an inverse exponential function. $b^x = y$ so $x = \log_b{y}$
 Logarithms arise whenever things are repeatedly halved or doubled
 
 ## Properties of Logarithms
 
-* Base _b_ = 2 the _binary logarithm_ or _lg(x)_
-* Base _b_ = _e_ the _natural log_ or _ln(x)_
-* Base _b_ = 10 the _common logarithm_ or _log(x)_
-* _log\<a\>(x.y) = log\<a\>(x) + log\<a\>(y)_
-* _log\<a\>(n^b) = b.log\<a\>(n)_
-* _log\<a\>(b) = log\<c\>(b)/log\<c\>(a)_
+* Base $b = 2$ the _binary logarithm_ or $\lg{x}$
+* Base $b = e$ the _natural log_ or $\ln{x}$
+* Base $b = 10$ the _common logarithm_ or $\log{x}$
+* $\log_a{x.y} = \log_a{x} + \log_a{y}$
+* $\log_a{n^b} = b.\log_a{n}$
+* $\log_a{b} = \dfrac{\log_c{b}}{\log_c{a}}$
 
 * _The base of the algorithm has no real impact on the growth rate_ Thus we are usually justified in ignoring the base of the logarithm when analyzing algorithms.
-* _Logarithms cut any thing down to size_ The growth rate of the logarithm of any polynomial function is _O(lg(n))_ because _log\<a\>(n^b) = b.log\<a\>(n)_.
+* _Logarithms cut any thing down to size_ The growth rate of the logarithm of any polynomial function is $O(\lg{n})$ because $\log_a{n^b} = b.\log_a{n}$.
 
  ## Advanced Analysis
 
  __Esoteric Functions__
- * Inverse Ackermann's function, _f(n) = α(n)_ the slowest-growing complexity function
- * _f(n) = log(log(n))_ the log log function i.e binary search on a sorted array of _log(n)_ items
- * _f(n) = log(n)/(log(n).log(n))_ i.e height of tree of degree _log(n)_
- * _f(n) = log(n)^2_ The log squared i.e intricate nested data structures
- * _f(n) = sqrt(n)_ the square root i.e for d-dimensional hypercubes of length _n^(1/d)_ on each side with volume _d_
- * _f(n) = n^(1+ε)_ to simplify algorithms that runs in _(2^c).(n^(1+(1/c)))_
+ * Inverse Ackermann's function, $f(n) = α(n)$ the slowest-growing complexity function
+ * $f(n) = \log{\log{n}}$ the log log function i.e binary search on a sorted array of $\log{n}$ items
+ * $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ i.e height of tree of degree $\log{n}$
+ * $f(n) = \log{n}^2$ The log squared i.e intricate nested data structures
+ * $f(n) = \sqrt{n}$ the square root i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
+ * $f(n) = n^{1+ε}$ to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
 
  __Limits and Dominance Relations__
- We say that _f(n)_ dominates _g(n)_ if _lim\<n to ∞\>g(n)/f(n) = 0_.
- The higher-Degree polynomial dominates even for _n^1.2_ and _n^1.1999999_.
+ We say that $f(n)$ dominates $g(n)$ if $\lim_{n\to\infty} g(n)/f(n) = 0$.
+ The higher-Degree polynomial dominates even for $n^{1.2}$ and $n^{1.1999999}$.
  The exponential with the higher base dominates.
 
-_n! > c^n > n^3 > n^2 > n^(1+ε) > n.log(n) > n > sqrt(n) > log(n)^2 > log(n) > log(n)/(log(n).log(n)) > log(log(n)) > α(n) > 1_
+$n! \gg c^n \gg n^3 \gg n^2 \gg n^{1+ε} \gg n.\log{n} \gg n \gg \sqrt{n} \gg \log^2{n} \gg log{n} \gg \dfrac{\log{n}}{\log{\log{n}}} \gg \log{\log{n}} \gg α(n) \gg 1$
