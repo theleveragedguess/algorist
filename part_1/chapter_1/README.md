@@ -39,16 +39,23 @@ Mathematical induction is usually the right way to verify the correctness of a r
 __Summations__
 
 _Arithmetic progressions_
-* _sum(1, n, i => i) => n(n+1)/2_
-* _S(n,p) => sum(1, n, i => i^p) => Ө(n^(p+1))_
+* _Arithmetic sequence_ $A_n = A_{n-1} + d$
+* _Arithmetic series_ $S_n = \sum\limits_{i=1}^n A_i$
+* _Arithmetic series general representation_ $S_n = \dfrac{n(2A_1 + (n-1)d)}{2}$
+* _Arithmetic series average representation_ $S_n = \dfrac{n(A_1 + A_n)}{2}$
+* _Arithmetic series common case representation_ $S_n =\sum\limits_{i=1}^n i = \dfrac{n(n + 1)}{2}$
+* $S(n,p) = \sum\limits_{i=1}^n i^p = \Theta(n^{p+1})$
 
-_Geometric series_
-* _G(n, a) => sum(0, n, i => a^i) => (a^(n+1) - 1)/(a-1)_
-* _G(n, a) < 2 when a < 1_
-* _G(n, a) => Ө(a^(n + 1)) when a > 1_
+_Geometric progressions_
+* _Geometric sequence_ $G_n = G_{n-1}r$
+* _Geometric series_ $S_n = \sum\limits_{i=1}^n G_i$
+* _Geometric series general representation_ $S_n = G_1\dfrac{1-r^n}{1-r}$
+* _Geometric series common case representation_ $S_n =\sum\limits_{i=1}^n a^i = \dfrac{a^{n+1}-1}{a-1}$
+* $G_n < 2$ when $G_1 < 1$
+* $G_n = \Theta(G_1^{n + 1})$ when $G_1 > 1$
 
 _Harmonic Numbers_
-* _H(n) => sum(1, n, i => 1/i) ~> ln(n)_
+* $H_n = \sum\limits_{i=1}^n \dfrac{1}{i} \approx \ln{n}$
 
 ## Modeling the problem
 
