@@ -109,3 +109,8 @@ Logarithms arise whenever things are repeatedly halved or doubled
  The exponential with the higher base dominates.
 
 $n! \gg c^n \gg n^3 \gg n^2 \gg n^{1+ε} \gg n.\log{n} \gg n \gg \sqrt{n} \gg \log^2{n} \gg log{n} \gg \dfrac{\log{n}}{\log{\log{n}}} \gg \log{\log{n}} \gg α(n) \gg 1$
+
+## For the Road
+
+* $f(n) = o(g(n))$ means $c.g(n)$ is a _theoretical upper bound_ on $f(n)$ thus for every constant $c$ we are sure that $f(n)$ is always $\leq c.g(n)$ for large enough $n$ (i.e $n \geq n0$ for some constant $n0$).
+* $f(n) = ω(g(n))$ means $c.g(n)$ is a _theoretical lower bound_ on $f(n)$ thus for every constant $c$ we are sure that $f(n)$ is always $\geq c.g(n)$ for large enough $n$.

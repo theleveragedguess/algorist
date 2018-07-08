@@ -73,6 +73,10 @@ __Combinatorial Objects__
 __Recursive Objects__
 Learning to think recursively is learning to look for big things that are made from smaller things of _exactly the same type as the big thing_. Recursive descriptions of objects require both _decomposition rules_ and _basis cases_.
 
+## For the Road
+* _Permutations Count_ $P(n,r) = \dfrac{n!}{(n-r)!}$
+* _Combinations Count_ $C(n,r) = \dfrac{n!}{r!(n-r)!}$
+
 
 ## Implementation Program
 _part_1/chapter_1/programs.cpp,.h_
