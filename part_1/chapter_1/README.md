@@ -62,6 +62,7 @@ _Harmonic Numbers_
 To exploit the algorithm literature, one must learn to describe the problem abstractly, in terms of procedures on fundamental structures. Modeling your application in terms of well-defined structures and algorithms is the most important single step towards a solution.
 
 __Combinatorial Objects__
+
 * _Permutations_
 * _Subsets_
 * _Trees_
@@ -71,6 +72,7 @@ __Combinatorial Objects__
 * _Strings_
 
 __Recursive Objects__
+
 Learning to think recursively is learning to look for big things that are made from smaller things of _exactly the same type as the big thing_. Recursive descriptions of objects require both _decomposition rules_ and _basis cases_.
 
 ## For the Road

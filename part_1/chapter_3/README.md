@@ -7,6 +7,7 @@ Data structures can be neatly classified as either _contiguous_ or _linked_ depe
 * _Linked Data structures_ distinct chunks of memory glued by pointers, lists, trees and graph adjacency lists.
 
 __Arrays__
+
 The fundamental contiguously-allocated data structure.
 
 Advantages:
@@ -72,6 +73,7 @@ void delete_list(list **l, item_type x)
 }
 ```
 __Comparison__:
+
 Linked lists have it at:
 * Overflow occurs only when memory is full.
 * Insertions and deletions are _simpler_ for contiguous lists.
@@ -98,6 +100,7 @@ Both structures are recursive objects, good for divide-and-conquer.
 _Some implements_:
 * _Max(D)_ or _Min(D)_
 * _Predecessor(D,x)_
+
 
 Dictionary operation | Unsorted Array | Sorted Array
 -                   | -         | -
@@ -195,6 +198,7 @@ __Basic operations:__
 * _Deletion, O(h)_
 
 __How good Are Binary Search Tree ?__
+
 When the tree is perfectly balanced _h = ceil(log(n))_.
 Trees depends on insertion order, and bad things can happen (i.e adding sorted items will build a skinny linear height tree populating only right pointers and _h = n_).
 
@@ -202,6 +206,7 @@ On _average_ when we average over the _n!_ possible insertion orderings, we have
 The power of _randomization_ can produce algorithms with good performance with high probability. Quicksort is a child of such a thought.
 
 __Balanced Search Trees__
+
 Sophisticated _balanced_ binary search tree data structures have been deployed that guarantee the height of the tree always to be _O(log(n))_, therefore all dictionary operations (insert, delete, query) take _O(log(n))_ time each.
 
 Picking the wrong data structure for the job can be disastrous in terms of performance. identifying the very best data structure is usually not as critical, because there can be several choices that perform similarly.
@@ -236,6 +241,7 @@ _H(S)_ maps each string to a unique (but large) integer by treating the characte
 By selecting a good m number (ideally a large prime number not too close to _2^i - 1_) we could produce uniformly distributed hash values with ___H(S) mod m___.
 
 __Collision Resolution__
+
 _Chaining_ is the easiest approach to collision resolution. Which is an array of _m_ linked lists. the _ith_ list will contain all the items that hash to the value of _i_. Chaining is natural but has a lot of pointer memory.
 _Open Addressing_ maintains an array of elements (not buckets) and inserts elements of similar hash into contiguous places.
 

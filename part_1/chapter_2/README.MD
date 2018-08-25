@@ -35,6 +35,7 @@ Time complexity functions are very difficult to work precisely with because they
 * An $O(lg(n))$ hardly breaks a sweat for any imaginable value of $n$.
 
 __Dominance Relations__
+
 The Big Oh notation groups functions into a set of classes, such that all the functions in a particular class are equivalent with respect to the Big Oh.
 We say that a faster-growing function _dominates_ a slower-growing one.
 
@@ -72,6 +73,7 @@ __Multiplying Functions__
 ## Reasoning about Efficiency
 
 * __Selection Sort__ is $O(n^2)$.
+
 ```c
 void selection_sort(int s[], int n)
 {
@@ -91,6 +93,7 @@ void selection_sort(int s[], int n)
 ```
 
 * __Insertion Sort__ is $O(n^2)$.
+
 ```c
 for(i=0; i<n; i++)
 {
@@ -103,6 +106,7 @@ for(i=0; i<n; i++)
 }
 ```
 * __String Pattern Match__ is $O(n.m)$ where $m$ is the length of the string we're trying to find in the string of length $n$.
+
 ```c
 int findmatch(char *p, char *t)
 {
@@ -125,6 +129,7 @@ int findmatch(char *p, char *t)
 }
 ```
 * __Matrix Multiplication__ is $O(n^3)$.
+
 ```c
 for(i=1; i<=x; i++)
 {
@@ -157,6 +162,7 @@ Logarithms arise whenever things are repeatedly halved or doubled
  ## Advanced Analysis
 
  __Esoteric Functions__
+
  * Inverse Ackermann's function, $f(n) = α(n)$ the slowest-growing complexity function
  * $f(n) = \log{\log{n}}$ the log log function i.e binary search on a sorted array of $\log{n}$ items
  * $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ i.e height of tree of degree $\log{n}$
@@ -165,6 +171,7 @@ Logarithms arise whenever things are repeatedly halved or doubled
  * $f(n) = n^{1+ε}$ to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
 
  __Limits and Dominance Relations__
+
  We say that $f(n)$ dominates $g(n)$ if $\lim_{n\to\infty} g(n)/f(n) = 0$.
  The higher-Degree polynomial dominates even for $n^{1.2}$ and $n^{1.1999999}$.
  The exponential with the higher base dominates.

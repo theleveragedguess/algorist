@@ -7,11 +7,13 @@
 In this sense, sorting behaves more like a data structure than a problem in its own right.
 
 ## Applications of Sorting
+
 Several algorithms along with different complexities exist but the punch-line is this: clever algorithms exist in $O(log(n))$. This is a big improvement over naive $O(n^2)$.
 Many important problems can be reduced to sorting, so we can use our clever $O(log(n))$ algorithms to do work that might otherwise seem to a quadratic algorithm. _Searching, closest pair, element uniqueness, selection_, and _convex hulls._
 Sorting lies at the heart of many algorithms. Sorting the data is one of the first things any algorithms designer should try in the quest for efficiency.
 
 ## Pragmatics of Sorting
+
 * _Increasing or decreasing order?_ Subject to the application.
 * _Sorting just the key or an entire record?_ Specify the key field.
 * _What should we do with equal keys?_ Resort to secondary keys. Stable algorithms preserve the initial relative order(by adding the initial position as a secondary key), most of the time at the cost of performance. Ignoring ties can be costly for some unaware algorithms.
@@ -41,6 +43,7 @@ qsort(a, n, sizeof(int), intcompare);
 The name typically given to this algorithm, _heapsort_, obscures  the relationship between them, but heapsort is nothing but an implementation of selection sort using the right data structure,  a _heap_.
 
 __Heaps__
+
 Heaps are a simple and elegant data structure for efficiently supporting the priority queue operations insert and extract-min. They work by maintaining a partial order on the set of elements which is weaker than the sorted order (so it can be efficient to maintain) yet stronger than random order (so the minimum element can be quickly identified).
 Power in any hierarchically-structured organization is reflected  by a tree where each node in the tree represent a person, and edge _(x, y)_ implies that _x_ directly supervises (or dominates) _y_. The fellow at the root sits at the “top of the heap”.
 In this spirit, a _heap-labeled tree_ is defined to be a binary tree such that the key labeling of each node _dominates_ the key labeling of each of its children. In a _min-heap_, a node dominates its children by containing a smaller key than they do, while in a _max-heap_ parents node dominate by being bigger.
@@ -69,6 +72,7 @@ Space efficiency thus demands that we not allow holes in our tree—i.e., that e
 We sacrifice flexibility (arbitrary tree topologies, displacement of subtree and mostly the ability to represent binary search tree) to gain efficiency (_n_ length array for _n_ elements tree and constant time operations for the priority-queue needs).
 
 __Constructing Heaps__
+
 We place the new element at the _n+1_ position. We then keep swapping it with its parent and thus bubbling it up to the top of the tree as long as it’s breaking the label classification of the heap.
 $O(log(n))$ for insertion and $O(n.log(n))$ for initial construction.
 
@@ -172,6 +176,7 @@ void heapsort(item_type s[], int n)
 ```
 
 __Faster Heap Construction__
+
 Surprisingly, heaps can be constructed even faster by using our ```bubble_down``` procedure and some clever analysis.
 Suppose we pack the $n$ keys destined for our heap into the first $n$ elements of our priority_queue array. The shape of our heap will be right, but the dominance order will be all messed up. ```bubble_down``` will restore the heap order of arbitrary root element sitting on two of two sub-heaps. We recursively execute it from the elements at position $n/2$ down to the first element i.e. the most bottom down elements that are non leaves to the root, the leaves already dominating their non existing elements.
 ```c
@@ -187,6 +192,7 @@ void make_heap(priority_queue *q, item_type s[], int n)
 ```
 
 __Sorting by incremental Insertion__
+
 Insertion is perhaps the simplest example of the _incremental insertion_ technique, where we build up a complicated data structure on $n$ items by first building it on $n-1$ items and then making the necessary changes to add the last item. Incremental insertion proves a particularly useful technique in geometric algorithms.
 
 ## Mergesort: Sorting by Divide-and-Conquer
@@ -236,6 +242,7 @@ Mergesort is a classic divide-and-conquer algorithm. We are ahead of the game wh
 
 
 ## Quicksort: Sorting by Randomization
+
 Selecting a random item $p$ _the pivot_ from the $n$ items we seek to sort allows _Quicksort_ the separate the $n-1$ items into two piles: a low pile containing all the elements that appear before $p$ in sorted order an a high pile containing all the elements that appear after $p$ in sorted order. This gives us a recursive sorting algorithm.
 ```c
 void quicksort(item_type s[], int l, int h)
@@ -282,10 +289,12 @@ Quicksort provides a search performance of $\Theta(n\log{n})$ which is a clear a
 It can be said that quicksort, when implemented well is typically 2-3 times faster than mergesort or heapsort. The primary reason is that the operations in the innermost loop are simpler.
 
 ## Distribution Sort: Sorting via Bucketing
+
 Sorting names for the telephone book by partitioning them according to the first letter of the last name, ordering those partitions and then recursively apply the same technique to each partition until we end up with partitions of one is a good example of _bucketsort_ or _distribution sort_.
 Bucketing is a very effective idea whenever we are confident that the distribution of data will be roughly uniform. It is the idea that underlies hash tables, _kd_-trees, and variety of other practical data structures. The downside of such techniques is that the performance can be terrible when the data distribution is not what we expected.
 
 __Lower Bounds for sorting__
+
 Sorting algorithms run in worst-case $O(n\log{n})$ time and we can say that there is a $Ω(n\log{n})$ lower bound for them. Just think of all the $n!$ permutations of $n$ keys as all the possible pair comparisons for a set of $n$ elements. We now know that we clearly don't have to assess all of them but for this tree of $n!$ leaves has a minimum height of $\lg{n!}$ which happens to be $\Theta(n\log{n})$.
 This lower bound is important for several reasons, First, the idea can be extended to give lower bounds for many applications of sorting, including element uniqueness, finding the mode, and constructing convex hulls. Sorting has one of the few nontrivial lower bounds among algorithmic problems. We will present an alternate approach to arguing that fast algorithms are unlikely to exist.
 
