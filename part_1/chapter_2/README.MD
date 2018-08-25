@@ -72,9 +72,70 @@ __Multiplying Functions__
 ## Reasoning about Efficiency
 
 * __Selection Sort__ is $O(n^2)$.
+```c
+void selection_sort(int s[], int n)
+{
+    int i,j;    // counters;
+    int min;    // index of minimum
+
+    for(i=0; i<n; i++)
+    {
+        min=i;
+        for(j=i+1; j<n; j++)
+        {
+            if(s[j] < s[min]) min = j;
+        }
+        swap(&s[i], &s[min]);
+    }
+}
+```
+
 * __Insertion Sort__ is $O(n^2)$.
+```c
+for(i=0; i<n; i++)
+{
+    j=i;
+    while(j>0 && (s[j] < s[j-1]))
+    {
+        swap(&s[i], &s[min]);
+        j = j-1;
+    }
+}
+```
 * __String Pattern Match__ is $O(n.m)$ where $m$ is the length of the string we're trying to find in the string of length $n$.
+```c
+int findmatch(char *p, char *t)
+{
+    int i,j;    // counters
+    int m,n;    // string lengths
+
+    m = strlen(p);
+    n = strlen(t);
+
+    for(i=0; i<=(n-m); i=i+1)
+    {
+        j=0;
+        while(j<m && (t[i+j]==p[j]))
+            j = j+1;
+        if (j == m) return i;
+    }
+
+    return -1;
+
+}
+```
 * __Matrix Multiplication__ is $O(n^3)$.
+```c
+for(i=1; i<=x; i++)
+{
+    for(j=1; j<=z; j++)
+    {
+        C[i][j] = 0;
+        for(k=1; k<=y; k++)
+            C[i][j] += A[i][k] * B[k][j];
+    }
+}
+```
 
 ## Logarithms and Their Applications
 

@@ -26,6 +26,50 @@ typedef struct list {
     item_type item;     // data item
     struct list *next;  // pointer to successor
 } list;
+
+list* search_list(list *l, item_type x)
+{
+    if(l == NULL) return NULL;
+
+    if(l->item == x) return l;
+    else return search_list(l->next, x));
+}
+
+void insert_list(list **l, item_type x)
+{
+    list *p;
+
+    p = malloc(sizeof(list));
+    p->item = x;
+    p->next = *l;
+    *l = p;
+}
+
+list* predecessor_list(list *l, item_type x)
+{
+    if(l == NULL || l->next == NULL)
+        return NULL;
+
+    if((l->next)->item == x) return l;
+    else return predecessor_list(l->next, x);
+}
+
+void delete_list(list **l, item_type x)
+{
+    list *p;    // item pointer
+    list *pred; // predecessor pointer
+    list *search_list(), *predecessor_list();
+
+    p = search_list(*l, x);
+    if(p != NULL)
+    {
+        pred = predecessor_list(*l, x);
+        if(pred == NULL) *l = p->next;
+        else pred->next = p->next;
+
+        free(p) // free memory used by node
+    }
+}
 ```
 __Comparison__:
 Linked lists have it at:
@@ -90,6 +134,58 @@ typedef struct tree {
     struct tree *left;      // pointer to left child
     struct tree *right;     // pointer to right child
 } tree;
+
+tree* search_tree(tree *l, item_type x)
+{
+    if(l == NULL) return NULL;
+
+    if(l->item == x) return l;
+
+    if(x < l->item) return search_tree(l->left; x);
+    else return search_tree(l->right, x);
+}
+
+tree* find_minimum(tree *t)
+{
+    tree *min;
+
+    if(t == NULL) return NULL;
+
+    min = t;
+    while(min->left != NULL)
+        min = min->left;
+    return min;
+}
+
+void traverse_tree(tree *l)
+{
+    if(l != NULL)
+    {
+        traverse_tree(l->left);
+        process_item(l->item);
+        traverse_tree(l->right);
+    }
+}
+
+void insert_tree(tree **l, item_type x, tree *parent)
+{
+    tree *p; // temporary pointer
+
+    if(*l == NULL)
+    {
+        p = malloc(sizeof(tree)); // allocate new node
+        p->item = x;
+        p->left = p->right = NULL;
+        p->parent = parent;
+        *l = p; // link into parent's record
+        return;
+    }
+
+    if(x < (*l)->item)
+        insert_tree(&((*l)->left), x, *l);
+    else
+        insert_tree(&((*l)->right), x, *l);
+}
 ```
 __Basic operations:__
 * _Searching_, _O(h)_ where _h_ denotes the height of the tree.
