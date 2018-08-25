@@ -57,6 +57,11 @@ This percolate-down operation is also called _heapify_, because it merges two he
 The extract-min operation costs $O(log(n))$. Exchanging the maximum element with the last element and calling heapify repeatedly gives an $O(n.log(n))$ sorting algorithm, named _Heapsort_.   
 Heapsort is a great and simple to program sorting algorithm. It runs in worst-case $O(n.log(n))$ time, which is the best that can be expected from any sorting algorithm. It is an _inplace_ sort, using no extra memory. Although other algorithms prove slightly faster in practice, you won’t go wrong using Heapsort for sorting data that sits in the computer’s main memory.   
 
+__Sorting by incremental Insertion__   
+Insertion is perhaps the simplest example of the _incremental insertion_ technique, where we build up a complicated data structure on $n$ items by first building it on $n-1$ items and then making the necessary changes to add the last item. Incremental insertion proves a particularly useful technique in geometric algorithms.
 
+## Mergesort: Sorting by Divide-and-Conquer   
+Recursive algorithms reduce large problems into smaller ones. A recursive approach to sorting involves partitioning the elements  into two groups sorting each of the smaller problems recursively, and then interleaving the two sorted lists to totally order the elements. The algorithm is Called _mergesort_. It is important to recognize the importance of the interleaving operation.   
+Mergesort is a classic divide-and-conquer algorithm. We are ahead of the game whenever we can break one large problem into two smaller problems, because the smaller problems are easier to solve. The trick is taking advantage of the two partial solutions to construct a solution of the full problem.
 
 
