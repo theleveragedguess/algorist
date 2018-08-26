@@ -3,8 +3,8 @@
 ## Contiguous vs. Linked Data Structures
 
 Data structures can be neatly classified as either _contiguous_ or _linked_ depending or whether they are based on arrays or pointers.
-* _Contiguous-allocated structures_, single slabs of memory, arrays, matrices, heaps and hash tables.
-* _Linked Data structures_ distinct chunks of memory glued by pointers, lists, trees and graph adjacency lists.
+* _Contiguous-allocated structures_ — single slabs of memory, arrays, matrices, heaps, and hash tables.
+* _Linked Data structures_ — distinct chunks of memory glued by pointers, lists, trees, and graph adjacency lists.
 
 __Arrays__
 
@@ -72,7 +72,7 @@ void delete_list(list **l, item_type x)
     }
 }
 ```
-__Comparison__:
+__Comparison__
 
 Linked lists have it at:
 * Overflow occurs only when memory is full.
@@ -125,9 +125,9 @@ _Maximum(L)_        | $O(n)$    | $O(n)$    | $O(1)*$   | $O(1)$
 
 ## Binary Search Trees
 
-_Binary search_ requires that we have fast access to _two elements_--specifically the median elements above and below the given node.
+_Binary search_ requires that we have fast access to _two elements_— specifically the median elements above and below the given node.
 
-A _binary search tree_ labels each node in a binary tree with a single key such that for any node labeled $x$, all nodes in the left subtree of $x$ have keys < $x$ while all nodes in the right subtree of $x$ have keys > $x$.
+A _binary search tree_ labels each node in a binary tree with a single key such that for any node labeled $x$, all nodes in the left subtree of $x$ have keys $< x$ while all nodes in the right subtree of $x$ have keys $> x$.
 
 ```c
 typedef struct tree {
@@ -190,16 +190,16 @@ void insert_tree(tree **l, item_type x, tree *parent)
 }
 ```
 __Basic operations:__
-* _Searching_, $O(h)$ where _h_ denotes the height of the tree.
-* _Finding Minimum and Maximum Elements_, Minimum the leftmost element and Maximum is the rightmost element $O(h)$.
-* _Traversal_, $O(n)$
-* _Insertion_, $O(h)$
-* _Deletion_, $O(h)$
+* _Searching_ — $O(h)$ where _h_ denotes the height of the tree.
+* _Finding Minimum and Maximum Elements_ — Minimum the leftmost element and Maximum is the rightmost element $O(h)$.
+* _Traversal_ — $O(n)$
+* _Insertion_ — $O(h)$
+* _Deletion_ — $O(h)$
 
 __How good Are Binary Search Tree ?__
 
 When the tree is perfectly balanced $h = \lceil \log{n}\rceil$.
-Trees depends on insertion order, and bad things can happen (i.e adding sorted items will build a skinny linear height tree populating only right pointers and $h = n$).
+Trees depends on insertion order, and bad things can happen (i.e adding sorted items will build a skinny linear height tree populating only right pointers where $h = n$).
 
 On _average_ when we average over the $n!$ possible insertion orderings, we have a high probability of $O(\log{n})$ height.
 The power of _randomization_ can produce algorithms with good performance with high probability. Quicksort is a child of such a thought.
@@ -236,7 +236,7 @@ _where_
 $α$ is the the size of the alphabet on which a given string $S$ is written.
 ```char(c)``` a function that maps each symbol of the alphabet to a unique integer from $0$ to $α - 1$.
 
-$H(S)$ maps each string to a unique (but large) integer by treating the characters of the string as "digits" in a base-_α_ number system.
+$H(S)$ maps each string to a unique (but large) integer by treating the characters of the string as "digits" in a base-$α$ number system.
 By selecting a good m number (ideally a large prime number not too close to $2^{i-1}$) we could produce uniformly distributed hash values with $H(S)\bmod m$.
 
 __Collision Resolution__
@@ -259,7 +259,7 @@ Hashing is a fundamental idea in randomized algorithms, yielding linear expected
 
 ## Specialized Data Structures
 
-* _String data structures_, most likely array of characters.
-* _Geometric data structures_, collections of data points and regions.
-* _Graph data structures_, typically represented with either adjacency matrices or adjacency lists.
-* _Set data structures_,  typically represented with dictionaries, or _bit vectors_ for subsets holding ones for $i$ in the subsets.
+* _String data structures_ — most likely array of characters.
+* _Geometric data structures_ — collections of data points and regions.
+* _Graph data structures_ — typically represented with either adjacency matrices or adjacency lists.
+* _Set data structures_ —  typically represented with dictionaries, or _bit vectors_ for subsets holding ones for $i$ in the subsets.

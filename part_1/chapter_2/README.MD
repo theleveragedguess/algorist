@@ -43,7 +43,7 @@ Only a few functions classes tend to occur in the course of basic algorithm anal
 * _Constant functions_: $f(n) = 1$
 * _Logarithmic functions_: $f(n) = \log{n}$
 * _Linear functions_: $f(n) = n$
-* _Super linear functions_: $f(n) = n.\log{n}$
+* _Super linear functions_: $f(n) = n\log{n}$
 * _Quadratic functions_: $f(n) = n^2$
 * _Cubic functions_: $f(n) = n^3$
 * _Exponential functions_: $f(n) = c^n$
@@ -157,7 +157,7 @@ Logarithms arise whenever things are repeatedly halved or doubled.
 * $\log_a{b} = \dfrac{\log_c{b}}{\log_c{a}}$
 
 * _The base of the algorithm has no real impact on the growth rate_ Thus we are usually justified in ignoring the base of the logarithm when analyzing algorithms.
-* _Logarithms cut any thing down to size_ The growth rate of the logarithm of any polynomial function is $O(\lg{n})$ because $\log_a{n^b} = b.\log_a{n}$.
+* _Logarithms cut any thing down to size_ The growth rate of the logarithm of any polynomial function is $O(\lg{n})$ because $\log_a{n^b} = b\log_a{n}$.
 
  ## Advanced Analysis
 
@@ -176,9 +176,9 @@ Logarithms arise whenever things are repeatedly halved or doubled.
  The higher-Degree polynomial dominates even for $n^{1.2}$ and $n^{1.1999999}$.
  The exponential with the higher base dominates.
 
-$n! \gg c^n \gg n^3 \gg n^2 \gg n^{1+ε} \gg n.\log{n} \gg n \gg \sqrt{n} \gg \log^2{n} \gg log{n} \gg \dfrac{\log{n}}{\log{\log{n}}} \gg \log{\log{n}} \gg α(n) \gg 1$
+$n! \gg c^n \gg n^3 \gg n^2 \gg n^{1+ε} \gg n\log{n} \gg n \gg \sqrt{n} \gg \log^2{n} \gg log{n} \gg \dfrac{\log{n}}{\log{\log{n}}} \gg \log{\log{n}} \gg α(n) \gg 1$
 
 ## For the Road
 
-* $f(n) = o(g(n))$ means $c.g(n)$ is a _theoretical upper bound_ on $f(n)$ thus for every constant $c$ we are sure that $f(n)$ is always $\leq c.g(n)$ for large enough $n$ (i.e $n \geq n0$ for some constant $n0$).
+* $f(n) = o(g(n))$ means $c.g(n)$ is a _theoretical upper bound_ on $f(n)$ thus for every constant $c$ we are sure that $f(n)$ is always $\leq c.g(n)$ for large enough $n$ (i.e $n \geq n_0$ for some constant $n_0$).
 * $f(n) = ω(g(n))$ means $c.g(n)$ is a _theoretical lower bound_ on $f(n)$ thus for every constant $c$ we are sure that $f(n)$ is always $\geq c.g(n)$ for large enough $n$.
