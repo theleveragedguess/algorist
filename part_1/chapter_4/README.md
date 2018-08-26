@@ -269,7 +269,7 @@ int partition(item_type s[], int l, int h)
     {
         if(s[i] < s[p])
         {
-            swap(&s[i], $s[first_high]);
+            swap(&s[i], &s[first_high]);
             first_high++;
         }
     }
