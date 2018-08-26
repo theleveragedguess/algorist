@@ -1,25 +1,25 @@
 # Sorting and Searching
 
 * Sorting is the basic building block that many other algorithms are built around.
-* Most of the interesting ideas used in the design of algorithms appear in the context of sorting, such as divide-and-conquer, data structures and randomized algorithms.
+* Most of the interesting ideas used in the design of algorithms appear in the context of sorting, such as divide-and-conquer, data structures, and randomized algorithms.
 * Sorting is the most thoroughly studied problem in computer science. Literally dozens of different algorithms are known, most of which possess some particular advantage over all other algorithms in certain situations.
 
 In this sense, sorting behaves more like a data structure than a problem in its own right.
 
 ## Applications of Sorting
 
-Several algorithms along with different complexities exist but the punch-line is this: clever algorithms exist in $O(log(n))$. This is a big improvement over naive $O(n^2)$.
-Many important problems can be reduced to sorting, so we can use our clever $O(log(n))$ algorithms to do work that might otherwise seem to a quadratic algorithm. _Searching, closest pair, element uniqueness, selection_, and _convex hulls._
+Several algorithms along with different complexities exist but the punch-line is this: clever algorithms exist in $O(n\log{n})$. This is a big improvement over naive $O(n^2)$.
+Many important problems can be reduced to sorting, so we can use our clever $O(n\log{n})$ algorithms to do work that might otherwise seems to be the destined to a quadratic algorithm. _Searching, closest pair, element uniqueness, selection_, and _convex hulls._
 Sorting lies at the heart of many algorithms. Sorting the data is one of the first things any algorithms designer should try in the quest for efficiency.
 
 ## Pragmatics of Sorting
 
 * _Increasing or decreasing order?_ Subject to the application.
 * _Sorting just the key or an entire record?_ Specify the key field.
-* _What should we do with equal keys?_ Resort to secondary keys. Stable algorithms preserve the initial relative order(by adding the initial position as a secondary key), most of the time at the cost of performance. Ignoring ties can be costly for some unaware algorithms.
+* _What should we do with equal keys?_ Resort to secondary keys. Stable algorithms preserve the initial relative order (by adding the initial position as a secondary key), most of the time at the cost of performance. Ignoring ties can be costly for some unaware algorithms.
 * _What about non-numerical data?_ Alphabetizing for text strings requires explicit conjectural decisions for _collating  sequence_ of characters and punctuation.
 
-The right way to specify such matters to your sorting algorithm is with application-specific pairwise-element _comparison function_. Such a comparison function takes pointers to record items _a_ and _b_ and returns “<“ if _a < b_, “>” if _a > b_, or “=” if _a = b_.
+The right way to specify such matters to your sorting algorithm is with application-specific pairwise-element _comparison function_. Such a comparison function takes pointers to record items $a$ and $b$ and returns $“<“$ if $a < b$, $“>”$ if $a > b$, or $“=”$ if $a = b$.   
 By abstracting the pairwise ordering decision to such a comparison function, we can implement sorting algorithms independently of such criteria.
 
 ```c
@@ -44,10 +44,10 @@ The name typically given to this algorithm, _heapsort_, obscures  the relationsh
 
 __Heaps__
 
-Heaps are a simple and elegant data structure for efficiently supporting the priority queue operations insert and extract-min. They work by maintaining a partial order on the set of elements which is weaker than the sorted order (so it can be efficient to maintain) yet stronger than random order (so the minimum element can be quickly identified).
-Power in any hierarchically-structured organization is reflected  by a tree where each node in the tree represent a person, and edge _(x, y)_ implies that _x_ directly supervises (or dominates) _y_. The fellow at the root sits at the “top of the heap”.
+Heaps are a simple and elegant data structure for efficiently supporting the priority queue operations _insert_ and _extract-min_. They work by maintaining a partial order on the set of elements which is weaker than the sorted order (so it can be efficient to maintain) yet stronger than random order (so the minimum element can be quickly identified).   
+Power in any hierarchically-structured organization is reflected  by a tree where each node in the tree represent a person, and edge $(x, y)$ implies that $x$ directly supervises (or dominates) $y$. The fellow at the root sits at the “top of the heap”.
 In this spirit, a _heap-labeled tree_ is defined to be a binary tree such that the key labeling of each node _dominates_ the key labeling of each of its children. In a _min-heap_, a node dominates its children by containing a smaller key than they do, while in a _max-heap_ parents node dominate by being bigger.
-The heap is a slick data structure that enables us to represent binary trees without using any pointers. We will store data as an array of keys, and use the position of the keys to _implicitly_ satisfy the role of pointers. In general, we store the $2^{l-1}$ keys of the _l_th level of a complete binary tree from left-to-right in positions $2^{l-1}$ to $2^l-1$. We assume that the array starts with 1 to simplify matters.
+The heap is a slick data structure that enables us to represent binary trees without using any pointers. We will store data as an array of keys, and use the position of the keys to _implicitly_ satisfy the role of pointers. In general, we store the $2^{l-1}$ keys of the _lth_ level of a complete binary tree from left-to-right in positions $2^{l-1}$ to $2^l-1$. We assume that the array starts with 1 to simplify matters.
 
 ```c
 typedef struct {
@@ -67,14 +67,14 @@ int pq_young_child(int n)
 }
 ```
 
-What is the catch? Suppose our height _h_ tree was sparse, meaning that the number of nodes $n < 2^h$. All missing internal nodes still take up space in our structure, since we must represent a full binary tree to maintain the positional mapping between parents and children.
+What is the catch? Suppose our height _h_ tree was sparse, meaning that the number of nodes $n < 2^h$. All missing internal nodes still take up space in our structure, since we must represent a full binary tree to maintain the positional mapping between parents and children.   
 Space efficiency thus demands that we not allow holes in our tree—i.e., that each level be packed as much as it can be. If so, only the last level may be incomplete.
 We sacrifice flexibility (arbitrary tree topologies, displacement of subtree and mostly the ability to represent binary search tree) to gain efficiency (_n_ length array for _n_ elements tree and constant time operations for the priority-queue needs).
 
 __Constructing Heaps__
 
-We place the new element at the _n+1_ position. We then keep swapping it with its parent and thus bubbling it up to the top of the tree as long as it’s breaking the label classification of the heap.
-$O(log(n))$ for insertion and $O(n.log(n))$ for initial construction.
+We place the new element at the $n+1$ position. We then keep swapping it with its parent and thus bubbling it up to the top of the tree as long as it’s breaking the label classification of the heap.
+$O(\log{n})$ for insertion and $O(n\log{n})$ for initial construction.
 
 ```c
 void pq_insert(priority_queue *q, item_type x)
@@ -116,10 +116,11 @@ void make_heap(priority_queue *q, item_type s[], int n)
 ```
 
 __Extracting the Minimum__
+
 We identify the root of the heap as the minimum, extract it and fill it with the right most element. We then keep swapping it with the smallest dominant of its children and thus bubbling it down to the bottom of the tree as long as it’s breaking the label classification of the heap.
-This percolate-down operation is also called _heapify_, because it merges two heaps (the subtrees below the original root) with a new key.
-The extract-min operation costs $O(log(n))$. Exchanging the maximum element with the last element and calling heapify repeatedly gives an $O(n.log(n))$ sorting algorithm, named _Heapsort_.
-Heapsort is a great and simple to program sorting algorithm. It runs in worst-case $O(n.log(n))$ time, which is the best that can be expected from any sorting algorithm. It is an _inplace_ sort, using no extra memory. Although other algorithms prove slightly faster in practice, you won’t go wrong using Heapsort for sorting data that sits in the computer’s main memory.
+This percolate-down operation is also called _heapify_, because it merges two heaps (the subtrees below the original root) with a new key.   
+The extract-min operation costs $O(\log{n})$. Exchanging the maximum element with the last element and calling heapify repeatedly gives an $O(n\log{n})$ sorting algorithm, named _Heapsort_.   
+Heapsort is a great and simple way to program sorting algorithm. It runs in worst-case $O(n\log{n})$ time, which is the best that can be expected from any sorting algorithm. It is an _inplace_ sort, using no extra memory. Although other algorithms prove slightly faster in practice, you won’t go wrong using Heapsort for sorting data that sits in the computer’s main memory.
 
 ```c
 item_type extract_min(priority_queue *q)
@@ -281,9 +282,9 @@ int partition(item_type s[], int l, int h)
 
 We then use $randomization$ to improve algorithms with bad worst-case but good average-case complexity. It can be used to make algorithms more robust to boundary cases and more efficient on highly structured input instances that confound heuristic decisions (such as sorted input to quicksort). It often lends itself to simple algorithms that provide randomized performance guarantees which are otherwise obtainable only using complicated deterministic algorithms.
 Some of the approaches to designing efficient randomized algorithms are readily explainable:
-* _Random sampling_, select a small random sample of the input and study those, for the results should be representative.
-* _Randomized hashing_ we can randomly select our hash function from a large family of good ones to get lesser a chance to match an input with its weak hashing function.
-* _Randomized search_ can be used to drive search techniques such as simulated annealing.
+* _Random sampling_ — selects a small random sample of the input and study those, for the results should be representative.
+* _Randomized hashing_ — we can randomly select our hash function from a large family of good ones to get lesser a chance to match an input with its weak hashing function.
+* _Randomized search_ — can be used to drive search techniques such as simulated annealing.
 
 Quicksort provides a search performance of $\Theta(n\log{n})$ which is a clear asymptotic difference from an $\Theta(n^2)$ algorithm. When comparing it with other $\Theta(n\log{n})$ search algorithms, the RAM model and Big Oh analysis provide too coarse a set of tools to make that type of distinction. Implementation details and system quirks such as cache performance and memory size may well prove to be the decisive factor.
 It can be said that quicksort, when implemented well is typically 2-3 times faster than mergesort or heapsort. The primary reason is that the operations in the innermost loop are simpler.
@@ -295,14 +296,14 @@ Bucketing is a very effective idea whenever we are confident that the distributi
 
 __Lower Bounds for sorting__
 
-Sorting algorithms run in worst-case $O(n\log{n})$ time and we can say that there is a $Ω(n\log{n})$ lower bound for them. Just think of all the $n!$ permutations of $n$ keys as all the possible pair comparisons for a set of $n$ elements. We now know that we clearly don't have to assess all of them but for this tree of $n!$ leaves has a minimum height of $\lg{n!}$ which happens to be $\Theta(n\log{n})$.
-This lower bound is important for several reasons, First, the idea can be extended to give lower bounds for many applications of sorting, including element uniqueness, finding the mode, and constructing convex hulls. Sorting has one of the few nontrivial lower bounds among algorithmic problems. We will present an alternate approach to arguing that fast algorithms are unlikely to exist.
+Sorting algorithms run in worst-case $O(n\log{n})$ time and we can say that there is a $Ω(n\log{n})$ lower bound for them. Just think of all the $n!$ permutations of $n$ keys as all the possible pair comparisons for a set of $n$ elements. We now know that we clearly don't have to assess all of them but this tree of $n!$ leaves has a minimum height of $\lg{n!}$ which happens to be $\Theta(n\log{n})$.
+This lower bound is important for several reasons, First, the idea can be extended to give lower bounds for many applications of sorting, including element uniqueness, finding the mode, and constructing convex hulls. Sorting has one of the few nontrivial lower bounds among algorithmic problems. We will present an alternate approach to arguing that faster algorithms are unlikely to exist.
 
 __Sorting can be used to illustrate most algorithm design paradigms. Data structure techniques, divide-and-conquer, randomization, and incremental construction all lead to efficient sorting algorithms.__
 
 ## Binary Search and Related Algorithms
 
-Binary search is a fast algorithm for searching in a sorted array of keys $S$. To search for a key $q$, we compare $q$ to the middle key $S[n/2]$. If $q$ appears before $S[n/2]$, it must reside in the top half of $S$; if not, it must reside in the bottom half of $S$. By repeating this process recursively on the correct half, we locate the key in a total of $\lceil \lg{n}\rceil$ comparisons-- a big win over the $n/2$ comparisons expect using sequential search.
+Binary search is a fast algorithm for searching in a sorted array of keys $S$. To search for a key $q$, we compare $q$ to the middle key $S[n/2]$. If $q$ appears before $S[n/2]$, it must reside in the top half of $S$; if not, it must reside in the bottom half of $S$. By repeating this process recursively on the correct half, we locate the key in a total of $\lceil \lg{n}\rceil$ comparisons— a big win over the $n/2$ comparisons expected from using sequential search.
 
 ```c
 int binary_search(item_type s[], item_type key, int low, int high)
@@ -322,19 +323,19 @@ int binary_search(item_type s[], item_type key, int low, int high)
 }
 ```
 
-What is important is to have a sense of just how fast binary search is. The popular children's game _Twenty questions_ can be solved under 20 questions if we just use binary search with a dictionary.
+What is important is to have a sense of just how fast binary search is. The popular children's game _Twenty questions_ can be solved under 20 questions if we just try to find the looked for word by using the binary search technique on a dictionary.
 
-Several interesting algorithms follow from simple variants of binary search. Like _counting the occurrences_ of a key in a sorted array. Using _binary search_ by looking for the low bound while not stopping at a matching equality will give us the starting index of such keys. Repeating the procedure in the other direction gives the end index of those, a simple subtraction gives the solution away.  
-_One-sided binary search_ is most useful whenever we are looking for a key that lies close to our current position, in a run of many similar keys that are arranged sequentially by likeness. Looking for a pivot point always points us toward the correct half where we should keep looking.   
-_Square and other roots_ are also more easily obtained using _binary_search_ knowing that testing the median of the distribution will also tells more precisely in which half to look next.
+Several interesting algorithms follow from simple variants of binary search. Like _counting the occurrences_ of a key in a sorted array. Using _binary search_ by looking for the low bound while not stopping at a matching equality will give us the starting index of such keys. Repeating the procedure in the opposite direction gives the end index of those. Finally a simple subtraction gives the solution away.  
+_One-sided binary search_ is most useful whenever we are looking for a key that lies close to our current position, in a run of many similar keys that are arranged sequentially by likeness. Looking for a pivot point always points us toward the correct portion where we should keep directing our search.   
+_Square and other roots_ are also more easily obtained using _binary_search_ knowing that testing the median of the distribution will also tells more precisely in which portion to look next, reducing drastically the size of the problem.
 
 __Binary search and its variants are the quintessential divide-and-conquer algorithms.__
 
 ## Divide-and-Conquer
 
 One of the most powerful techniques for solving problems is to break them down into smaller, more easily solved pieces. Smaller problems are less overwhelming, and they permit us to focus on details that are lost when we are studying the entire problem. A recursive algorithm starts to become apparent when we can break the problem into smaller instances of the same type of problem. Effective parallel processing requires decomposing jobs into a least as many tasks as processors, and is becoming more important with the advent of cluster computing and multicore processors.   
-Two important algorithm design paradigms are based on breaking problems down into smaller problems. Dynamic programming typically removes one element from the problem, solves the smaller problem, and then uses the solution to this smaller problem to add back the element in the proper way. _Divide-and-conquer_ instead splits the problem in (say) halves, solves each half, then stitches the pieces back together to form a full solution.   
-To use divide-and-conquer as an algorithm design techniques, we must divde the problem into two smaller subproblems, solve each of them recursively, and then meld the two partial solutions into one solution to the full problem. Whenever the merging takes less time than solving the two subproblems, we get and efficient algorithm.    
+Two important algorithm design paradigms are based on breaking problems down into smaller problems. _Dynamic programming_ typically removes one element from the problem, solves the smaller problem, and then uses the solution to this smaller problem to add back the element in the proper way. _Divide-and-conquer_ instead splits the problem in (say) halves, solves each half, then stitches the pieces back together to form a full solution.   
+To use divide-and-conquer as an algorithm design techniques, we must divide the problem into two smaller subproblems, solve each of them recursively, and then meld the two partial solutions into one solution to the full problem. Whenever the merging takes less time than solving the two subproblems, we get and efficient algorithm.    
 Divide-and-conquer is a design technique with many important algorithms to its credit, including mergesort, the fast Fourier transform, and Strassen's matrix multiplication algorithm.
 
 __Recurrence Relations__
@@ -344,12 +345,12 @@ A recurrence relation is an equation that is defined in terms of itself. The Fib
 
 __Divide-and-conquer Recurrences__
 
-Divide-and-conquer algorithms tend to break a given problem into some number of smaller pieces (say $a$), each of which is of size $n/b$. Further they spend $f(n)$ time to combine these subproblem solutions into a complete result. Let $T(n)$ denote the worst-case time the algorithm takes to solve a problem of size $n$. Then $T(n)$ is given by the following recurrence relation: $T(n) = aT(n/b) + f(n)$.
+Divide-and-conquer algorithms tend to break a given problem into some number of smaller pieces (say $a$), each of which is of size $n/b$. Further they spend $f(n)$ time to combine these subproblem solutions into a complete result. Let $T(n)$ denote the worst-case time the algorithm takes to solve a problem of size $n$. Then $T(n)$ is given by the following recurrence relation: $T(n) = aT(n/b) + f(n)$
 
-* _Sorting_, $T(n) = 2T(n/2) + O(1)$ as we spend linear time merging two equally divided halves. $T(n) = O(n\lg{n})$.
-* _Binary Search_, $T(n) = T(n/2) + O(1)$ as we spend constant time reducing the problem into half and not even bother ourself about merging. $T(n) = O(\lg{n})$.
-* _Fast Heap Construction_, the $T(n) = 2T(n/2) + O(\lg{n})$ as we use the ```bubble_down``` method of heap construction to merge in logarithm time two equally divided halves of the tree. $T(n) = O(n)$.
-* _Matrix Multiplication_ usually multiplying $n*n$ matrices takes $O(n^3)$. Strassen divide-and-conquer method algorithm manipulates the product of seven $n/2*n/2$ matrix products to yield the product of two $n*n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
+* _Sorting_ — $T(n) = 2T(n/2) + O(1)$ as we spend linear time merging two equally divided halves. $T(n) = O(n\lg{n})$
+* _Binary Search_ — $T(n) = T(n/2) + O(1)$ as we spend constant time reducing the problem into half and not even bother ourself about merging. $T(n) = O(\lg{n})$
+* _Fast Heap Construction_ — the $T(n) = 2T(n/2) + O(\lg{n})$ as we use the ```bubble_down``` method of heap construction to merge in logarithm time two equally divided halves of the tree. $T(n) = O(n)$
+* _Matrix Multiplication_ — usually multiplying $n*n$ matrices takes $O(n^3)$. Strassen divide-and-conquer method algorithm manipulates the product of seven $n/2*n/2$ matrix products to yield the product of two $n*n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
 
 __Solving Divide-and-Conquer Recurrences__
 
@@ -357,15 +358,15 @@ $T(n) = aT(n/b) + f(n)$ usually falls into three distinct cases:
 
 * if $f(n) = O(n^{\log_b{a-e}})$ for some constant $e > 0$, then $T(n) = \Theta(n^{\log_b{a}})$
 * if $f(n) = \Theta(n^{\log_b{a}})$, then $T(n) = \Theta(n^{\log_b{a}}\lg{n})$
-* if $f(n) = \Omega(n^{\log_b{a+e}})$ for some constant $e > 0$, then if $af(n/b) <= cf(n)$ for some $c<1$, then $T(n) = \Theta(n^{\log_b{a}})$
+* if $f(n) = \Omega(n^{\log_b{a+e}})$ for some constant $e > 0$, then if $af(n/b) \leq cf(n)$ for some $c<1$, then $T(n) = \Theta(n^{\log_b{a}})$
 
-This _master theorem_ has Case 1 holding for heap construction and matrix multiplication, while Case 2 holds for mergesort and binary search; Case 3 generally arises for clumsier algorithms, where the cost of combining the subproblems dominates everything.
+This _master theorem_ has Case 1 holding for heap construction and matrix multiplication, while Case 2 holds for mergesort and binary search. Case 3 generally arises for clumsier algorithms, where the cost of combining the subproblems dominates everything.
 
-To understand the _master theorem_ we need to understand of a problem of size $n$ os decomposed into $a$ problems of size $n/b$. Each subproblem of size $k$ tales $O(f(k))$ time to deal with internally, between partitioning and merging. The total time for the algorithm is the sum go these internal costs, plus the overhead of building the recursion tree. The height of this tree is $h = \log_b{n}$ and the number of leaf nodes $a^h = a^{\log_b{n}}$, which simplifies to $n^{\log_b{a}}$.
+To understand the _master theorem_ we need to understand that a problem of size $n$ is decomposed into $a$ problems of size $n/b$. Each subproblem of size $k$ tales $O(f(k))$ time to deal with internally, between partitioning and merging. The total time for the algorithm is the sum of these internal costs, plus the overhead of building the recursion tree. The height of this tree is $h = \log_b{n}$ and the number of leaf nodes $a^h = a^{\log_b{n}}$, which simplifies to $n^{\log_b{a}}$.
 
-* _Case 1: Too many leaves_, if the number of leaf nodes outweighs the sum of the internal evaluation cost, the total running time is $O(n^{\log_b{a}})$.
-* _Case 2: Equal work per level_ as we move down the tree, each problem gets smaller but there are more of them to solve. If the sum of the internal evaluation costs at each level are equal, the total running time is the cost per level ($n^{\log_b{a}}$) time the number of levels ($\log_b{n}$), for a total running time of $O(n^{\log_b{a}}\lg{n})$.
-* _Case 3: Too expensive a root_, if the internal evaluation costs grow rapidly enough with $n$, then the most of the root evaluation may dominate. If so, the total running time is $O(f(n))$.
+* _Case 1: Too many leaves_ — if the number of leaf nodes outweighs the sum of the internal evaluation cost, the total running time is $O(n^{\log_b{a}})$.
+* _Case 2: Equal work per level_ — as we move down the tree, each problem gets smaller but there are more of them to solve. If the sum of the internal evaluation costs at each level are equal, the total running time is the cost per level ($n^{\log_b{a}}$) time the number of levels ($\log_b{n}$), for a total running time of $O(n^{\log_b{a}}\lg{n})$.
+* _Case 3: Too expensive a root_ — if the internal evaluation costs grow rapidly enough with $n$, then the most of the root evaluation may dominate. If so, the total running time is $O(f(n))$.
 
 __The most interesting sorting algorithms that have not been discussed in this section include _shellsort_, which is a substantially more efficient version of insertion sort, and _radix sort_, an efficient algorithm for sorting strings.__
 
