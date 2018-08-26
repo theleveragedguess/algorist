@@ -12,9 +12,9 @@ Machine-independent algorithm design depends upon a hypothetical computer called
 * Each memory access takes exactly one time step.
 
 To understand how good or bad an algorithm is in general, we must know how it works over _all_ instances:
-* The _worst-case complexity_
-* The _best-case complexity_
-* The _average-case complexity_
+* The _worst-case complexity_.
+* The _best-case complexity_.
+* The _average-case complexity_.
 
 The important thing to realize is that each of the these time complexities define a numerical function, representing time (in steps) versus problem size. But time complexities are such complicated functions that we must simplify them to work with them. For this we need the "Big Oh" notation.
 
@@ -22,16 +22,16 @@ The important thing to realize is that each of the these time complexities defin
 
 Time complexity functions are very difficult to work precisely with because they tend _to have too many bumps_ and _require too much detail to specify precisely_. We just need to reason with upper and lower bounds. The Big Oh simplifies our analysis by ignoring levels of detail that do not impact our comparison.
 
-* $f(n) = O(g(n))$ means $c.g(n)$ is an _upper bound_ on $f(n)$ thus there exists some constant $c$ such that $f(n)$ is always $\leq c.g(n)$ for large enough $n$ (i.e $n \geq n0$ for some constant $n0$).
+* $f(n) = O(g(n))$ means $c.g(n)$ is an _upper bound_ on $f(n)$ thus there exists some constant $c$ such that $f(n)$ is always $\leq c.g(n)$ for large enough $n$ (i.e $n \geq n_0$ for some constant $n_0$).
 * $f(n) = Ω(g(n))$ means $c.g(n)$ is a _lower bound_ on $f(n)$ thus there exists some constant $c$ such that $f(n)$ is always $\geq c.g(n)$ for large enough $n$.
-* $f(n) = \Theta(g(n))$ means $c1.g(n)$ is an _upper bound_ on $f(n)$ and $c2.g(n)$ is a _lower bound_ on $f(n)$ thus there exists constants $c1$ and $c2$ such that $f(n)$ is always $\leq c1.g(n)$ and $f(n) \geq c2.g(n)$ for large enough $n$.
+* $f(n) = \Theta(g(n))$ means $c_1.g(n)$ is an _upper bound_ on $f(n)$ and $c_2.g(n)$ is a _lower bound_ on $f(n)$ thus there exists constants $c_1$ and $c_2$ such that $f(n)$ is always $\leq c_1.g(n)$ and $f(n) \geq c_2.g(n)$ for large enough $n$.
 
 ## Growth Rates and Dominance Relations
 
 * Any algorithm with $n!$ running time becomes useless for $n \geq 20$.
 * Algorithms whose running time is $2^n$ have a greater operating range, but become impractical for $n > 40$.
 * Quadratic-time algorithms whose running time is $n^2$ remain usable up to about $n = 10,000$, but quickly deteriorate with larger inputs. They are likely to be hopeless for $n > 1,000,000$.
-* Linear-time and $n.\lg(n)$ algorithms remain practical on inputs of one billion items.
+* Linear-time and $n.\lg{n}$ algorithms remain practical on inputs of one billion items.
 * An $O(lg(n))$ hardly breaks a sweat for any imaginable value of $n$.
 
 __Dominance Relations__
@@ -40,14 +40,14 @@ The Big Oh notation groups functions into a set of classes, such that all the fu
 We say that a faster-growing function _dominates_ a slower-growing one.
 
 Only a few functions classes tend to occur in the course of basic algorithm analysis
-* _Constant functions_ $f(n) = 1$
-* _Logarithmic functions_ $f(n) = \log{n}$
-* _Linear functions_ $f(n) = n$
-* _Super linear functions_ $f(n) = n.\log{n}$
-* _Quadratic functions_ $f(n) = n^2$
-* _Cubic functions_ $f(n) = n^3$
-* _Exponential functions_ $f(n) = c^n$
-* _Factorial functions_ $f(n) = n!$
+* _Constant functions_: $f(n) = 1$
+* _Logarithmic functions_: $f(n) = \log{n}$
+* _Linear functions_: $f(n) = n$
+* _Super linear functions_: $f(n) = n.\log{n}$
+* _Quadratic functions_: $f(n) = n^2$
+* _Cubic functions_: $f(n) = n^3$
+* _Exponential functions_: $f(n) = c^n$
+* _Factorial functions_: $f(n) = n!$
 
 Although esoteric functions arise in advanced algorithm analysis, a small variety of time complexities suffice and account for most algorithms that are widely used in practice.
 
@@ -145,7 +145,7 @@ for(i=1; i<=x; i++)
 ## Logarithms and Their Applications
 
 Logarithm is an anagram of algorithm, but that's not why we need to know what logarithms are. A _logarithm_ is simply an inverse exponential function. $b^x = y$ so $x = \log_b{y}$
-Logarithms arise whenever things are repeatedly halved or doubled
+Logarithms arise whenever things are repeatedly halved or doubled.
 
 ## Properties of Logarithms
 
@@ -163,12 +163,12 @@ Logarithms arise whenever things are repeatedly halved or doubled
 
  __Esoteric Functions__
 
- * Inverse Ackermann's function, $f(n) = α(n)$ the slowest-growing complexity function
- * $f(n) = \log{\log{n}}$ the log log function i.e binary search on a sorted array of $\log{n}$ items
- * $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ i.e height of tree of degree $\log{n}$
- * $f(n) = \log{n}^2$ The log squared i.e intricate nested data structures
- * $f(n) = \sqrt{n}$ the square root i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
- * $f(n) = n^{1+ε}$ to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
+ * Inverse Ackermann's function — $f(n) = α(n)$ the slowest-growing complexity function
+ * $f(n) = \log{\log{n}}$ — the log log function i.e binary search on a sorted array of $\log{n}$ items
+ * $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ — i.e. height of tree of degree $\log{n}$
+ * $f(n) = \log{n}^2$ — The log squared i.e intricate nested data structures
+ * $f(n) = \sqrt{n}$ — the square root i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
+ * $f(n) = n^{1+ε}$ — to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
 
  __Limits and Dominance Relations__
 
