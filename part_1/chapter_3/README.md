@@ -111,7 +111,7 @@ _Successor(L, x)_       | $O(n)$           | $O(1)$
 _Predecessor(L, x)_     | $O(n)$           | $O(1)$
 _Minimum(L)_            | $O(n)$           | $O(1)$
 _Maximum(L)_            | $O(n)$           | $O(1)$
-$
+
 
 Dictionary operation | Singly-linked unsorted List | Doubly-linked unsorted List | Singly-linked sorted List | Doubly-linked sorted List
 ---                 | ---       | ---       | ---       | ---

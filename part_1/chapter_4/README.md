@@ -299,3 +299,74 @@ Sorting algorithms run in worst-case $O(n\log{n})$ time and we can say that ther
 This lower bound is important for several reasons, First, the idea can be extended to give lower bounds for many applications of sorting, including element uniqueness, finding the mode, and constructing convex hulls. Sorting has one of the few nontrivial lower bounds among algorithmic problems. We will present an alternate approach to arguing that fast algorithms are unlikely to exist.
 
 __Sorting can be used to illustrate most algorithm design paradigms. Data structure techniques, divide-and-conquer, randomization, and incremental construction all lead to efficient sorting algorithms.__
+
+## Binary Search and Related Algorithms
+
+Binary search is a fast algorithm for searching in a sorted array of keys $S$. To search for a key $q$, we compare $q$ to the middle key $S[n/2]$. If $q$ appears before $S[n/2]$, it must reside in the top half of $S$; if not, it must reside in the bottom half of $S$. By repeating this process recursively on the correct half, we locate the key in a total of $\lceil \lg{n}\rceil$ comparisons-- a big win over the $n/2$ comparisons expect using sequential search.
+
+```c
+int binary_search(item_type s[], item_type key, int low, int high)
+{
+    int middle; // index of middle element
+
+    if(low > high) return -1;
+
+    middle = (low+high)/2;
+
+    if(s[middle] == key) return middle;
+
+    if(s[middle] > key)
+        return binary_search(s; key, low, middle-1);
+    else
+        return binary_search(s; key, middle+1, high);
+}
+```
+
+What is important is to have a sense of just how fast binary search is. The popular children's game _Twenty questions_ can be solved under 20 questions if we just use binary search with a dictionary.
+
+Several interesting algorithms follow from simple variants of binary search. Like _counting the occurrences_ of a key in a sorted array. Using _binary search_ by looking for the low bound while not stopping at a matching equality will give us the starting index of such keys. Repeating the procedure in the other direction gives the end index of those, a simple subtraction gives the solution away.  
+_One-sided binary search_ is most useful whenever we are looking for a key that lies close to our current position, in a run of many similar keys that are arranged sequentially by likeness. Looking for a pivot point always points us toward the correct half where we should keep looking.   
+_Square and other roots_ are also more easily obtained using _binary_search_ knowing that testing the median of the distribution will also tells more precisely in which half to look next.
+
+__Binary search and its variants are the quintessential divide-and-conquer algorithms.__
+
+## Divide-and-Conquer
+
+One of the most powerful techniques for solving problems is to break them down into smaller, more easily solved pieces. Smaller problems are less overwhelming, and they permit us to focus on details that are lost when we are studying the entire problem. A recursive algorithm starts to become apparent when we can break the problem into smaller instances of the same type of problem. Effective parallel processing requires decomposing jobs into a least as many tasks as processors, and is becoming more important with the advent of cluster computing and multicore processors.   
+Two important algorithm design paradigms are based on breaking problems down into smaller problems. Dynamic programming typically removes one element from the problem, solves the smaller problem, and then uses the solution to this smaller problem to add back the element in the proper way. _Divide-and-conquer_ instead splits the problem in (say) halves, solves each half, then stitches the pieces back together to form a full solution.   
+To use divide-and-conquer as an algorithm design techniques, we must divde the problem into two smaller subproblems, solve each of them recursively, and then meld the two partial solutions into one solution to the full problem. Whenever the merging takes less time than solving the two subproblems, we get and efficient algorithm.    
+Divide-and-conquer is a design technique with many important algorithms to its credit, including mergesort, the fast Fourier transform, and Strassen's matrix multiplication algorithm.
+
+__Recurrence Relations__
+
+Many divide-and-conquer algorithms have time complexities that are naturally modeled by recurrence relations. Evaluating such recurrences is important to understanding when divide-and-conquer algorithms perform well, and provide and important tool for analysis in general.   
+A recurrence relation is an equation that is defined in terms of itself. The Fibonacci numbers are described by the recurrence relation $F_n = F_{n-1} + F_{n-2}$.
+
+__Divide-and-conquer Recurrences__
+
+Divide-and-conquer algorithms tend to break a given problem into some number of smaller pieces (say $a$), each of which is of size $n/b$. Further they spend $f(n)$ time to combine these subproblem solutions into a complete result. Let $T(n)$ denote the worst-case time the algorithm takes to solve a problem of size $n$. Then $T(n)$ is given by the following recurrence relation: $T(n) = aT(n/b) + f(n)$.
+
+* _Sorting_, $T(n) = 2T(n/2) + O(1)$ as we spend linear time merging two equally divided halves. $T(n) = O(n\lg{n})$.
+* _Binary Search_, $T(n) = T(n/2) + O(1)$ as we spend constant time reducing the problem into half and not even bother ourself about merging. $T(n) = O(\lg{n})$.
+* _Fast Heap Construction_, the $T(n) = 2T(n/2) + O(\lg{n})$ as we use the ```bubble_down``` method of heap construction to merge in logarithm time two equally divided halves of the tree. $T(n) = O(n)$.
+* _Matrix Multiplication_ usually multiplying $n*n$ matrices takes $O(n^3)$. Strassen divide-and-conquer method algorithm manipulates the product of seven $n/2*n/2$ matrix products to yield the product of two $n*n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
+
+__Solving Divide-and-Conquer Recurrences__
+
+$T(n) = aT(n/b) + f(n)$ usually falls into three distinct cases:
+
+* if $f(n) = O(n^{\log_b{a-e}})$ for some constant $e > 0$, then $T(n) = \Theta(n^{\log_b{a}})$
+* if $f(n) = \Theta(n^{\log_b{a}})$, then $T(n) = \Theta(n^{\log_b{a}}\lg{n})$
+* if $f(n) = \Omega(n^{\log_b{a+e}})$ for some constant $e > 0$, then if $af(n/b) <= cf(n)$ for some $c<1$, then $T(n) = \Theta(n^{\log_b{a}})$
+
+This _master theorem_ has Case 1 holding for heap construction and matrix multiplication, while Case 2 holds for mergesort and binary search; Case 3 generally arises for clumsier algorithms, where the cost of combining the subproblems dominates everything.
+
+To understand the _master theorem_ we need to understand of a problem of size $n$ os decomposed into $a$ problems of size $n/b$. Each subproblem of size $k$ tales $O(f(k))$ time to deal with internally, between partitioning and merging. The total time for the algorithm is the sum go these internal costs, plus the overhead of building the recursion tree. The height of this tree is $h = \log_b{n}$ and the number of leaf nodes $a^h = a^{\log_b{n}}$, which simplifies to $n^{\log_b{a}}$.
+
+* _Case 1: Too many leaves_, if the number of leaf nodes outweighs the sum of the internal evaluation cost, the total running time is $O(n^{\log_b{a}})$.
+* _Case 2: Equal work per level_ as we move down the tree, each problem gets smaller but there are more of them to solve. If the sum of the internal evaluation costs at each level are equal, the total running time is the cost per level ($n^{\log_b{a}}$) time the number of levels ($\log_b{n}$), for a total running time of $O(n^{\log_b{a}}\lg{n})$.
+* _Case 3: Too expensive a root_, if the internal evaluation costs grow rapidly enough with $n$, then the most of the root evaluation may dominate. If so, the total running time is $O(f(n))$.
+
+__The most interesting sorting algorithms that have not been discussed in this section include _shellsort_, which is a substantially more efficient version of insertion sort, and _radix sort_, an efficient algorithm for sorting strings.__
+
+
