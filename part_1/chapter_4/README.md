@@ -350,7 +350,7 @@ Divide-and-conquer algorithms tend to break a given problem into some number of 
 * _Sorting_ — $T(n) = 2T(n/2) + O(1)$ as we spend linear time merging two equally divided halves. $T(n) = O(n\lg{n})$
 * _Binary Search_ — $T(n) = T(n/2) + O(1)$ as we spend constant time reducing the problem into half and not even bother ourself about merging. $T(n) = O(\lg{n})$
 * _Fast Heap Construction_ — the $T(n) = 2T(n/2) + O(\lg{n})$ as we use the ```bubble_down``` method of heap construction to merge in logarithm time two equally divided halves of the tree. $T(n) = O(n)$
-* _Matrix Multiplication_ — usually multiplying $n*n$ matrices takes $O(n^3)$. Strassen divide-and-conquer method algorithm manipulates the product of seven $n/2*n/2$ matrix products to yield the product of two $n*n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
+* _Matrix Multiplication_ — usually multiplying $n*n$ matrices takes $O(n^3)$. Strassen  divide-and-conquer method algorithm manipulates the product of seven $n/2*n/2$ matrix products to yield the product of two $n*n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
 
 __Solving Divide-and-Conquer Recurrences__
 
