@@ -266,7 +266,7 @@ __Two-Coloring Graphs__
 
 The _vertex-coloring_ problem seeks to assign a label (or color) to each vertex of a graph such that no edge links any two vertices of the same color. The goal is to use as few colors as possible.   
 A graph is _bipartite_ if it can be colored without conflicts while using only two colors. Bipartite graphs are important because they arise naturally in many applications. Consider the "had-sex-with" graph in a heterosexual world.   
-We can augment breadth-first search so that whenever we discover a new vertex, we color it the opposite of its parent. We check whether any nondiscovery edge links two vertices of the same color. Such a conflict means that the graph cannot be two-colored. Otherwise, we will have constructed a proper two-coloring whenever we terminate without conflitct.
+We can augment breadth-first search so that whenever we discover a new vertex, we color it the opposite of its parent. We check whether any nondiscovery edge links two vertices of the same color. Such a conflict means that the graph cannot be two-colored. Otherwise, we will have constructed a proper two-coloring whenever we terminate without conflict.
 
 ```c
 void twocolor(graph *g)
@@ -312,3 +312,90 @@ int complement(int color)
 __Breadth-first and depth-first searches provide mechanisms to visit each edge and vertex of the graph. They prove the basis of most simple, efficient graph algorithms.__   
 
 ## Depth-First Search
+
+After _breadth-first search_ (BFS), _depth-first search_ (DFS) is the other primary graph traversal algorithm. For certain problems, their difference is crucial.   
+The difference between BFS and DFS results is in the order in which they explore vertices. This order depends completely upon the container data structure used to store the _discovered_ but not _processed_ vertices.   
+* _Queue_ — FIFO let's us explore the oldest vertices first thus defining a breadth-first search.
+* _Stack_ — LIFO let's us explore the vertices by lurching a path, prioritizing the newest _undiscovered_ vertices first, thus defining a depth-first search.
+
+Our implementation of ```dfs``` maintains a notion of traversal _time_ for each vertex. Our ```time``` clock ticks each time we enter or exit any vertex. We keep track of the _entry_ and _exit_ times for each vertex. Depth-first search has a neat recursive implementation, which eliminates the need to explicitly use a stack.   
+The time intervals have an interesting and useful properties with respect to depth-first search:
+* _Who is an ancestor?_ — An ancestor $x$ can't be born after one of its descendants. We enter such descendant $y$ after entering $x$ and leave it before leaving $x$. Thus the time interval of $y$ must be properly nested withing ancestor $x$.
+* _How many descendants?_ — The difference between the exit and entry times for $v$ tells us how many descendants $v$ has in the DFS tree. The clocks gets incremented on each vertex entry and vertex exit, so half the time difference denotes the number of descendants of $v$.
+
+The other important property of a depth-first search is that it partitions the edges of an undirected graph into exactly two classes: _tree edges_ and _back edges_. The tree edges discover new vertices. Back edges are those whose other endpoint is an ancestor of the vertex being expanded. Why can't edges go to a brother or cousin node instead of an ancestor? All nodes reachable from a given vertex $v$ are expanded before we finish the traversal from $v$, such topologies are impossible for undirected graphs.
+
+__Implementation__    
+
+```c
+void dfs(graph *g, int v)
+{
+    edgenode *p;    // temporary pointer
+    int y;          // successor vertex
+
+    if(finished) return; // allow for search termination
+
+    discovered[v] = TRUE;
+    time = time + 1;
+    entry_time[v] = time;
+
+    process_vertex_early(v);
+
+    p = p->edges[v];
+    while(p != NULL)
+    {
+        y = p->y;
+        if(discovered[y] == FALSE)
+        {
+            parent[y] = v;
+            process_edge(v, y);
+            dfs(g, y);
+        }
+        else if((!processed[y] && (parent[y] != y)) || (g->directed))
+            process_edge(v, y);
+
+        if(finished) return;
+
+        p = p->next;
+    }
+
+    process_vertex_late(v);
+
+    time = time + 1;
+    exit_time[v] = time;
+
+    processed[v] = TRUE;
+}
+```
+
+Depth-first search use essentially the same idea as _backtracking_. Both involve exhaustively searching all possibilities by advancing if it is possible, and backing up as soon as there is no unexplored possibility for further advancement. Both are most easily understood as recursive algorithms.   
+
+__DFS organizes vertices by entry/exit times, and edges into tree and back edges. This organization is what gives DFS its real power.__
+
+
+## Applications of Depth-first Search
+
+The correctness of a DFS-based algorithm depends upon specifics of exactly _when_ we process the edges and vertices.
+
+__Finding Cycles__   
+
+Back edges are the key to finding a cycle in an undirected graph. If there is no back edge, all edges are tree edges, and no cycle exists in a tree. But _any_ back edge going from $x$ to an ancestor $y$ creates a cycle with the tree path from $y$ to $x$. Such a cycle is easy to find using ```dfs```:
+
+```c
+void process_edge(int x, int y)
+{
+    if(discovered[y] && (parent[x] != y)) // found back edge
+    {
+        printf("Cycle from %d to %d:", y, x);
+        find_path(y, x, parent);
+        printf("\n\b");
+        finished = TRUE;
+    }
+}
+```
+
+The correctness of this cycle detection algorithm depends upon processing each undirected edge exactly once. Otherwise, a spurious two-vertex cycle $(x, y, x)$ could be composed from the two traversals of any single undirected edges.
+
+__Articulation Vertices__    
+
+
