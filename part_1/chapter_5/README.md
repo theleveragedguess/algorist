@@ -1,8 +1,7 @@
 # Graph Traversal
 
-Graph are one of the unifying themes of computer science--an abstract representation that describes the organization of transportation systems, human interactions, and telecommunication networks. That so many different structures can be modeled using a single formalism is a source of great power to the educated programmer.   
-More precisely, a graph $G=(V,E)$ consists of a set of _vertices $V$_ together with a set $E$ of vertex pairs or $edges$. Graphs are important because they can be used to represent essentially _any_ relationship.
-
+Graphs are one of the unifying themes of computer science— an abstract representation that describes the organization of transportation systems, human interactions, and telecommunication networks. That so many different structures can be modeled using a single formalism is a source of great power to the educated programmer.   
+More precisely, a graph $G=(V,E)$ consists of a set of _vertices $V$_ together with a set $E$ of vertex pairs or _edges_. Graphs are important because they can be used to represent essentially _any_ relationship.   
 The key to solving many algorithmic problems is to think of them in terms of graphs. Graph theory provides a language for talking about the properties of relationships, and it is amazing how often messy applied problems have a simple description and solution in terms of classical graph properties.   
 Designing truly novel graph algorithms is a very difficult tasks. The key to using graph algorithms effectively in applications lies in correctly modeling your problem so you can take advantage of existing algorithms.
 
@@ -10,14 +9,14 @@ Designing truly novel graph algorithms is a very difficult tasks. The key to usi
 
 A graph $G=(V,E)$ is defined on a set of _vertices $V$_, and contains a set of _edges $E$_.
 
-* _Undirected vs. Directed_, a $G=(V,E)$ is _undirected_ if _edge_ $(x,y) \in E$ implies that $(y,x)$ is also in $E$. If not we say that the graph is _directed_.
-* _Weighted vs. Unweighted_, each edge (or vertex) in a _weighted_ graph $G$ is assigned a numerical value, or weight. In _unweighted_ graphs, there is not cost distinction between various edges and vertices.
-* _Simple vs. Non_simple_, certain types of edges complicate the task of working with graphs. A _self-loop_ is an edge $(x,x)$ involving only one vertex. An $(x,y)$ is a _multiedge_ if it occurs more thant once in the graph. _Simple_ graphs have none of those, while _non-simple_ graphs won't shy away in boasting some or many of them.
-* _Sparse vs Dense_, Graphs are _sparse_ when only a small fraction of the possible vertex paris actually have edges defined between them. Graphs where a large fraction of the vertex pairs define edges are called _dense_. Typically dense graphs have a quadratic number of edges, while sparse graphs are linear in size.
-* _Cyclic vs. Acyclic_, an _acyclic_ graph does not contain any cycles, while _cyclic_ graphs will do.
-* _Embedded vs. Topological_, a graph is _embedded_ if the vertices and edges are assigned geometric positions. Thus, any drawing of a graph is an _embedding, which may or may not have algorithmic significance. _Topological_ graphs are built and dependant of one embedding.
-* Implicit vs. Explicit_, certain graphs are not explicitly constructed and then traversed, but built as we use them, by querying each vertex to construct what he needs to construct so that we proceed. Those are called _implicit_ graphs, as opposite to _Explicit_ graphs that are well built and fully known and stored.
-* Labeled vs. Unlabeled_, each vertex is assigned a unique name or identifier in a _labeled_ graph to distinguish it from all other vertices. In _unlabeled_ graphs, no such distinctions have been made.
+* _Undirected vs. Directed_—  A $G=(V,E)$ is _undirected_ if _edge_ $(x,y) \in E$ implies that $(y,x)$ is also in $E$. If not we say that the graph is _directed_.
+* _Weighted vs. Unweighted_—  Each edge (or vertex) in a _weighted_ graph $G$ is assigned a numerical value, or weight. In _unweighted_ graphs, there is not cost distinction between various edges and vertices.
+* _Simple vs. Non-simple_—  Certain types of edges complicate the task of working with graphs. A _self-loop_ is an edge $(x,x)$ involving only one vertex. An $(x,y)$ is a _multiedge_ if it occurs more thant once in the graph. _Simple_ graphs have none of those, while _non-simple_ graphs won't shy away in boasting some or many of them.
+* _Sparse vs Dense_—  Graphs are _sparse_ when only a small fraction of the possible vertex pairs actually have edges defined between them. Graphs where a large fraction of the vertex pairs define edges are called _dense_. Typically dense graphs have a quadratic number of edges, while sparse graphs are linear in size.
+* _Cyclic vs. Acyclic_—  An _acyclic_ graph does not contain any cycles, while _cyclic_ graphs will do.
+* _Embedded vs. Topological_, a graph is _embedded_ if the vertices and edges are assigned geometric positions. Thus, any drawing of a graph is an _embedding_, which may or may not have algorithmic significance. _Topological_ graphs are built and dependant of one embedding.
+* _Implicit vs. Explicit_—  Certain graphs are not explicitly constructed and then traversed, but built as we use them, by querying each vertex to construct what he needs to construct so that we proceed. Those are called _implicit_ graphs, as opposite to _explicit_ graphs that are well built and fully known and stored.
+* _Labeled vs. Unlabeled_—  Each vertex is assigned a unique name or identifier in a _labeled_ graph to distinguish it from all other vertices. In _unlabeled_ graphs, no such distinctions have been made.
 
 __Graphs can be used to model a wide variety of structures and relationships. Graph-theoretic terminology gives us a language to talk about them.__
 
@@ -25,8 +24,8 @@ __Graphs can be used to model a wide variety of structures and relationships. Gr
 
 Selecting the right graph data structure can have an enormous impact on performance. Your two basic choices are adjacency matrices and adjacency lists. We assume the graph $G=(V,E)$ contains $n$ vertices and $m$ edges.
 
-* _Adjacency Matrix_: We can represent $G$ using $n * n$ matrix $M$, where element $M[i,i] = 1$ if $(i,j)$ is an edge of $G$, and $0$ if it isn't. It uses excessive space for graphs with many vertices but allows a fast answer for the question "is $(i,i)$ in $G$?", and rapid updates for edge insertion and deletion.
-* _Adjacency Lists_: We can more efficiently represent sparse graphs by using linked lists to store the neighbors adjacent to each vertex. Adjacency lists make it harder to verify whether a given edge $(i,j)$ is in $G$. However, it is surprisingly easy to design graph algorithms that avoid any need for such queries.
+* _Adjacency Matrix_—  We can represent $G$ using $n * n$ matrix $M$, where element $M[i,i] = 1$ if $(i,j)$ is an edge of $G$, and $0$ if it isn't. It uses excessive space for graphs with many vertices but allows a fast answer for the question "is $(i,j)$ in $G$ ?", and rapid updates for edge insertion and deletion.
+* _Adjacency Lists_—  We can more efficiently represent sparse graphs by using linked lists to store the neighbors adjacent to each vertex. Adjacency lists make it harder to verify whether a given edge $(i,j)$ is in $G$. However, it is surprisingly easy to design graph algorithms that avoid any need for such queries.
 
 __Adjacency Lists are the right data structures for most applications of graphs.__
 
@@ -35,13 +34,13 @@ __Adjacency Lists are the right data structures for most applications of graphs.
 
 typedef struct {
     int y;                  // adjacency info
-    int weight;             // edge of weight, if any
+    int weight;             // weight of edge, if any
     struct edgenode *next;  // next edge in the list
 } edgenode
 
 typedef struct {
     edgenode *edges[MAXV+1];    // adjacency info
-    int degree[MAXV+1];          // outdegree of each vertex
+    int degree[MAXV+1];         // outdegree of each vertex
     int nvertices;              // number of vertices in graph
     int nedges                  // number of edges in graph
     bool directed               // is the graph directed
@@ -62,7 +61,7 @@ void read_graph(graph *g, bool directed)
 {
     int i;      // counter
     int m;      // number of edges
-    int x,y;    // vertices in edge (x,y)
+    int x, y;    // vertices in edge (x,y)
 
     initialize_graph(g, directed);
 
@@ -134,6 +133,7 @@ __Implementation__
 bool processed[MAXV+1];     // Which vertices have been processed
 bool discovered[MAXV+1];    // Which vertices have been found
 int parent[MAXV+1];         // discovery relation
+
 void initialize_search(graph *g)
 {
     int i; // counter
@@ -205,7 +205,7 @@ __Finding Paths__
 
 Every vertex is discovered during the course of traversal, so except for the root every node has a parent. The parent relation defines a tree of discovery with the initial search node as the root of the tree.   
 Because vertices are discovered in order of increasing distance from the root, this tree has a very important property. The unique tree path from the root to each node $x \in V$ uses the smallest number of edges possible on any root-to-$x$ path in the graph.   
-We can reconstruct this path by following the chain of ancestors from $x$ to the root. Note that we have to work backward. Since this is the reverse of how we normally want the path, we can let recursion reverse it for us.
+We can reconstruct this path by following the chain of ancestors from $x$ to the root. Note that we have to work backward. Since this is the reverse of how we normally want the path, we can let recursion reverses it for us.
 
 ```c
 void find_path(int start, int end, int parents[])
@@ -220,11 +220,11 @@ void find_path(int start, int end, int parents[])
 }
 ```
 
-There are two points to remember when using breadth-first search to find a shortest path from $x$ to $y$: First, the shortest path tree is only useful if BFS was performed with x as the root of the search. Second, BFS gives the shortest path only if the graph is unweighted.
+There are two points to remember when using breadth-first search to find a shortest path from $x$ to $y$. Firstly, the shortest path tree is only useful if BFS was performed with x as the root of the search. Secondly, BFS gives the shortest path only if the graph is unweighted.
 
 ## Applications of Breadth-First Search
 
-Most elementary graphs algorithms make one or two traversals of the graph while we update our knowledge of the graph. Properly implemented using adjacency lists, any such algorithm is destined to be linear, since BFS runs in $O(n=m)$ time on both directed and undirected graphs.   
+Most elementary graphs algorithms make one or two traversals of the graph while we update our knowledge of the graph. Properly implemented using adjacency lists, any such algorithm is destined to be linear, since BFS runs in $O(n+m)$ time on both directed and undirected graphs.   
 
 __Connected Components__   
 
@@ -264,7 +264,7 @@ void process_edge(int x, int y)
 
 __Two-Coloring Graphs__   
 
-The _vertex-coloring_ problem seeks to assign a label (or color) to each vertex of a graph such that no edge links any two vertices of the same color. The goal is to use as few colors as possible.   
+The _vertex-coloring_ problem seeks to assign a label (or color) to each vertex of a graph such that no edge links any two vertices of the same label. The goal is to use as few labels as possible.   
 A graph is _bipartite_ if it can be colored without conflicts while using only two colors. Bipartite graphs are important because they arise naturally in many applications. Consider the "had-sex-with" graph in a heterosexual world.   
 We can augment breadth-first search so that whenever we discover a new vertex, we color it the opposite of its parent. We check whether any nondiscovery edge links two vertices of the same color. Such a conflict means that the graph cannot be two-colored. Otherwise, we will have constructed a proper two-coloring whenever we terminate without conflict.
 
@@ -281,7 +281,7 @@ void twocolor(graph *g)
 
     for(i=1; i<=(g->nvertices); i++)
     {
-        if(discovered[i] == FALSE
+        if(discovered[i] == FALSE)
         {
             color[i] = WHITE;
             bfs(g, i);
@@ -495,12 +495,12 @@ int edge_classification(int x, int y)
 
 __Topological Sorting__    
 
-Topological sorting is the most operation on directed acyclic graphs (DAGs). It orders the vertices on a line such that all directed edges go from left to right. Such an ordering cannot exist if the graph contains a directed cycle, because there is no way you can keep going right on a line and still return back to where you started from!   
-Each DAG has at least one topological sort and they let us find the shortest (or longest) path from a vertex as well as ordering vertices. Topological sorting proves very useful in essentially any algorithmic problem on directed graphs.    
-Topological sorting can be performed efficiently using depth-first searching. A directed graph is a DAG if and only no back edges are encountered. Labeling the vertices in the reverse order that they are marked _processed_ finds a topological sort of a DAG. Consider what happens to each directed edge $\{x,y\}$ as we encounter it exploring vertex $x$:
+Topological sorting is the most important operation on directed acyclic graphs (DAGs). It orders the vertices on a line such that all directed edges go from left to right. Such an ordering cannot exist if the graph contains a directed cycle, because there is no way you can keep going right on a line and still return back to where you started from!   
+Each DAG has at least one topological sorting and they let us find the shortest (or longest) path from a vertex as well as ordering vertices. Topological sorting proves very useful in essentially any algorithmic problem on directed graphs.    
+Topological sorting can be performed efficiently using depth-first searching. A directed graph is a DAG if and only if no back edges are encountered. Labeling the vertices in the reverse order that they are marked _processed_ finds a topological sort of a DAG. Consider what happens to each directed edge $(x,y)$ as we encounter it exploring vertex $x$:
 * If $y$ is currently _undiscovered_, then we start a DFS of $y$ before we can continue with $x$. Thus $y$ is marked _completed_ before $x$ is, and $x$ appears before $y$ in the topological order, as it must.
-* If $y$ is _discovered_ but not _completed_, then $\{x,y\}$ is a back edge, which is forbidden in a DAG.
-* Uf $y$ is _processed_, then it will have been so labeled before $x$. Therefore, $x$ appears before $y$ in the topological order, as it must.
+* If $y$ is _discovered_ but not _completed_, then $(x,y)$ is a back edge, which is forbidden in a DAG.
+* If $y$ is _processed_, then it will have been so labeled before $x$. Therefore, $x$ appears before $y$ in the topological order, as it must.
 
 ```c
 void process_vertex_late(int v)
@@ -536,9 +536,9 @@ void topsort(graph *g)
 __Strongly Connected Components__    
 
 We are often concerned with _strongly connected components_ — that is, partitioning a graphs into chunks such that directed paths exist between all pairs of vertices withing a given chunk. A directed graph is _strongly connected_ if there is a directed path between any two vertices.    
-It is straightforward to use graph traversal to test whether a graph $G = (V,E)$ is strongly connected in linear time. First, do a traversal from some arbitrary vertex $v$. Every vertex in the graph had better be reachable from $v$, otherwise $G$ cannot be strongly connected. Now construct a graph $G' = (V,E')$ with the same vertex and edge set as $G$ but with all edges reversed. Thus any path from $v$ to $z$ in $G'$ corresponds to a path from $z$ to $v$ in $G$. By doing a DFS fro $v$ in $G'$, we find all vertices with paths to $v$ in $G$. The graph is strongly connected if all vertices in $G$ can $(1)$ reach $v$ and $(2)$ are reachable from $v$.    
+It is straightforward to use graph traversal to test whether a graph $G = (V,E)$ is strongly connected in linear time. First, do a traversal from some arbitrary vertex $v$. Every vertex in the graph had better be reachable from $v$, otherwise $G$ cannot be strongly connected. Now construct a graph $G' = (V,E')$ with the same vertex and edge set as $G$ but with all edges reversed. Thus any path from $v$ to $z$ in $G'$ corresponds to a path from $z$ to $v$ in $G$. By doing a DFS for $v$ in $G'$, we find all vertices with paths to $v$ in $G$. The graph is strongly connected if all vertices in $G$ can $(1)$ reach $v$ and $(2)$ are reachable from $v$.    
 Graphs that are not strongly connected can be partitioned into strongly connected components. The set of such components and the weakly-connecting edges that link them can be determined using DFS. The algorithm is based on the observation that it is easy to find a directed cycle using depth-first search, since any back edge plus the down path in the DFS tree gives such a cycle.    
-Our approach to implementing this idea is reminiscent of finding biconnected components. We update our notion of the oldest reachable vertex in response to $(1)$ nontree edges and $(2)$ backing up from a vertex. We must also take notice of forward and cross edges. Our algorithm will peel one strong component off the tree at a time, and assign each of its vertices the number of the component it is in: 
+Our approach to implement this idea is reminiscent of finding biconnected components. We update our notion of the oldest reachable vertex in response to $(1)$ nontree edges and $(2)$ backing up from a vertex. We must also take notice of forward and cross edges. Our algorithm will peel one strong component off the tree at a time, and assign each of its vertices the number of the component it is in: 
 ```c
 int low[MAXV+1];    // oldest vertex surely in component of v
 int scc[MAXV+1];    // strong component number for each vertex
@@ -575,13 +575,13 @@ void process_edge(int x, int y)
 
     if(class == CROSS && scc[y] == -1 && entry_time[y] < entry_time[low[x]])
         low[x] = y;
-    // We can count on a cross edge if only it points to a vertex of a non assigned scc.
-    // Otherwise it means there's not back edge to it, and it can be helped.
+    // We can count a cross edge if only it points to a vertex of a non assigned scc.
+    // Otherwise it means there's no back edge to it, and it can be helped.
 }
 
-// a new strongly connected component is found whenever the lowest reachable vertex from v is v.
+// A new strongly connected component is found whenever the lowest reachable vertex from v is v.
 // If so we can clear the stack of this component. 
-// Otherwise, we give our parent the benefit of the oldest ancestor we can reach and backtrack
+// Otherwise, we give our parent the benefit of the oldest ancestor we can reach and backtrack.
 
 void process_vertex_early(int v)
 {
