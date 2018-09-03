@@ -398,4 +398,215 @@ The correctness of this cycle detection algorithm depends upon processing each u
 
 __Articulation Vertices__    
 
+An _articulation vertex_ or _cut-node_ is a single vertex whose deletion disconnects a connected component of the graph. Any Graph that contains an articulation vertex is inherently fragile.   
+In general, the _connectivity_ of a graph is the smallest number of vertices whose deletion will disconnect the graph. The connectivity is $1$ if the graph has an articulation vertex. More robust graphs without such a vertex are said to be _biconnected_.   
+Testing for articulation vertices by brute force is easy, however there is a clever linear-time algorithm that tests all the vertices of a connected graph using a single depth-first search.   
+If a DFS tree represented the entirety of the graph, all internal (nonleaf) nodes would be articulation vertices. If the root has only one child it will behave as a leaf in this procedure.   
+General graphs are more complex than trees. But a depth-first search of a general graph partitions the edges into tree edges and back edges. The back edge from $x$ to $y$ ensures that none of the vertices on the tree path between $x$ and $y$ can be articulation vertices.    
+Finding articulation vertices requires maintaining the extent to which back edges link chunks of the DFS tree bck to ancestor nodes.    
+```c
+int reachable_ancestor[MAXV+1]; // earliest reachable ancestor of v
+int tree_out_degree[MAXV+1];    // DFS tree outdegree of v
+
+void process_vertex_early(int v)
+{
+    reachable_ancestor[v] = v;
+}
+
+void process_edge(int x, int y)
+{
+    int class; // edge class
+
+    class = edge_classification(x, y);
+
+    if(class == TREE)
+        tree_out_degree[x] = tree_out_degree[x] + 1;
+    
+    if(     class == BACK 
+        &&  parent[x] != y
+        &&  entry_time[y] < entry_time[ reachable_ancestor[x] ])
+        reachable_ancestor[x] = y;
+}
+```
+
+The key issue is determining how the reachability relation impacts whether vertex $v$ is an articulation vertex. There are three cases:
+* _Root cut-nodes_ — If the root of the DFS tree has two or more children, it must be an articulation vertex.
+* _Bridge cut-nodes_ — If the earliest reachable vertex from $v$ is $v$, then deleting the single edge $(parent[v], v)$ disconnects the graph. Vertex $v$ is also an articulation vertex unless it is a leaf of the DFS tree.
+* _Parent cut-nodes_ — If the earliest reachable vertex from $v$ is the parent of $v$, then deleting the parent must sever $v$ from the tree unless the parent is the root.
+
+```c
+void process_vertex_late(int v)
+{
+    bool root;          // is the vertex the root of the DFS tree?
+    int time_v;         // earliest reachable time for an ancestor of v
+    int time_parent;    // earliest reachable time for an ancestor of parent[v]
+
+    if(parent[v] < 1) // test if v is the root
+    {
+        if(tree_out_degree > 1)
+            printf("root articulation vertex: %d \n", v);
+        return;
+    }
+
+    root = (parent[parent[v]] < 1) // test if parent is root
+
+    if(!root) 
+    {
+        if(reachable_ancestor[v] == parent[v])
+            printf("parent articulation vertex: %d \n", parent[v]);
+
+        if(reachable_ancestor[v] == v)
+        {
+            printf("bridge articulation vertex: %d \n", parent[v]);
+
+            if(tree_out_degree[v] > 0)
+                printf("bridge articulation vertex: %d \n", v);
+        }
+    }
+
+    time_v = entry_time[reachable_ancestor[v]];
+    time_parent = entry_time[ reachable_ancestor[parent[v]] ];
+
+    if(time_v < time_parent)
+        reachable_ancestor[parent[v]] =  reachable_ancestor[v];
+}
+```
+
+We can Alternately talk about reliability in terms of edge failures instead of vertex failures.   
+Identifying whether a given edge $(x,y)$ is a bridge is easily done in linear time by deleting the edge and testing whether the resulting graph is connected. In fact all bridges can be identified in the same $O(n+m)$ time. Edge $(x,y)$ is a bridge if $(1)$ it is a tree edge, and $(2)$ no back edge connects from $y$ or below to $x$ and above. This can be computed with an appropriate modification of the ```process_vertex_late``` function.
+
+## Depth-First Search on Directed Graphs
+
+Depth-first search on an undirected graph proves useful because it organizes the edges of the graph in a very precise way.    
+For directed graphs, depth-first search labelings can take a wider range of possibilities, because a "cross edge" $(x,y)$ can exists and is not necessary a tree edge as for undirected graphs. In total, four edge can occur in traversing directed graphs.    
+The correct labeling of each edge can be readily determined from the state, discovery time, and parent of each vertex, as encoded in the following function:
+
+```c
+int edge_classification(int x, int y)
+{
+    if(parent[y] == x) return TREE;
+    if(discovered[y] && !processed[y]) return BACK;
+    if(processed[y] && (entry_time[y] > entry_time[x])) return FORWARD;
+    if(processed[y] && (entry_time[y] < entry_time[x])) return CROSS;
+
+    printf("Warning: unclassified edge (%d, %d)\n", x, y);
+}
+```
+
+__Topological Sorting__    
+
+Topological sorting is the most operation on directed acyclic graphs (DAGs). It orders the vertices on a line such that all directed edges go from left to right. Such an ordering cannot exist if the graph contains a directed cycle, because there is no way you can keep going right on a line and still return back to where you started from!   
+Each DAG has at least one topological sort and they let us find the shortest (or longest) path from a vertex as well as ordering vertices. Topological sorting proves very useful in essentially any algorithmic problem on directed graphs.    
+Topological sorting can be performed efficiently using depth-first searching. A directed graph is a DAG if and only no back edges are encountered. Labeling the vertices in the reverse order that they are marked _processed_ finds a topological sort of a DAG. Consider what happens to each directed edge $\{x,y\}$ as we encounter it exploring vertex $x$:
+* If $y$ is currently _undiscovered_, then we start a DFS of $y$ before we can continue with $x$. Thus $y$ is marked _completed_ before $x$ is, and $x$ appears before $y$ in the topological order, as it must.
+* If $y$ is _discovered_ but not _completed_, then $\{x,y\}$ is a back edge, which is forbidden in a DAG.
+* Uf $y$ is _processed_, then it will have been so labeled before $x$. Therefore, $x$ appears before $y$ in the topological order, as it must.
+
+```c
+void process_vertex_late(int v)
+{
+    push(&sorted, v);
+}
+
+void process_edge(int x, int y)
+{
+    int class;  // edge class
+
+    class = edge_classification(x, y);
+
+    if(class == BACK)
+        printf("Warning: directed cycle found, not a DAG\n");
+}
+
+void topsort(graph *g)
+{
+    int it;  // counter
+
+    init_stack(&sorted);
+
+    for(i=1; i<=g->nvertices; i++)
+        if(discovered[i] == FALSE)
+            dfs(g,i);
+
+    print_stack(&sorted);  // report topological order
+
+}
+```
+
+__Strongly Connected Components__    
+
+We are often concerned with _strongly connected components_ — that is, partitioning a graphs into chunks such that directed paths exist between all pairs of vertices withing a given chunk. A directed graph is _strongly connected_ if there is a directed path between any two vertices.    
+It is straightforward to use graph traversal to test whether a graph $G = (V,E)$ is strongly connected in linear time. First, do a traversal from some arbitrary vertex $v$. Every vertex in the graph had better be reachable from $v$, otherwise $G$ cannot be strongly connected. Now construct a graph $G' = (V,E')$ with the same vertex and edge set as $G$ but with all edges reversed. Thus any path from $v$ to $z$ in $G'$ corresponds to a path from $z$ to $v$ in $G$. By doing a DFS fro $v$ in $G'$, we find all vertices with paths to $v$ in $G$. The graph is strongly connected if all vertices in $G$ can $(1)$ reach $v$ and $(2)$ are reachable from $v$.    
+Graphs that are not strongly connected can be partitioned into strongly connected components. The set of such components and the weakly-connecting edges that link them can be determined using DFS. The algorithm is based on the observation that it is easy to find a directed cycle using depth-first search, since any back edge plus the down path in the DFS tree gives such a cycle.    
+Our approach to implementing this idea is reminiscent of finding biconnected components. We update our notion of the oldest reachable vertex in response to $(1)$ nontree edges and $(2)$ backing up from a vertex. We must also take notice of forward and cross edges. Our algorithm will peel one strong component off the tree at a time, and assign each of its vertices the number of the component it is in: 
+```c
+int low[MAXV+1];    // oldest vertex surely in component of v
+int scc[MAXV+1];    // strong component number for each vertex
+
+void strong_components(graph *g)
+{
+    int i;  // counter
+
+    for(i=1; i<=(g->nvertices); i++)
+    {
+        low[i] = i;
+        scc[i] = -1;
+    }
+
+    components_found = 0;
+    init_stack(&active);
+    initialize_search(&g);
+
+    for(i=1; i<=(g->nvertices); i++)
+    {
+        if(discovered[i] == FALSE)
+            dfs(g, i);
+    }
+}
+
+void process_edge(int x, int y)
+{
+    int class;  // edge class
+    
+    class = edge_classification(x,y);
+
+    if(class == BACK && entry_time[y] < entry_time[low[x]])
+        low[x] = y;
+
+    if(class == CROSS && scc[y] == -1 && entry_time[y] < entry_time[low[x]])
+        low[x] = y;
+    // We can count on a cross edge if only it points to a vertex of a non assigned scc.
+    // Otherwise it means there's not back edge to it, and it can be helped.
+}
+
+// a new strongly connected component is found whenever the lowest reachable vertex from v is v.
+// If so we can clear the stack of this component. 
+// Otherwise, we give our parent the benefit of the oldest ancestor we can reach and backtrack
+
+void process_vertex_early(int v)
+{
+    push(&active, v);
+}
+
+void process_vertex_late(int v)
+{
+    if(low[v] == v)
+        pop_component(v);
+
+    if(parent[v] > 0 && entry_time[low[v]] < entry_time[low[parent[v]]])
+        low[parent[v]] = low[v];
+}
+
+void pop_component(inv v)
+{
+    int t;  // vertex placeholder
+
+    components_found = components_found + 1;
+
+    scc[v] = components_found;
+    while((t = pop(&active)) != v)
+        scc[t] = components_found;
+}
+```
+
 
