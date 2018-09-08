@@ -125,7 +125,7 @@ Each undirected edge will be considered exactly twice, once when each of its end
 ## Breadth-First Search
 
 In a breadth-first search of an undirected graph, we assign a direction to each edge, from the discoverer $u$ to the discovered $v$. We thus denote $u$ to be the parent of $v$. Since each node has exactly one parent, except for the root, this defines a tree on the vertices of the graph. This property makes breadth-first search very useful in shortest path problems.   
-The graph edges that do not appear in the breadth-first search tree also have special properties. For undirected graphs, nontree edges can point only to vertices on the same level as the parent vertex, or to vertices on the level directly below the parent. These properties follow easily from the fact that each path in the tree must be the shortest path in the graph. For a directed graph, a back-pointing edge $(u,v)$ can exist whenever $v$ lies closer to the root than $u$ does.
+The graph edges that do not appear in the breadth-first search tree also have special properties. For undirected graphs, non-tree edges can point only to vertices on the same level as the parent vertex, or to vertices on the level directly below the parent. These properties follow easily from the fact that each path in the tree must be the shortest path in the graph. For a directed graph, a back-pointing edge $(u,v)$ can exist whenever $v$ lies closer to the root than $u$ does.
 
 __Implementation__   
 
