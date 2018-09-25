@@ -84,7 +84,7 @@ void generate_subsets(int n)
 
 __Constructing All Permutations__    
        
-Set up an array/vector a of $n$ cells. The set of candidates for the $i$th position will be the set of elements that have not appeared in the $(i−1)$ elements of the partial solution, corresponding to the first $i−1$ elements of the permutation. In the scheme of the general backtrack algorithm, $S_k = \{1,...,n\} −a$, and $a$ is a solution whenever $k = n$.   
+Set up an array/vector $a$ of $n$ cells. The set of candidates for the $i$th position will be the set of elements that have not appeared in the $(i−1)$ elements of the partial solution, corresponding to the first $i−1$ elements of the permutation. In the scheme of the general backtrack algorithm, $S_k = \lbrace1,...,n\rbrace −a$, and $a$ is a solution whenever $k = n$.   
 
 ```c
 void construct_candidates(int a[], int k, int n, int c[], int *ncandidates)
@@ -189,7 +189,7 @@ __Clever pruning can make short work of surprisingly hard combinatorial search p
 ## Heuristic Search Methods   
 
 Heuristic methods provide an alternate way to approach difficult combinatorial optimization problems. Backtracking gave us a method to ﬁnd the best of all possible solutions, as scored by a given objective function. However, any algorithm searching all configurations is doomed to be impossible on large instances.    
-In particular, we will look at three different heuristic search methods: random sampling,gradient-descent search,and simulated annealing. All three methods have two common components: 
+In particular, we will look at three different heuristic search methods: random sampling, gradient-descent search, and simulated annealing. All three methods have two common components: 
 * _Solution space representation_ – This is a complete yet concise description of the set of possible solutions for the problem.
 * _Cost function_ – Search methods need a cost or evaluation function to access the quality of each element of the solution space. 
 
@@ -232,7 +232,7 @@ __Local Search__
 A local search employs _local neighborhood_ around every element in the solution space. Think of each element $x$ in the solution space as a vertex, with a directed edge $(x,y)$ to every candidate solution $y$ that is a neighbor of $x$. Our search proceeds from $x$ to the most promising candidate in $x$’s neighborhood.   
 We certainly do _not_ want to explicitly construct this neighborhood graph for any sizable solution space. Instead, we want a general transition mechanism that takes us to the next solution by slightly modifying the current one. Typical transition mechanisms include swapping a random pair of items or changing (inserting or deleting) a single item in the solution.    
 A local search heuristic starts from an arbitrary element of the solution space, and then scans the neighborhood looking for a favorable transition to take. In a _hill-climbing_ procedure, we try to ﬁnd the top of a mountain (or alternately, the lowest point in a ditch) by starting at some arbitrary point and taking any step that leads in the direction we want to travel. We repeat until we have reached a point where all our neighbors lead us in the wrong direction. We are now _King of the Hill_ (or _Dean of the Ditch_). We are probably not _King of the Mountain_, however.   
-Hill-climbing and closely related heuristics such as greedy search or gradient descent search are great at finding local optima quickly, but often fail to ﬁnd the globally best solution.
+Hill-climbing and closely related heuristics such as _greedy search_ or _gradient descent search_ are great at finding local optima quickly, but often fail to ﬁnd the globally best solution.
 
 ```c
 void hill_climbing(tsp_instance *t, tsp_solution *s)
@@ -284,7 +284,7 @@ __Simulated annealing is effective because it spends much more of its time worki
 As with a local search, the problem representation includes both a representation of the solution space and an easily computable cost function $C(s)$ measuring the quality of a given solution. The new component is the _cooling schedule_, whose parameters govern how likely we are to accept a bad transition as a function of time.    
 At the beginning of the search, we are eager to use randomness to explore the search space widely, so the probability of accepting a negative transition should be high. As the search progresses, we seek to limit transitions to local improvements and optimizations. The cooling schedule can be regulated by the following parameters: 
 * _Initial system temperature_ – Typically $t_1 = 1$. 
-* _Temperature decrement function_ – Typically $t_k = αt_{k−1}$, where $0.8 \leq α \leq 0.99$. This implies an exponential decay in the temperature, as opposed to a linear decay. 
+* _Temperature decrement function_ – Typically $t_k = α.t_{k−1}$, where $0.8 \leq α \leq 0.99$. This implies an exponential decay in the temperature, as opposed to a linear decay. 
 * _Number of iterations between temperature change_ – Typically, $100$ to $1,000$ iterations might be permitted before lowering the temperature.
 * _Acceptance criteria_ – A typical criterion is to accept any transition from $s_i$ to $s_{i+1}$ when $C(s_{i+1}) < C(s_i)$, and also accept a negative transition whenever $e^{-\frac{(C(s_i) - C(s_{i+1}))}{k.t_i}} \geq r$, where $r$ is a random number $0 \leq r \lt 1$. The constant $k$ normalizes this cost function so that almost all transitions are accepted at the starting temperature.
 * _Stop criteria_ – Typically, when the value of the current solution has not changed or improved within the last iteration or so, the search is terminated and the current solution reported.   
@@ -356,8 +356,8 @@ __Seldom are problems where genetic algorithms seemed to be the right way to att
 Two heads are better than one, and more generally, $n$ heads are better than $n−1$. Parallel processing is becoming more important with the advent of cluster computing and multi-core processors. It seems like the easy way out of hard problems. Indeed, sometimes, for some problems, parallel algorithms are the most effective solution.   
 However, there are several pitfalls associated with parallel algorithms that you should be aware of: 
 
-* _There is often a small upper bound on the potential win_ –  Greater performance gains maybe possible by finding a better sequential algorithm. Your time spent parallelizing a code might well be better spent enhancing the sequential version. Performance-tuning tools such as profilers are better developed for sequential machines than for parallel models. 
-* _Speedup means nothing_ A carefully designed sequential algorithm can often beat an easily-parallelized code running on a typical parallel machine. The one-processor parallel version of your code is likely to be a crummy sequential algorithm, so measuring speedup typically provides an unfair test of the benefits of parallelism.
+* _There is often a small upper bound on the potential win_ –  Greater performance gains may be possible by finding a better sequential algorithm. Your time spent parallelizing a code might well be better spent enhancing the sequential version. Performance-tuning tools such as profilers are better developed for sequential machines than for parallel models. 
+* _Speedup means nothing_ – A carefully designed sequential algorithm can often beat an easily-parallelized code running on a typical parallel machine. The one-processor parallel version of your code is likely to be a crummy sequential algorithm, so measuring speedup typically provides an unfair test of the benefits of parallelism.
 * _Parallel algorithms are tough to debug_ – Unless your problem can be decomposed into several independent jobs, the different processors must communicate with each other to end up with the correct final result. Unfortunately, the non-deterministic nature of this communication makes parallel programs notoriously difficult to debug.
 
 Parallel processing should be considered only after attempts at solving a problem sequentially prove too slow. Even then, attention should be restricted to algorithms that parallelize the problem by partitioning the input into distinct tasks where no communication is needed between the processors, except to collect the final results. Such large-grain, naive parallelism can be simple enough to be both implementable and debuggable, because it really reduces to producing a good sequential implementation.
