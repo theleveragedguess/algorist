@@ -345,6 +345,7 @@ void anneal(tsp_instance *t, tsp_solution *s)
 Several heuristic search methods have been proposed to search for good solutions for combinatorial optimization problems. Like simulated annealing, many techniques relies on analogies to real-world physical processes. Popular methods include _genetic algorithms_, _neural networks_, and _ant colony optimization_.   
 
 __Genetic Algorithms__   
+
 Genetic algorithms draw their inspiration from evolution and natural selection. Through the process of natural selection, organisms adapt to optimize their chances for survival in a given environment.   
 Genetic algorithms maintain a “population” of solution candidates for the given problem. Elements are drawn at random from this population and allowed to “reproduce” by combining aspects of the two-parent solutions. The probability that an element is chosen to reproduce is based on its “fitness,”—essentially the cost of the solution it represents. Unfit elements die from the population, to be replaced by a successful-solution offspring.    
 The idea behind genetic algorithms is extremely appealing. However, the crossover and mutation operations typically make no use of problem-specific structure, so most transitions lead to inferior solutions, and convergence is slow. Indeed, the analogy with evolution—where significant progress require millions of years—can be quite appropriate.   
