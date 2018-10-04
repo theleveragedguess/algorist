@@ -14,6 +14,7 @@ __Implementation__
 
 ```c
 bool finished = FALSE; // found all solutions yet?
+
 void backtrack(int a[], int k, data input)
 {
     int c[MAXCANDIDATES]; // candidates for next position
@@ -42,14 +43,14 @@ void backtrack(int a[], int k, data input)
 Backtracking ensures correctness by enumerating all possibilities. It ensures efficiency by never visiting a state more than once.   
 
 The application-specific parts of this algorithm consists of ﬁve subroutines:
-* ```is a solution(a, k, input)```
-* ```construct candidates(a, k, input, c, ncandidates)```
-* ```process solution(a, k, input)```
-* ```make move(a, k, input)``` and ```unmake move(a, k, input)```
+* ```is_a_solution(a, k, input)```
+* ```construct_candidates(a, k, input, c, ncandidates)```
+* ```process_solution(a, k, input)```
+* ```make_move(a, k, input)``` and ```unmake_move(a, k, input)```
 
 __Constructing All Subsets__   
 
-Each subset is described by elements that are in it. To construct all $2^n$ subsets, we set up an array/vector of $n$ cells, where the value of $a_i$ (true or false) signifies whether the $i$th item is in the given subset. In the scheme of our general backtrack algorithm, $S_k = (true,false)$ and $a$ is a solution whenever $k = n$. We can now construct all subsets with simple implementations of is ```a solution()```, ```construct candidates()```, and ```process solution()```.
+Each subset is described by elements that are in it. To construct all $2^n$ subsets, we set up an array/vector of $n$ cells, where the value of $a_i$ (true or false) signifies whether the $i$th item is in the given subset. In the scheme of our general backtrack algorithm, $S_k = (true,false)$ and $a$ is a solution whenever $k = n$. We can now construct all subsets with simple implementations of ```is_a_solution()```, ```construct_candidates()```, and ```process_solution()```.
 
 ```c
 bool is_a_solution(int a[], int k, int n) 
