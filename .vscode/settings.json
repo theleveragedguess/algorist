@@ -46,6 +46,5 @@
     },
     "files.exclude": {
         "build": true
-    },
-    //"terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe"
+    }
 }
