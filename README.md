@@ -44,7 +44,8 @@ This list of questions was inspired by a passage in a book about the space progr
 4. Are there special cases of the problem that I know how to solve?
 
     (a) Can I solve the problem efficiently when I ignore some of the input parameters?  
-    (b) Does the problem become easier to solve when I set some of the input parameters to trivial values, such as 0 or 1? (c) Can I simplify the problem to the point where I can solve it efficiently?  
+    (b) Does the problem become easier to solve when I set some of the input parameters to trivial values, such as 0 or 1?  
+    (c) Can I simplify the problem to the point where I can solve it efficiently?  
     (d) Why can’t this special-case algorithm be generalized to a wider class of inputs?  
     (e) Is my problem a special case of a more general problem in the catalog?  
 
