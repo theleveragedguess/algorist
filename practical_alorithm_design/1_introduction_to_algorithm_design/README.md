@@ -27,6 +27,7 @@ A single _counter example_ providing a bad output for an algorithm is sufficient
 _Verifiability_ and _simplicity_ should characterize good counter examples.
 
 To find counter examples:
+
 * _Think small_.
 * _Think exhaustively_.
 * _Hunt for the weakness_.
