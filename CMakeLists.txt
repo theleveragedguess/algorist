@@ -9,7 +9,6 @@ set(
     SOURCE
     algorist.cpp
     common/combinatorics.cpp
-    practical_alorithm_design/1_introduction_to_algorithm_design/programs.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE})
