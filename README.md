@@ -7,8 +7,11 @@ The _Oxford English Dictionary_ defines an _algorist_ as "one skillful in reckon
 ## How to Design Algorithms
 
 Designing the right algorithm for a given application is a major creative act—that of taking a problem and pulling a solution out of the ether.  
+
 The key to algorithm design (or any other problem-solving task) is to proceed by asking yourself questions to guide your thought process. By clearly articulating your reasoning as to why something doesn’t work, you can check whether you have glossed over a possibility that you didn’t want to think hard enough about. It is amazing how often the reason you can’t ﬁnd a convincing explanation for something is because your conclusion is wrong.  
+
 The distinction between strategy and tactics is important to keep aware of during any design process. Strategy represents the quest for the big picture—the framework around which we construct our path to the goal. Tactics are used to win the minor battles we must fight along the way. In problem-solving, it is important to check repeatedly whether you are thinking on the right level.  
+
 This list of questions was inspired by a passage in a book about the space program entitled The _Right Stuff_. It concerned the radio transmissions from test pilots just before their planes crashed. One might have expected that they would panic, so ground control would hear the pilot yelling Ahhhhhhhhhhh —, terminated only by the sound of smacking into a mountain. Instead, the pilots ran through a list of what their possible actions could be. I’ve tried the flaps. I’ve checked the engine. Still got two wings. I’ve reset the —. They had “the Right Stuff.” Because of this, they sometimes managed to miss the mountain. I hope this book and list will provide you with “the Right Stuff” to be an algorithm designer. And I hope it prevents you from smacking into any mountains along the way.  
 
 1. Do I really understand the problem?  

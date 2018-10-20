@@ -72,7 +72,7 @@ To exploit the algorithm literature, one must learn to describe the problem abst
 * _Permutations_ — which are arrangements , or ordering, of items.
 * _Subsets_ — which represent selections from a set of items.
 * _Trees_ — which represent hierarchical relationships between items.
-* _Graphs_ — which represent relationships between arbitrary paris of objects.
+* _Graphs_ — which represent relationships between arbitrary pairs of objects.
 * _Points_ — which represent locations in some geometric space.
 * _Polygons_ — which represent regions in some geometric spaces.
 * _Strings_ — which represent sequences of characters or patterns.
