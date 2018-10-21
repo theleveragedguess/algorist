@@ -33,7 +33,7 @@ __Problem description__: What point $p =( p_1,...,p_n)$ maximizes (or minimizes)
 ## Linear Programming
 
 __Input description__: A set $S$ of $n$ linear inequalities on $m$ variables  
-$S_i \coloneqq \sum_{j=1}^mc_{ij}.x_j \ge b_i, 1 \le i \le n$  
+$S_i := \sum_{j=1}^mc_{ij}.x_j \ge b_i, 1 \le i \le n$  
 and a linear optimization function $f(X) = \sum_{j=1}^mc_j.x_j$.  
 __Problem description__: Which variable assignment $X'$ maximizes the objective function $f$ while satisfying all inequalities $S$?
 
