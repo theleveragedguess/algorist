@@ -39,7 +39,7 @@ __Problem description__: Which variable assignment $X'$ maximizes the objective 
 
 ## Random Number Generation
 
-__Input description: Nothing, or perhaps a seed.  
+__Input description__: Nothing, or perhaps a seed.  
 __Problem description__: Generate a sequence of random integers.
 
 ## Factoring and Primality Testing
