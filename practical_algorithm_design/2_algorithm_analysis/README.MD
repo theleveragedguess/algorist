@@ -15,9 +15,9 @@ Machine-independent algorithm design depends upon a hypothetical computer called
 
 To understand how good or bad an algorithm is in general, we must know how it works over _all_ instances:
 
-* The _worst-case complexity_.
-* The _best-case complexity_.
-* The _average-case complexity_.
+* The _worst-case complexity_
+* The _best-case complexity_
+* The _average-case complexity_
 
 The important thing to realize is that each of the these time complexities define a numerical function, representing time (in steps) versus problem size. But time complexities are such complicated functions that we must simplify them to work with them. For this we need the "Big Oh" notation.
 
@@ -175,7 +175,7 @@ Logarithms arise whenever things are repeatedly halved or doubled.
 * $f(n) = \log{\log{n}}$ — the log log function i.e binary search on a sorted array of $\log{n}$ items
 * $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ — i.e. height of tree of degree $\log{n}$
 * $f(n) = \log{n}^2$ — The log squared i.e intricate nested data structures
-* $f(n) = \sqrt{n}$ — the square root i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
+* $f(n) = \sqrt{n}$ — the square root represents the class of "sublinear polynomials" since $\sqrt{n} = n^{}/2$ i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
 * $f(n) = n^{1+ε}$ — to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
 
 ### Limits and Dominance Relations
