@@ -1,5 +1,7 @@
 # Data Structures
 
+Data structures are not so much algorithms as they are the fundamental constructs around which you build your application. Becoming fluent in what the standard data structures can do for you is essential to get full value from them.
+
 ## Dictionaries
 
 __Input description__: A set of $n$ records, each identified by one or more key fields.  
