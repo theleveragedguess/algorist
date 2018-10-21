@@ -1,17 +1,20 @@
 # Algorithm Analysis
 
 The two most important tools to compare the efficiency of algorithms without implementing them:
+
 * The RAM model of computation
 * The asymptotic analysis of worst-case complexity
 
 ## The RAM Model of Computation
 
 Machine-independent algorithm design depends upon a hypothetical computer called the Random Access Machine or RAM, where:
+
 * Each _simple_ operation (+, *, - =, if, call) takes exactly one time step.
 * Loops and subroutines are not considered simple operations.
 * Each memory access takes exactly one time step.
 
 To understand how good or bad an algorithm is in general, we must know how it works over _all_ instances:
+
 * The _worst-case complexity_.
 * The _best-case complexity_.
 * The _average-case complexity_.
@@ -34,12 +37,13 @@ Time complexity functions are very difficult to work precisely with because they
 * Linear-time and $n.\lg{n}$ algorithms remain practical on inputs of one billion items.
 * An $O(lg(n))$ hardly breaks a sweat for any imaginable value of $n$.
 
-__Dominance Relations__
+### Dominance Relations
 
 The Big Oh notation groups functions into a set of classes, such that all the functions in a particular class are equivalent with respect to the Big Oh.
 We say that a faster-growing function _dominates_ a slower-growing one.
 
 Only a few functions classes tend to occur in the course of basic algorithm analysis
+
 * _Constant functions_: $f(n) = 1$
 * _Logarithmic functions_: $f(n) = \log{n}$
 * _Linear functions_: $f(n) = n$
@@ -55,14 +59,16 @@ Although esoteric functions arise in advanced algorithm analysis, a small variet
 
 On simplifications of algebraic expressions
 
-__Adding Functions__
+### Adding Functions
+
 * $O(f(n) + O(g(n))) = O(\max(f(n), g(n)))$
 * $Ω(f(n) + Ω(g(n))) = Ω(\max(f(n), g(n)))$
 * $\Theta(f(n) + \Theta(g(n))) = \Theta(\max(f(n), g(n)))$
 
 Everything is small potatoes besides the dominant terms
 
-__Multiplying Functions__
+### Multiplying Functions
+
 * $O(c.f(n)) = O(f(n))$
 * $Ω(c.f(n)) = Ω(f(n))$
 * $\Theta(c.f(n)) = \Theta(f(n))$
@@ -105,6 +111,7 @@ for(i=0; i<n; i++)
     }
 }
 ```
+
 * __String Pattern Match__ is $O(n.m)$ where $m$ is the length of the string we're trying to find in the string of length $n$.
 
 ```c
@@ -128,6 +135,7 @@ int findmatch(char *p, char *t)
 
 }
 ```
+
 * __Matrix Multiplication__ is $O(n^3)$.
 
 ```c
@@ -159,18 +167,18 @@ Logarithms arise whenever things are repeatedly halved or doubled.
 * _The base of the algorithm has no real impact on the growth rate_ Thus we are usually justified in ignoring the base of the logarithm when analyzing algorithms.
 * _Logarithms cut any thing down to size_ The growth rate of the logarithm of any polynomial function is $O(\lg{n})$ because $\log_a{n^b} = b\log_a{n}$.
 
- ## Advanced Analysis
+## Advanced Analysis
 
- __Esoteric Functions__
+### Esoteric Functions
 
- * Inverse Ackermann's function — $f(n) = α(n)$ the slowest-growing complexity function
- * $f(n) = \log{\log{n}}$ — the log log function i.e binary search on a sorted array of $\log{n}$ items
- * $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ — i.e. height of tree of degree $\log{n}$
- * $f(n) = \log{n}^2$ — The log squared i.e intricate nested data structures
- * $f(n) = \sqrt{n}$ — the square root i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
- * $f(n) = n^{1+ε}$ — to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
+* Inverse Ackermann's function — $f(n) = α(n)$ the slowest-growing complexity function
+* $f(n) = \log{\log{n}}$ — the log log function i.e binary search on a sorted array of $\log{n}$ items
+* $f(n) = \dfrac{\log{n}}{\log{\log{n}}}$ — i.e. height of tree of degree $\log{n}$
+* $f(n) = \log{n}^2$ — The log squared i.e intricate nested data structures
+* $f(n) = \sqrt{n}$ — the square root i.e for d-dimensional hypercubes of length $n^{1/d}$ on each side with volume $d$
+* $f(n) = n^{1+ε}$ — to simplify algorithms that runs in $2^c.n^{(1+1/c)}$
 
- __Limits and Dominance Relations__
+### Limits and Dominance Relations
 
  We say that $f(n)$ dominates $g(n)$ if $\lim_{n\to\infty} g(n)/f(n) = 0$.
  The higher-Degree polynomial dominates even for $n^{1.2}$ and $n^{1.1999999}$.
