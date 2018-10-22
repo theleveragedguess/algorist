@@ -3,25 +3,27 @@
 ## Contiguous vs. Linked Data Structures
 
 Data structures can be neatly classified as either _contiguous_ or _linked_ depending or whether they are based on arrays or pointers.
+
 * _Contiguous-allocated structures_ — single slabs of memory, arrays, matrices, heaps, and hash tables.
 * _Linked Data structures_ — distinct chunks of memory glued by pointers, lists, trees, and graph adjacency lists.
 
-__Arrays__
+### Arrays
 
 The fundamental contiguously-allocated data structure.
 
 Advantages:
+
 * _Constant-time access given the index_
 * _Space efficiency_
 * _Memory locality_
 
 Downside: fixed size.
 
-__Pointers and Linked Structures__
+### Pointers and Linked Structures
 
 _Pointers_ represent the address of a location in memory.
-
 _Simple Linked Structure_
+
 ```c
 typedef struct list {
     item_type item;     // data item
@@ -72,14 +74,17 @@ void delete_list(list **l, item_type x)
     }
 }
 ```
-__Comparison__
+
+### Comparison
 
 Linked lists have it at:
+
 * Overflow occurs only when memory is full.
 * Insertions and deletions are _simpler_ for contiguous lists.
 * With large records, moving pointer is easier and faster.
 
 Arrays have it at:
+
 * More pointer space for linked structures.
 * Linked lists do not allow efficient random access to items.
 * Better memory locality and cache performance.
@@ -98,9 +103,9 @@ Both structures are recursive objects, good for divide-and-conquer.
 * _Delete(D, x)_
 
 _Some implements_:
+
 * _Max(D)_ or _Min(D)_
 * _Predecessor(D, x)_
-
 
 Dictionary operation    | Unsorted Array   | Sorted Array
 ---                     | ---              | ---
@@ -111,7 +116,6 @@ _Successor(L, x)_       | $O(n)$           | $O(1)$
 _Predecessor(L, x)_     | $O(n)$           | $O(1)$
 _Minimum(L)_            | $O(n)$           | $O(1)$
 _Maximum(L)_            | $O(n)$           | $O(1)$
-
 
 Dictionary operation | Singly-linked unsorted List | Doubly-linked unsorted List | Singly-linked sorted List | Doubly-linked sorted List
 ---                 | ---       | ---       | ---       | ---
@@ -189,14 +193,16 @@ void insert_tree(tree **l, item_type x, tree *parent)
         insert_tree(&((*l)->right), x, *l);
 }
 ```
-__Basic operations:__
+
+### Basic operations
+
 * _Searching_ — $O(h)$ where _h_ denotes the height of the tree.
 * _Finding Minimum and Maximum Elements_ — Minimum the leftmost element and Maximum is the rightmost element $O(h)$.
 * _Traversal_ — $O(n)$
 * _Insertion_ — $O(h)$
 * _Deletion_ — $O(h)$
 
-__How good Are Binary Search Tree ?__
+### How good Are Binary Search Tree
 
 When the tree is perfectly balanced $h = \lceil \log{n}\rceil$.
 Trees depends on insertion order, and bad things can happen (i.e adding sorted items will build a skinny linear height tree populating only right pointers where $h = n$).
@@ -204,7 +210,7 @@ Trees depends on insertion order, and bad things can happen (i.e adding sorted i
 On _average_ when we average over the $n!$ possible insertion orderings, we have a high probability of $O(\log{n})$ height.
 The power of _randomization_ can produce algorithms with good performance with high probability. Quicksort is a child of such a thought.
 
-__Balanced Search Trees__
+### Balanced Search Trees
 
 Sophisticated _balanced_ binary search tree data structures have been deployed that guarantee the height of the tree always to be $O(\log{n})$, therefore all dictionary operations (insert, delete, query) take $O(\log{n})$ time each.
 
@@ -213,6 +219,7 @@ Picking the wrong data structure for the job can be disastrous in terms of perfo
 ## Priority Queues
 
 _Priority queues_ are data structures that provide more flexibility than simple sorting, because they allow new elements to enter a system at arbitrary intervals.
+
 * _Insert(Q, x)_
 * _Find-Minimum/Maximum(Q)_
 * _Delete-Minimum/Maximum(Q)_
@@ -233,13 +240,14 @@ A hash function is a mathematical function that maps keys to integers. Using it 
 
 $H(S) = \sum_{i=0}^{|S|} α^{|S| - (i+1)}char(S_i)$
 _where_
-$α$ is the the size of the alphabet on which a given string $S$ is written.
+$α$ is the the size of the alphabet on which a given string $S$ is written.  
+
 ```char(c)``` a function that maps each symbol of the alphabet to a unique integer from $0$ to $α - 1$.
 
 $H(S)$ maps each string to a unique (but large) integer by treating the characters of the string as "digits" in a base-$α$ number system.
 By selecting a good m number (ideally a large prime number not too close to $2^{i-1}$) we could produce uniformly distributed hash values with $H(S)\bmod m$.
 
-__Collision Resolution__
+### Collision Resolution
 
 _Chaining_ is the easiest approach to collision resolution. Which is an array of $m$ linked lists. the _ith_ list will contain all the items that hash to the value of $i$. Chaining is natural but has a lot of pointer memory.
 _Open Addressing_ maintains an array of elements (not buckets) and inserts elements of similar hash into contiguous places.
