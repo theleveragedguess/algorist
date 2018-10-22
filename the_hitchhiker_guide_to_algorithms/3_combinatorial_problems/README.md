@@ -1,6 +1,6 @@
 # Combinatorial Problems
 
-We are particularly interested in algorithms that rank and unrank combinatorial objects—i.e. , that map each distinct object to and from a unique integer. Rank and unrank operations make many other tasks simple, such as generating random objects (pick a random number and unrank) or listing all objects in order (iterate from 1 to n and unrank).
+We are particularly interested in algorithms that rank and unrank combinatorial objects—i.e. , that map each distinct object to and from a unique integer. Rank and unrank operations make many other tasks simple, such as generating random objects (pick a random number and unrank) or listing all objects in order (iterate from $1$ to $n$ and unrank).
 
 ## Sorting
 
