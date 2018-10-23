@@ -64,7 +64,7 @@ int pq_parent(int n)
 
 int pq_young_child(int n)
 {
-    return(2 * n);
+    return 2 * n;
 }
 ```
 

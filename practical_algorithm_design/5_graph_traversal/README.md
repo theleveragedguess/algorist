@@ -24,7 +24,7 @@ __Graphs can be used to model a wide variety of structures and relationships. Gr
 
 Selecting the right graph data structure can have an enormous impact on performance. Your two basic choices are adjacency matrices and adjacency lists. We assume the graph $G=(V,E)$ contains $n$ vertices and $m$ edges.
 
-* _Adjacency Matrix_—  We can represent $G$ using $n * n$ matrix $M$, where element $M[i,i] = 1$ if $(i,j)$ is an edge of $G$, and $0$ if it isn't. It uses excessive space for graphs with many vertices but allows a fast answer for the question "is $(i,j)$ in $G$ ?", and rapid updates for edge insertion and deletion.
+* _Adjacency Matrix_—  We can represent $G$ using $n \times n$ matrix $M$, where element $M[i,i] = 1$ if $(i,j)$ is an edge of $G$, and $0$ if it isn't. It uses excessive space for graphs with many vertices but allows a fast answer for the question "is $(i,j)$ in $G$ ?", and rapid updates for edge insertion and deletion.
 * _Adjacency Lists_—  We can more efficiently represent sparse graphs by using linked lists to store the neighbors adjacent to each vertex. Adjacency lists make it harder to verify whether a given edge $(i,j)$ is in $G$. However, it is surprisingly easy to design graph algorithms that avoid any need for such queries.
 
 __Adjacency Lists are the right data structures for most applications of graphs.__
