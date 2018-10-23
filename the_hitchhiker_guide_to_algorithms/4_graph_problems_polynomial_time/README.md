@@ -3,7 +3,7 @@
 ## Connected Components
 
 __Input description__: A directed or undirected graph $G$.  
-__Problem description__: Identify the different pieces or components of $G$, where vertices $x$ and y are members of different components if no path exists from $x$ to $y$ in $G$.  
+__Problem description__: Identify the different pieces or components of $G$, where vertices $x$ and $y$ are members of different components if no path exists from $x$ to $y$ in $G$.  
 
 ## Topological Sorting
 
