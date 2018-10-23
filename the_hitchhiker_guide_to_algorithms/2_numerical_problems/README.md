@@ -7,7 +7,7 @@ Numerical algorithms tend to be different beasts than combinatorial algorithms f
 
 ## Solving Linear Equations
 
-__Input description__: An $m×n$ matrix $A$ and an $m×1$ vector $b$, together representing $m$ linear equations on $n$ variables.  
+__Input description__: An $m \times n$ matrix $A$ and an $m×1$ vector $b$, together representing $m$ linear equations on $n$ variables.  
 __Problem description__: What is the vector $x$ such that $A·x = b$?
 
 ## Bandwidth Reduction
