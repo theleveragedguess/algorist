@@ -47,8 +47,7 @@ The name typically given to this algorithm, _heapsort_, obscures  the relationsh
 
 Heaps are a simple and elegant data structure for efficiently supporting the priority queue operations _insert_ and _extract-min_. They work by maintaining a partial order on the set of elements which is weaker than the sorted order (so it can be efficient to maintain) yet stronger than random order (so the minimum element can be quickly identified).  
 
-Power in any hierarchically-structured organization is reflected  by a tree where each node in the tree represent a person, and edge $(x, y)$ implies that $x$ directly supervises (or dominates) $y$. The fellow at the root sits at the “top of the heap”.
-In this spirit, a _heap-labeled tree_ is defined to be a binary tree such that the key labeling of each node _dominates_ the key labeling of each of its children. In a _min-heap_, a node dominates its children by containing a smaller key than they do, while in a _max-heap_ parents node dominate by being bigger.
+A _heap-labeled tree_ is defined to be a binary tree such that the key labeling of each node _dominates_ the key labeling of each of its children. In a _min-heap_, a node dominates its children by containing a smaller key than they do, while in a _max-heap_ parents node dominate by being bigger.
 The heap is a slick data structure that enables us to represent binary trees without using any pointers. We will store data as an array of keys, and use the position of the keys to _implicitly_ satisfy the role of pointers. In general, we store the $2^{l-1}$ keys of the _lth_ level of a complete binary tree from left-to-right in positions $2^{l-1}$ to $2^l-1$. We assume that the array starts with 1 to simplify matters.
 
 ```c
@@ -333,6 +332,7 @@ int binary_search(item_type s[], item_type key, int low, int high)
 What is important is to have a sense of just how fast binary search is. The popular children's game _Twenty questions_ can be solved under 20 questions if we just try to find the looked for word by using the binary search technique on a dictionary.
 
 Several interesting algorithms follow from simple variants of binary search. Like _counting the occurrences_ of a key in a sorted array. Using _binary search_ by looking for the low bound while not stopping at a matching equality will give us the starting index of such keys. Repeating the procedure in the opposite direction gives the end index of those. Finally a simple subtraction gives the solution away.  
+
 _One-sided binary search_ is most useful whenever we are looking for a key that lies close to our current position, in a run of many similar keys that are arranged sequentially by likeness. Looking for a pivot point always points us toward the correct portion where we should keep directing our search.  
 
 _Square and other roots_ are also more easily obtained using _binary_search_ knowing that testing the median of the distribution will also tells more precisely in which portion to look next, reducing drastically the size of the problem.
@@ -362,7 +362,7 @@ Divide-and-conquer algorithms tend to break a given problem into some number of 
 * _Sorting_ — $T(n) = 2T(n/2) + O(1)$ as we spend linear time merging two equally divided halves. $T(n) = O(n\lg{n})$
 * _Binary Search_ — $T(n) = T(n/2) + O(1)$ as we spend constant time reducing the problem into half and not even bother ourself about merging. $T(n) = O(\lg{n})$
 * _Fast Heap Construction_ — the $T(n) = 2T(n/2) + O(\lg{n})$ as we use the ```bubble_down``` method of heap construction to merge in logarithm time two equally divided halves of the tree. $T(n) = O(n)$
-* _Matrix Multiplication_ — usually multiplying $n*n$ matrices takes $O(n^3)$. Strassen divide-and-conquer method algorithm manipulates the product of seven $n/2*n/2$ matrix products to yield the product of two $n * n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
+* _Matrix Multiplication_ — usually multiplying $n \times n$ matrices takes $O(n^3)$. Strassen divide-and-conquer method algorithm manipulates the product of seven $(n/2) \times (n/2)$ matrix products to yield the product of two $n \times n$ matrices thus $T(n) = 7T(n/2) + O(n^2)$ which by solving the recurrence evaluates to $O(n^{2.81})$.
 
 ### Solving Divide-and-Conquer Recurrences
 
@@ -378,6 +378,4 @@ To understand the _master theorem_ we need to understand that a problem of size 
 
 * _Case 1: Too many leaves_ — if the number of leaf nodes outweighs the sum of the internal evaluation cost, the total running time is $O(n^{\log_b{a}})$.
 * _Case 2: Equal work per level_ — as we move down the tree, each problem gets smaller but there are more of them to solve. If the sum of the internal evaluation costs at each level are equal, the total running time is the cost per level ($n^{\log_b{a}}$) time the number of levels ($\log_b{n}$), for a total running time of $O(n^{\log_b{a}}\lg{n})$.
-* _Case 3: Too expensive a root_ — if the internal evaluation costs grow rapidly enough with $n$, then the most of the root evaluation may dominate. If so, the total running time is $O(f(n))$.
-
-__The most interesting sorting algorithms that have not been discussed in this section include _shellsort_, which is a substantially more efficient version of insertion sort, and _radix sort_, an efficient algorithm for sorting strings.__
+* _Case 3: Too expensive a root_ — if the internal evaluation costs grow rapidly enough with $n$, then the cost of the root evaluation may dominate. If so, the total running time is $O(f(n))$.
