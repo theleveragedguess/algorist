@@ -372,7 +372,7 @@ $T(n) = aT(n/b) + f(n)$ usually falls into three distinct cases:
 * if $f(n) = \Theta(n^{\log_b{a}})$, then $T(n) = \Theta(n^{\log_b{a}}\lg{n})$
 * if $f(n) = \Omega(n^{\log_b{a+e}})$ for some constant $e > 0$, then if $af(n/b) \leq cf(n)$ for some $c<1$, then $T(n) = \Theta(n^{\log_b{a}})$
 
-This _master theorem_ has Case 1 holding for heap construction and matrix multiplication, while Case 2 holds for mergesort and binary search. Case 3 generally arises for clumsier algorithms, where the cost of combining the subproblems dominates everything.
+This _master theorem_ has Case 1 holding for heap construction and matrix multiplication, while Case 2 holds for mergesort and binary search. Case 3 generally arises for clumsier algorithms, where the cost of combining the sub-problems dominates everything.
 
 To understand the _master theorem_ we need to understand that a problem of size $n$ is decomposed into $a$ problems of size $n/b$. Each subproblem of size $k$ tales $O(f(k))$ time to deal with internally, between partitioning and merging. The total time for the algorithm is the sum of these internal costs, plus the overhead of building the recursion tree. The height of this tree is $h = \log_b{n}$ and the number of leaf nodes $a^h = a^{\log_b{n}}$, which simplifies to $n^{\log_b{a}}$.
 
