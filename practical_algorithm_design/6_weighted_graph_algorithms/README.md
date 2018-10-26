@@ -5,17 +5,23 @@ There is an alternate universe of problems for _weighted graphs_. Identifying th
 ## Minimum Spanning Trees
 
 A _spanning tree_ of a graph $G=(V,E)$ is a subset of edges from $E$ forming a tree connecting all vertices of $V$. For edge-weighted graphs, we are particularly interested in the _minimum spanning tree_—the spanning tree whose sum of edge weights is a small as possible.  
+
 Two different algorithms are presented below. Both demonstrate the optimality of certain greedy heuristics.
 
 ### Prim's Algorithm
 
 Prim's minimum spanning tree algorithm starts from one vertex and grows the rest of the tree one edge at a time until all vertices are included.  
-Greedy algorithms make the decision of what to do next by selecting the best local option from all available choices without regards to the global structure. Since we seek the tree of minimum weight, the natural greedy algorithm for minimum spanning tree repeatedly selects the smallest weight edge that will enlarge the number of vertices int the tree.  
+
+Greedy algorithms make the decision of what to do next by selecting the best local option from all available choices without regards to the global structure. Since we seek the tree of minimum weight, the natural greedy algorithm for minimum spanning tree repeatedly selects the smallest weight edge that will enlarge the number of vertices in the tree.  
+
 Prim's algorithm clearly creates a spanning tree, because no cycle can be introduced by adding edges between tree and non-tree vertices. However, why should it be of minimum weight over all spanning trees?  
+
 We use proof by contradiction. Suppose that there existed a graph $G$ for which Prim's algorithm did not return a minimum spanning tree. Since we are building the tree incrementally, this means that there must have been some particular instant where we went wrong. Before we inserted edge $(x,y)$, $T_{prim}$ consisted of a set of edges that was a subtree of some minimum spanning tree $T_{min}$, but choosing edge $(x,y)$ fatally took us away from a minimum spanning tree.  
+
 But how could we have gone wrong? There must be a path $p$ from $x$ to $y$ in $T_{min}$. This path must use an edge $(v_1, v_2)$, where $v_1$ is in $T_{prim}$, but $v_2$ is not. This edge $(v_1, v_2)$ must have weight at least that of $(x,y)$, or Prim's algorithm would have selected it before $(x,y)$ when it had the chance. Inserting $(x,y)$ and deleting $(v_1, v_2)$ from $T_{min}$ leaves a spanning tree no larger than before, meaning that Prim's algorithm did not make a fatal mistake in selecting edge $(x,y)$. Therefore, by contradiction, Prim's algorithm must construct a minimum spanning tree.
 
 Prim's algorithm grows the minimum spanning tree in stages, starting from a given vertex. At each iteration, we add one new vertex into the spanning tree. A greedy algorithm suffices for correctness: we always add the lowest-weight edge linking a vertex in the tree to a vertex on the outside.  
+
 Our implementation keeps track of the cheapest edge linking every non-tree vertex in the tree. The cheapest such edge over all remaining non-tree vertices gets added in each iteration.
 
 ```c
@@ -70,7 +76,9 @@ void prim(graph *g, int start)
 ```
 
 Our implementation avoids the need to test all $m$ edges on each pass. It only considers the $\le n$ cheapest known edges represented in the `parent` array and the $\le n$ edges out of the new tree vertex $v$ to update `parent`. By maintaining a Boolean flag along with each vertex to denote whether it is in the tree or not, we test whether the current edge joins a tree with a non-tree vertex in constant time.  
+
 The result is an $O(n^2)$ implementation of Prim's algorithm, and a good illustration of the power of data structures to speed up algorithms. In fact, more sophisticated priority-queue data structures lead to an $O(m+n\lg{n})$ implementation, by making it faster to find the minimum cost edge to expand the tree at each iteration.  
+
 The minimum spanning tree itself or its cost can be reconstructed in two different ways. The simplest method would be to augment this procedure with statements that print the edges as they are found or totals the weight of all selected edges. Alternately, the tree topology is encoded by the `parent` array, so it plus the original graph describe everything about the minimum spanning tree.
 
 ### Kruskal's Algorithm
