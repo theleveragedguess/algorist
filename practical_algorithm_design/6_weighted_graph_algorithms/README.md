@@ -7,7 +7,7 @@ There is an alternate universe of problems for _weighted graphs_. Identifying th
 A _spanning tree_ of a graph $G=(V,E)$ is a subset of edges from $E$ forming a tree connecting all vertices of $V$. For edge-weighted graphs, we are particularly interested in the _minimum spanning tree_—the spanning tree whose sum of edge weights is a small as possible.  
 Two different algorithms are presented below. Both demonstrate the optimality of certain greedy heuristics.
 
-**Prim's Algorithm**
+### Prim's Algorithm
 
 Prim's minimum spanning tree algorithm starts from one vertex and grows the rest of the tree one edge at a time until all vertices are included.  
 Greedy algorithms make the decision of what to do next by selecting the best local option from all available choices without regards to the global structure. Since we seek the tree of minimum weight, the natural greedy algorithm for minimum spanning tree repeatedly selects the smallest weight edge that will enlarge the number of vertices int the tree.  
@@ -73,7 +73,7 @@ Our implementation avoids the need to test all $m$ edges on each pass. It only c
 The result is an $O(n^2)$ implementation of Prim's algorithm, and a good illustration of the power of data structures to speed up algorithms. In fact, more sophisticated priority-queue data structures lead to an $O(m+n\lg{n})$ implementation, by making it faster to find the minimum cost edge to expand the tree at each iteration.  
 The minimum spanning tree itself or its cost can be reconstructed in two different ways. The simplest method would be to augment this procedure with statements that print the edges as they are found or totals the weight of all selected edges. Alternately, the tree topology is encoded by the `parent` array, so it plus the original graph describe everything about the minimum spanning tree.
 
-**Kruskal's Algorithm**
+### Kruskal's Algorithm
 
 Kruskal's algorithm is an alternate approach to finding minimum spanning trees that proves more efficient on sparse graphs. Like Prim's, Kruskal's algorithm is greedy. Unlike Prim's, it does not start with a particular vertex.  
 Kruskal's algorithm builds up connected components of vertices, culminating in the minimum spanning tree. Initially, each vertex forms its own separate component in the tree-to-be. The algorithm repeatedly considers the lightest remaining edge and tests whether its two endpoints lie within the same connected component. If so, this edge will be discarded, because adding it would create a cycle in the tree-to-be. If the endpoint are in different components, we insert the edge and merge the two components into one.  
@@ -104,7 +104,7 @@ void kruskal(graph *g)
 }
 ```
 
-**The Union_Find Data Structure**
+### The Union_Find Data Structure
 
 A _set partition_ is a partitioning of the elements of some universal set (say the integers $1$ to $n$) into a collection of disjointed subsets. Thus, each element must be in exactly one subset.  
 The connected components in a graph can be represented as a set partition. For Kruskal's algorithm to run efficiently, we need a data structure that efficiently supports the following operations:
@@ -180,7 +180,7 @@ bool same_component(set_union *s, int s1, int s2)
 
 We must double the number of nodes in the tree to get an extra unit of height, at most $\lg\_{2}{n}$ doublings. Thus, we can do both unions and finds in $O(\log{n})$, good enough for Kruskal's algorithm. In fact, union_find can be done even faster...
 
-**Variations on Minimum Spanning Tree**
+### Variations on Minimum Spanning Tree
 
 This minimum spanning tree algorithm has several interesting properties that help solves several closely related problems:
 
@@ -201,7 +201,7 @@ A _path_ is a sequence of edges connecting two vertices and their multiplicity h
 In a weighted graph, the shortest path is not necessarily the one with the fewer edges, as a faster and more complicated path can be constructed with more edges that have a minimal sum of weights.  
 We will present two distinct algorithms for finding the shortest paths in weighted graphs.
 
-**Dijkstra’s Algorithm**
+### Dijkstra’s Algorithm
 
 Dijkstra’s algorithm is the method of choice for finding shortest paths in an edge- and/or vertex-weighted graph. Given a particular start vertex, it finds the shortest path from $s$ to every other vertex in the graph, including your desired destination $t$.  
 Suppose the shortest path from $s$ to $t$ in graph $G$ passes through a particular intermediate vertex $x$. Clearly, this path must contain the shortest path from $s$ to $x$ as its prefix, because if not, we could shorten our $s-to-t$ path by using the shorter $s-to-x$ prefix. Thus, we must compute the shortest path from $s$ to $x$ before we ﬁnd the path from $s$ to $t$.  
@@ -262,7 +262,7 @@ This algorithm finds more than just the shortest path from $s$ to $t$. It finds 
 Dijkstra's algorithm then yields a complexity of $O(n^2)$.  
 Dijkstra works correctly only on graphs without negative-cost edge, however most applications do not feature negative-weight edges, making this discussion academic.
 
-**All-Pairs Shortest Path**
+### All-Pairs Shortest Path
 
 We could solve _all-pairs shortest path_ by calling Dijkstra’s algorithm from each of the $n$ possible starting vertices. But Floyd’s all-pairs shortest-path algorithm is a slick way to construct this $n\*n$ distance matrix from the original weight matrix of the graph.  
 Floyd’s algorithm is best employed on an adjacency matrix data structure, which is no extravagance since we must store all $n^2$ pairwise distances anyway.
@@ -275,18 +275,20 @@ typedef struct
 } adjacency_matrix;
 ```
 
-We should initialize each non-edge to ```MAXINT```. This way we can both test whether it is present and automatically ignore it in shortest-path computations, since only real edges will be used.   
-The Floyd-Warshall algorithm starts by numbering the vertices of the graph from $1$ to $n$. We use these numbers not to label the vertices, but to order them. Define $W[i,j]^k$ to be the length of the shortest path from $i$ to $j$ using only vertices numbered from $1,2,...,k$ as possible intermediate vertices.   
-We will perform $n$ iterations, where the $k$th iteration allows only the first $k$ vertices as possible intermediate steps on the path between each pair of vertices $x$ and $y$.   
-At each iteration, allowing the $kth$ vertex as a stop helps only if there is a short path that goes through $k$, so
-$W[i,j]^k = min(W[i,j]^{k−1},W[i,k]^{k−1} + W[k,j]^{k−1})$ 
+We should initialize each non-edge to ```MAXINT```. This way we can both test whether it is present and automatically ignore it in shortest-path computations, since only real edges will be used.  
 
+The Floyd-Warshall algorithm starts by numbering the vertices of the graph from $1$ to $n$. We use these numbers not to label the vertices, but to order them. Define $W[i,j]^k$ to be the length of the shortest path from $i$ to $j$ using only vertices numbered from $1,2,...,k$ as possible intermediate vertices.  
+
+We will perform $n$ iterations, where the $k$th iteration allows only the first $k$ vertices as possible intermediate steps on the path between each pair of vertices $x$ and $y$.  
+
+At each iteration, allowing the $kth$ vertex as a stop helps only if there is a short path that goes through $k$, so
+$W[i,j]^k = min(W[i,j]^{k−1},W[i,k]^{k−1} + W[k,j]^{k−1})$
 
 ```c
 void floyd(adjacency_matrix *g)
 {
     int i, j;      // dimension counters
-    int k;         // intermediate vertex counter 
+    int k;         // intermediate vertex counter
     int through_k; // distance through vertex k
 
     for (k = 1; k <= g->nvertices; k++)
@@ -302,31 +304,35 @@ void floyd(adjacency_matrix *g)
 
 The Floyd-Warshall all-pairs shortest path runs in $O(n^3)$ time, which is asymptotically no better than $n$ calls to Dijkstra’s algorithm. However, the loops are so tight and the program so short that it runs better in practice. It is notable as one of the rare graph algorithms that work better on adjacency matrices than adjacency lists.
 
-__Transitive Closure__    
+#### Transitive Closure
 
-Floyd’s algorithm has another important application, that of computing _transitive closure_. In analyzing a directed graph, we are often interested in which vertices are reachable from a given node.   
+Floyd’s algorithm has another important application, that of computing _transitive closure_. In analyzing a directed graph, we are often interested in which vertices are reachable from a given node.  
+
 The vertices reachable from any single node can be computed using breadth-first or depth-first searches. But the whole batch can be computed using an all-pairs shortest-path. If the shortest path from $i$ to $j$ remains ```MAXINT``` after running Floyd’s algorithm, you can be sure no directed path exists from $i$ to $j$.
 
 ## Network Flows and Bipartite Matching
 
 Edge-weighted graphs can be interpreted as a network of pipes, where the weight of edge $(i,j)$ determines the capacity of the pipe. The _network flow problem_ asks for the maximum amount of flow which can be sent from vertices $s$ to $t$ in a given weighted graph $G$ while respecting the maximum capacities of each pipe.
 
-__Bipartite Matching__   
+### Bipartite Matching
 
-While the network flow problem is of independent interest, its primary importance is in to solving other important graph problems. A classic example is bipartite matching. A _matching_ in a graph $G =(V,E)$ is a subset of edges $E' \subset E$ such that no two edges of $E'$ share a vertex. A matching pairs oﬀ certain vertices such that every vertex is in, at most, one such pair.   
-Graph $G$ is _bipartite_ or _two-colorable_ if the vertices can be divided into two sets, $L$ and $R$, such that all edges in $G$ have one vertex in $L$ and one vertex in $R$.   
+While the network flow problem is of independent interest, its primary importance is in to solving other important graph problems. A classic example is bipartite matching. A _matching_ in a graph $G =(V,E)$ is a subset of edges $E' \subset E$ such that no two edges of $E'$ share a vertex. A matching pairs oﬀ certain vertices such that every vertex is in, at most, one such pair.  
+
+Graph $G$ is _bipartite_ or _two-colorable_ if the vertices can be divided into two sets, $L$ and $R$, such that all edges in $G$ have one vertex in $L$ and one vertex in $R$.  
+
 The largest bipartite matching can be readily found using network flow. Create a _source_ node $s$ that is connected to every vertex in $L$ by an edge of weight $1$. Create a _sink_ node $t$ and connect it to every vertex in $R$ by an edge of weight $1$. Finally, assign each edge in the bipartite graph $G$ a weight of $1$. Now, the maximum possible flow from $s$ to $t$ defines the largest matching in $G$. Certainly we can find a flow as large as the matching by using only the matching edges and their source-to-sink connections. Further, there can be no greater possible flow. How can we ever hope to get more than one flow unit through any vertex?
 
-__Computing Network Flows__   
+#### Computing Network Flows
 
 Traditional network flow algorithms are based on the idea of _augmenting paths_, and repeatedly finding a path of positive capacity from _s_ to _t_ and adding it to the flow. It can be shown that the flow through a network is optimal if and only if it contains no augmenting path. Since each augmentation adds to the flow, we must eventually find the global maximum.
-The key structure is the _residual flow graph_, denoted as $R(G,f)$, where $G$ is the input graph and $f$ is the current flow through $G$. This directed, edge-weighted $R(G,f)$ contains the same vertices as $G$. For each edge $(i,j)$ in $G$ with capacity $c(i,j)$ and ﬂow $f(i,j)$, $R(G,f)$ may contain two edges: 
-* $(i)$ an edge $(i,j)$ with weight $c(i,j)−f(i,j)$, if $c(i,j)−f(i,j) > 0$
-* $(ii)$ an edge $(j,i)$ with weight $f(i,j)$, if $f(i,j) > 0$   
+The key structure is the _residual flow graph_, denoted as $R(G,f)$, where $G$ is the input graph and $f$ is the current flow through $G$. This directed, edge-weighted $R(G,f)$ contains the same vertices as $G$. For each edge $(i,j)$ in $G$ with capacity $c(i,j)$ and ﬂow $f(i,j)$, $R(G,f)$ may contain two edges:
 
-The presence of edge $(i,j)$ in the residual graph indicates that positive flow can be pushed from $i$ to $j$. The weight of the edge gives the exact amount that can be pushed. A path in the residual flow graph from $s$ to $t$ implies that more flow can be pushed from $s$ to $t$ and the minimum edge weight on this path defines the amount of extra flow that can be pushed.   
+- $(i)$ an edge $(i,j)$ with weight $c(i,j)−f(i,j)$, if $c(i,j)−f(i,j) > 0$
+- $(ii)$ an edge $(j,i)$ with weight $f(i,j)$, if $f(i,j) > 0$  
 
-__The maximum ﬂow from s to t always equals the weight of the minimum s-t cut. Thus, flow algorithms can be used to solve general edge and vertex connectivity problems in graphs.__ 
+The presence of edge $(i,j)$ in the residual graph indicates that positive flow can be pushed from $i$ to $j$. The weight of the edge gives the exact amount that can be pushed. A path in the residual flow graph from $s$ to $t$ implies that more flow can be pushed from $s$ to $t$ and the minimum edge weight on this path defines the amount of extra flow that can be pushed.  
+
+__The maximum ﬂow from s to t always equals the weight of the minimum s-t cut. Thus, flow algorithms can be used to solve general edge and vertex connectivity problems in graphs.__
 
 For each edge in the residual flow graph, we must keep track of both the amount of ﬂow currently going through the edge, as well as its remaining residual capacity. Thus, we must modify our edge structure to accommodate the extra fields:
 
@@ -343,13 +349,13 @@ typedef struct
 void netflow(flow_graph *g, int source, int sink)
 {
     int volume; // weight of the augmenting path
-    
+
     add_residual_edges(g);
-    
-    initialize_search(g);   
+
+    initialize_search(g);
     bfs(g, source);
     volume = path_volume(g, source, sink, parent);
-    
+
     while (volume > 0)
     {
         augment_path(g, source, sink, parent, volume);
@@ -374,14 +380,14 @@ int path_volume(flow_graph *g, int start, int end, int parents[])
 
     if (parents[end] == -1)
         return 0;
-    
+
     e = find_edge(g, parents[end], end);
 
     if (start == parents[end])
         return e->residual;
     else
         return min(
-            path_volume(g, start, parents[end], parents), 
+            path_volume(g, start, parents[end], parents),
             e->residual
         );
 }
@@ -389,7 +395,7 @@ int path_volume(flow_graph *g, int start, int end, int parents[])
 edgenode *find_edge(flow_graph *g, int x, int y)
 {
     edgenode *p;  // temporary pointer
-    
+
     p = g->edges[x];
     while (p != NULL)
     {
@@ -409,7 +415,7 @@ augment_path(flow_graph *g, int start, int end, int parents[], int volume)
 
     if (start == end)
         return;
-    
+
     e = find_edge(g, parents[end], end);
     e->flow += volume;
     e->residual -= volume;
@@ -421,14 +427,17 @@ augment_path(flow_graph *g, int start, int end, int parents[], int volume)
 }
 ```
 
-The augmenting path algorithm above eventually converges on the the optimal solution. However each augmenting path may add only a little to the total ﬂow, so, in principle, the algorithm might take an arbitrarily long time to converge.    
+The augmenting path algorithm above eventually converges on the the optimal solution. However each augmenting path may add only a little to the total ﬂow, so, in principle, the algorithm might take an arbitrarily long time to converge.  
+
 However, always selecting a shortest unweighted augmenting path guarantees that $O(n^3)$ augmentations suffice for optimization. In fact, this is what is implemented above, since a breadth-first search from the source is used to ﬁnd the next augmenting path.
 
 ## Design Graphs not Algorithms
 
-Proper modeling is the key to making effective use of graph algorithms. We have defined several graph properties, and developed algorithms for computing them.    
+Proper modeling is the key to making effective use of graph algorithms. We have defined several graph properties, and developed algorithms for computing them.  
+
 These classical graph problems provide a framework for modeling most applications. The secret is learning to design graphs, not algorithms. We have already seen a few instances of this idea:
-* The maximum spanning tree can be found by negating the edge weights of the input graph $G$ and using a minimum spanning tree algorithm on the result. The most negative weight spanning tree will define the maximum weight tree in $G$. 
-* To solve bipartite matching, we constructed a special network ﬂow graph such that the maximum flow corresponds to a maximum cardinality matching.
+
+- The maximum spanning tree can be found by negating the edge weights of the input graph $G$ and using a minimum spanning tree algorithm on the result. The most negative weight spanning tree will define the maximum weight tree in $G$.
+- To solve bipartite matching, we constructed a special network ﬂow graph such that the maximum flow corresponds to a maximum cardinality matching.
 
 __Designing novel graph algorithms is very hard, so don’t do it. Instead, try to design graphs that enable you to use classical algorithms to model your problem.__
