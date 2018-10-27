@@ -189,7 +189,8 @@ void process_solution(int a[], int k)
 ## Search Pruning
 
 _Pruning_ is the technique of cutting oﬀ the search the instant we have established that a partial solution cannot be extended into a full solution. Exploiting symmetry is another avenue for reducing combinatorial searches. Pruning away partial solutions identical to those previously considered requires recognizing underlying symmetries in the search space.  
-__Clever pruning can make short work of surprisingly hard combinatorial search problems. Proper pruning will have a greater impact on search time than any other factor__
+
+__Clever pruning can make short work of surprisingly hard combinatorial search problems. Proper pruning will have a greater impact on search time than any other factor.__
 
 ## Heuristic Search Methods
 
@@ -299,6 +300,7 @@ A physical system, as it cools, seeks to reach a minimum-energy state. Minimizin
 __Simulated annealing is effective because it spends much more of its time working on good elements of the solution space than on bad ones, and because it avoids getting trapped repeatedly in the same local optima.__
 
 As with a local search, the problem representation includes both a representation of the solution space and an easily computable cost function $C(s)$ measuring the quality of a given solution. The new component is the _cooling schedule_, whose parameters govern how likely we are to accept a bad transition as a function of time.  
+
 At the beginning of the search, we are eager to use randomness to explore the search space widely, so the probability of accepting a negative transition should be high. As the search progresses, we seek to limit transitions to local improvements and optimizations. The cooling schedule can be regulated by the following parameters:
 
 * _Initial system temperature_ – Typically $t_1 = 1$.
@@ -308,6 +310,7 @@ At the beginning of the search, we are eager to use randomness to explore the se
 * _Stop criteria_ – Typically, when the value of the current solution has not changed or improved within the last iteration or so, the search is terminated and the current solution reported.  
 
 Creating the proper cooling schedule is somewhat of a trial-and-error process of mucking with constants and seeing what happens.  
+
 In expert hands, the best problem-specific heuristics for TSP can slightly outperform simulated annealing. But the simulated annealing solution works admirably more easily.
 
 ```c
