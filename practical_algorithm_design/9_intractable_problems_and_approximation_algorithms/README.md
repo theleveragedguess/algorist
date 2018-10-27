@@ -149,7 +149,7 @@ We can think of the class __P__ as an exclusive club for algorithmic problems th
 
 A less-exclusive club welcomes all the algorithmic problems whose solutions can be verified in polynomial-time. As shown above, this club contains traveling salesman, satisfiability, and vertex cover, none of which currently have the credentials to join P. We call this less-exclusive club __NP__.  
 
-The &#36;1,000,000 question is whether there are in fact problems in NP that cannot be members of P. If no such problem exists, the classes must be the same and $P = NP$. If even one such a problem exists, the two classes are different and $P \neq NP$. The opinion of most algorists and complexity theorists is that the classes differ, meaning $P \neq NP$, but a much stronger proof than “I can’t ﬁnd a fast enough algorithm” is needed.
+The $\$$1,000,000 question is whether there are in fact problems in NP that cannot be members of P. If no such problem exists, the classes must be the same and $P = NP$. If even one such a problem exists, the two classes are different and $P \neq NP$. The opinion of most algorists and complexity theorists is that the classes differ, meaning $P \neq NP$, but a much stronger proof than “I can’t ﬁnd a fast enough algorithm” is needed.
 
 ### Why is Satisfiability the Mother of All Hard Problems
 
