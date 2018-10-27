@@ -25,7 +25,7 @@ Fortunately, most interesting optimization problems can be phrased as decision p
 
 ## Reductions for Algorithms
 
-To solve problem $a$, we translate/reduce the a instance to an instance of $b$, then solve this instance using an efficient algorithm for problem $b$. The overall running time is the time needed to perform the reduction plus that solve the $b$ instance.
+To solve problem $a$, we translate/reduce the a instance to an instance of $b$, then solve this instance using an efficient algorithm for problem $b$. The overall running time is the time needed to perform the reduction plus solving the $b$ instance.
 
 ### Hamiltonian Cycle
 
