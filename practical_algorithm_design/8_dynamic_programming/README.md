@@ -65,7 +65,7 @@ long fib_c_driver(int n)
 }
 ```
 
-This cached version runs instantly up to the largest value that can fot in a long integer.  
+This cached version runs instantly up to the largest value that can fit in a long integer.  
 
 What is the running time of this algorithm? The recursion tree provides more of a clue than the code. In fact, it computes $F(n)$ in linear time (in other words, $O(n)$ time) because the recursive function ```fib_c(k)``` is called exactly twice for each value $0 \leq k \leq n$.  
 
@@ -391,7 +391,7 @@ int match(char c, char d)
     if (c == d)
         return 0;
     else
-        returnMAXLEN;
+        return MAXLEN;
 }
 ```
 
@@ -406,7 +406,7 @@ There are three steps involved in solving a problem by dynamic programming:
 ## The Partition Problem
 
 _Problem_: Integer Partition without Rearrangement  
-_Input_: An arrangement S of non negative numbers $\{s_1,...,s_n\}$ and an integer $k$.  
+_Input_: An arrangement S of non negative numbers $\lbrace s_1,...,s_n\rbrace$ and an integer $k$.  
 _Output_: Partition $S$ into $k$ or fewer ranges, to minimize the maximum sum over all the ranges, without reordering any of the numbers.  
 
 This so-called linear partition problem arises often in parallel process. We seek to balance the work done across processors to minimize the total elapsed run time.  
