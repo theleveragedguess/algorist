@@ -116,6 +116,8 @@ Since both satisfiability and 3-SAT are known to be hard, we can use either of t
 
 One perpetual point of confusion is getting the direction of the reduction right. Recall that we must transform every instance of a known NP-complete problem into an instance of the problem we are interested in. If we perform the reduction the other way, all we get is a slow way to solve the problem of interest, by using a subroutine that takes exponential time.  
 
+Below a few useful class of problems that can serve as reductions to many others.
+
 ### Integer Programming
 
 __Problem__: Integer Programming  
