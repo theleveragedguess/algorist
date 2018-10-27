@@ -116,6 +116,18 @@ Since both satisfiability and 3-SAT are known to be hard, we can use either of t
 
 One perpetual point of confusion is getting the direction of the reduction right. Recall that we must transform every instance of a known NP-complete problem into an instance of the problem we are interested in. If we perform the reduction the other way, all we get is a slow way to solve the problem of interest, by using a subroutine that takes exponential time.  
 
+### Integer Programming
+
+__Problem__: Integer Programming  
+__Input__: A set of integer variables $V$ , a set of inequalities over $V$ , a maximization function $f(V)$, and an integer $B$.  
+__Output__: Does there exist an assignment of integers to $V$ such that all inequalities are true and $f(V ) \ge B$?
+
+### Vertex Cover
+
+__Problem__: Vertex Cover  
+__Input__: A graph $G =(V,E)$ and integer $k \leq |V|$.  
+__Output__: Is there a subset $S$ of at most $k$ vertices such that every $e \in E$ has at least one vertex in $S$?
+
 __A small set of NP-complete problems (3-SAT, vertex cover, integer partition, and Hamiltonian cycle) suffice to prove the hardness of most other hard problems.__
 
 ## The Art of Proving Hardness
