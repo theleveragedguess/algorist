@@ -105,10 +105,10 @@ _Output_: Is there a truth assignment to $V$ such that each clause is satisfied?
 
 Since this is a restricted case of satisfiability, the hardness of 3-SAT implies that satisfiability is hard. We can show the hardness of 3-SAT using a reduction that translates every instance of satisfiability into an instance of 3-SAT without changing whether it is satisfiable.
 
-* $k = 1$, meaning that $C_i = \{z_1\}$ – We create two new variables $v_1,v_2$ and four new 3-literal clauses: $\{v_1,v_2,z_1\}, \{v_1,\bar{v_2},z_1\}, \{\bar{v_1},v_2,z_1\}, \{\bar{v_1},\bar{v_2},z_1\}$. Note that the only way that all four of these clauses can be simultaneously satisfied is if $z_1 = true$, which also means the original $C_i$ will be satisfied.
-* $k = 2$, meaning that $C_i = \{z_1, z_2\}$ – We create one new variable $v_1$ and two new clauses: $\{v_1,z_1,z_2\}, \{\bar{v_1},z_1,z_2\}$. Again, the only way to satisfy both of these clauses is to have at least one of $z_1$ and $z_2$ be true, thus satisfying $c_i$.
-* $k = 3$, meaning that $C_i = \{z_1,z_2,z_3\}$ – We copy $C_i$ into the 3-SAT instance unchanged: $\{z_1,z_2,z_3\}$.
-* $k \gt 3$, meaning that $C_i = \{z_1,z_2,...,z_n\}$– We create $n−3$ new variables and $n−2$ new clauses in a chain, where for $2 \leq j \leq n−3, C_{i,j} = \{v_i,j−1,z j+1,\bar{v_i,j}\}, C_{i,1} = \{z_1,z_2,\bar{v_i,1}\}$, and $C_{i,n−2} =\{v_{i,n−3},z_{n−1},z_n\}$.
+* $k = 1$, meaning that $C_i = \lbrace z_1 \rbrace$ – We create two new variables $v_1,v_2$ and four new 3-literal clauses: $\lbrace v_1,v_2,z_1\rbrace , \lbrace v_1,\bar{v_2},z_1\rbrace , \lbrace \bar{v_1},v_2,z_1\rbrace, \lbrace \bar{v_1},\bar{v_2},z_1\rbrace$. Note that the only way that all four of these clauses can be simultaneously satisfied is if $z_1 = true$, which also means the original $C_i$ will be satisfied.
+* $k = 2$, meaning that $C_i = \lbrace z_1, z_2\rbrace$ – We create one new variable $v_1$ and two new clauses: $\lbrace v_1,z_1,z_2\rbrace, \lbrace \bar{v_1},z_1,z_2\rbrace$. Again, the only way to satisfy both of these clauses is to have at least one of $z_1$ and $z_2$ be true, thus satisfying $c_i$.
+* $k = 3$, meaning that $C_i = \lbrace z_1,z_2,z_3\rbrace$ – We copy $C_i$ into the 3-SAT instance unchanged: $\lbrace z_1,z_2,z_3\rbrace$.
+* $k \gt 3$, meaning that $C_i = \lbrace z_1,z_2,...,z_n\rbrace$– We create $n−3$ new variables and $n−2$ new clauses in a chain, where for $2 \leq j \leq n−3, C_{i,j} = \lbrace v_i,j−1,z j+1,\bar{v_i,j}\rbrace, C_{i,1} = \lbrace z_1,z_2,\bar{v_i,1}\rbrace$, and $C_{i,n−2} =\lbrace v_{i,n−3},z_{n−1},z_n\rbrace$.
 
 ### Creative Reductions
 
