@@ -2,6 +2,7 @@
     "recommendations": [
       "ms-vscode.cpptools",
       "twxs.cmake",
-      "goessner.mdmath"
+      "goessner.mdmath",
+      "davidanson.vscode-markdownlint"
     ]
   }

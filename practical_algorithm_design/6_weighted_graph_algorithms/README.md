@@ -4,23 +4,23 @@ There is an alternate universe of problems for _weighted graphs_. Identifying th
 
 ## Minimum Spanning Trees
 
-A _spanning tree_ of a graph $G=(V,E)$ is a subset of edges from $E$ forming a tree connecting all vertices of $V$. For edge-weighted graphs, we are particularly interested in the _minimum spanning tree_—the spanning tree whose sum of edge weights is a small as possible.  
+A _spanning tree_ of a graph $G=(V,E)$ is a subset of edges from $E$ forming a tree connecting all vertices of $V$. For edge-weighted graphs, we are particularly interested in the _minimum spanning tree_—the spanning tree whose sum of edge weights is a small as possible.
 
 Two different algorithms are presented below. Both demonstrate the optimality of certain greedy heuristics.
 
 ### Prim's Algorithm
 
-Prim's minimum spanning tree algorithm starts from one vertex and grows the rest of the tree one edge at a time until all vertices are included.  
+Prim's minimum spanning tree algorithm starts from one vertex and grows the rest of the tree one edge at a time until all vertices are included.
 
-Greedy algorithms make the decision of what to do next by selecting the best local option from all available choices without regards to the global structure. Since we seek the tree of minimum weight, the natural greedy algorithm for minimum spanning tree repeatedly selects the smallest weight edge that will enlarge the number of vertices in the tree.  
+Greedy algorithms make the decision of what to do next by selecting the best local option from all available choices without regards to the global structure. Since we seek the tree of minimum weight, the natural greedy algorithm for minimum spanning tree repeatedly selects the smallest weight edge that will enlarge the number of vertices in the tree.
 
-Prim's algorithm clearly creates a spanning tree, because no cycle can be introduced by adding edges between tree and non-tree vertices. However, why should it be of minimum weight over all spanning trees?  
+Prim's algorithm clearly creates a spanning tree, because no cycle can be introduced by adding edges between tree and non-tree vertices. However, why should it be of minimum weight over all spanning trees?
 
-We use proof by contradiction. Suppose that there existed a graph $G$ for which Prim's algorithm did not return a minimum spanning tree. Since we are building the tree incrementally, this means that there must have been some particular instant where we went wrong. Before we inserted edge $(x,y)$, $T_{prim}$ consisted of a set of edges that was a subtree of some minimum spanning tree $T_{min}$, but choosing edge $(x,y)$ fatally took us away from a minimum spanning tree.  
+We use proof by contradiction. Suppose that there existed a graph $G$ for which Prim's algorithm did not return a minimum spanning tree. Since we are building the tree incrementally, this means that there must have been some particular instant where we went wrong. Before we inserted edge $(x,y)$, $T_{prim}$ consisted of a set of edges that was a subtree of some minimum spanning tree $T_{min}$, but choosing edge $(x,y)$ fatally took us away from a minimum spanning tree.
 
 But how could we have gone wrong? There must be a path $p$ from $x$ to $y$ in $T_{min}$. This path must use an edge $(v_1, v_2)$, where $v_1$ is in $T_{prim}$, but $v_2$ is not. This edge $(v_1, v_2)$ must have weight at least that of $(x,y)$, or Prim's algorithm would have selected it before $(x,y)$ when it had the chance. Inserting $(x,y)$ and deleting $(v_1, v_2)$ from $T_{min}$ leaves a spanning tree no larger than before, meaning that Prim's algorithm did not make a fatal mistake in selecting edge $(x,y)$. Therefore, by contradiction, Prim's algorithm must construct a minimum spanning tree.
 
-Prim's algorithm grows the minimum spanning tree in stages, starting from a given vertex. At each iteration, we add one new vertex into the spanning tree. A greedy algorithm suffices for correctness: we always add the lowest-weight edge linking a vertex in the tree to a vertex on the outside.  
+Prim's algorithm grows the minimum spanning tree in stages, starting from a given vertex. At each iteration, we add one new vertex into the spanning tree. A greedy algorithm suffices for correctness: we always add the lowest-weight edge linking a vertex in the tree to a vertex on the outside.
 
 Our implementation keeps track of the cheapest edge linking every non-tree vertex in the tree. The cheapest such edge over all remaining non-tree vertices gets added in each iteration.
 
@@ -75,19 +75,19 @@ void prim(graph *g, int start)
 }
 ```
 
-Our implementation avoids the need to test all $m$ edges on each pass. It only considers the $\le n$ cheapest known edges represented in the `parent` array and the $\le n$ edges out of the new tree vertex $v$ to update `parent`. By maintaining a Boolean flag along with each vertex to denote whether it is in the tree or not, we test whether the current edge joins a tree with a non-tree vertex in constant time.  
+Our implementation avoids the need to test all $m$ edges on each pass. It only considers the $\le n$ cheapest known edges represented in the `parent` array and the $\le n$ edges out of the new tree vertex $v$ to update `parent`. By maintaining a Boolean flag along with each vertex to denote whether it is in the tree or not, we test whether the current edge joins a tree with a non-tree vertex in constant time.
 
-The result is an $O(n^2)$ implementation of Prim's algorithm, and a good illustration of the power of data structures to speed up algorithms. In fact, more sophisticated priority-queue data structures lead to an $O(m+n\lg{n})$ implementation, by making it faster to find the minimum cost edge to expand the tree at each iteration.  
+The result is an $O(n^2)$ implementation of Prim's algorithm, and a good illustration of the power of data structures to speed up algorithms. In fact, more sophisticated priority-queue data structures lead to an $O(m+n\lg{n})$ implementation, by making it faster to find the minimum cost edge to expand the tree at each iteration.
 
 The minimum spanning tree itself or its cost can be reconstructed in two different ways. The simplest method would be to augment this procedure with statements that print the edges as they are found or totals the weight of all selected edges. Alternately, the tree topology is encoded by the `parent` array, so it plus the original graph describe everything about the minimum spanning tree.
 
 ### Kruskal's Algorithm
 
-Kruskal's algorithm is an alternate approach to finding minimum spanning trees that proves more efficient on sparse graphs. Like Prim's, Kruskal's algorithm is greedy. Unlike Prim's, it does not start with a particular vertex.  
+Kruskal's algorithm is an alternate approach to finding minimum spanning trees that proves more efficient on sparse graphs. Like Prim's, Kruskal's algorithm is greedy. Unlike Prim's, it does not start with a particular vertex.
 
-Kruskal's algorithm builds up connected components of vertices, culminating in the minimum spanning tree. Initially, each vertex forms its own separate component in the tree-to-be. The algorithm repeatedly considers the lightest remaining edge and tests whether its two endpoints lie within the same connected component. If so, this edge will be discarded, because adding it would create a cycle in the tree-to-be. If the endpoint are in different components, we insert the edge and merge the two components into one.  
+Kruskal's algorithm builds up connected components of vertices, culminating in the minimum spanning tree. Initially, each vertex forms its own separate component in the tree-to-be. The algorithm repeatedly considers the lightest remaining edge and tests whether its two endpoints lie within the same connected component. If so, this edge will be discarded, because adding it would create a cycle in the tree-to-be. If the endpoint are in different components, we insert the edge and merge the two components into one.
 
-This algorithm adds $n-1$ edges without creating a cycle, so it clearly creates a spanning tree for any connected graph. But why must this be a _minimum_ spanning tree? Suppose it wasn't. As with the correctness proof of Prim's algorithm, there must be some graph on which it fails. In particular, there must be a single edge $(x,y)$ whose insertion first prevented the tree $T_{kruskal}$ from being a minimum spanning tree $T_{min}$. Inserting this edge $(x,y)$ into $T_{min}$ will create a cycle with the path from $x$ to $y$. Since $x$ and $y$ were in different components at the time of inserting $(x,y)$, at least one edge (say $(v_1, v_2)$) on this path would have been evaluated by Kruskal's algorithm later than $(x,y)$. But this means that $w(v_1, v_2) \ge w(x,y)$, so exchanging the two edges yields a tree of weight at most $T_{min}$. Therefore, we could not have made a fatal mistake in selecting $(x,y)$, and the correctness follows.  
+This algorithm adds $n-1$ edges without creating a cycle, so it clearly creates a spanning tree for any connected graph. But why must this be a _minimum_ spanning tree? Suppose it wasn't. As with the correctness proof of Prim's algorithm, there must be some graph on which it fails. In particular, there must be a single edge $(x,y)$ whose insertion first prevented the tree $T_{kruskal}$ from being a minimum spanning tree $T_{min}$. Inserting this edge $(x,y)$ into $T_{min}$ will create a cycle with the path from $x$ to $y$. Since $x$ and $y$ were in different components at the time of inserting $(x,y)$, at least one edge (say $(v_1, v_2)$) on this path would have been evaluated by Kruskal's algorithm later than $(x,y)$. But this means that $w(v_1, v_2) \ge w(x,y)$, so exchanging the two edges yields a tree of weight at most $T_{min}$. Therefore, we could not have made a fatal mistake in selecting $(x,y)$, and the correctness follows.
 
 A fast implementation of Kruskal's algorithm runs in $O(m\lg{m})$ time, which is faster than Prim's for sparse graphs. A clever data structure called _union-find_ allows to reach that time by making the component test in $O(\lg{n})$.
 
@@ -117,7 +117,7 @@ void kruskal(graph *g)
 
 ### The Union_Find Data Structure
 
-A _set partition_ is a partitioning of the elements of some universal set (say the integers $1$ to $n$) into a collection of disjointed subsets. Thus, each element must be in exactly one subset.  
+A _set partition_ is a partitioning of the elements of some universal set (say the integers $1$ to $n$) into a collection of disjointed subsets. Thus, each element must be in exactly one subset.
 
 The connected components in a graph can be represented as a set partition. For Kruskal's algorithm to run efficiently, we need a data structure that efficiently supports the following operations:
 
@@ -209,21 +209,21 @@ There are two important variants of a minimum spanning tree that are not solvabl
 
 ## Shortest Paths
 
-A _path_ is a sequence of edges connecting two vertices and their multiplicity hints at why finding the _shortest path_ between two nodes is important and instructive, even in non-transportation application.  
+A _path_ is a sequence of edges connecting two vertices and their multiplicity hints at why finding the _shortest path_ between two nodes is important and instructive, even in non-transportation application.
 
-In a weighted graph, the shortest path is not necessarily the one with the fewer edges, as a faster and more complicated path can be constructed with more edges that have a minimal sum of weights.  
+In a weighted graph, the shortest path is not necessarily the one with the fewer edges, as a faster and more complicated path can be constructed with more edges that have a minimal sum of weights.
 
 We will present two distinct algorithms for finding the shortest paths in weighted graphs.
 
 ### Dijkstra’s Algorithm
 
-Dijkstra’s algorithm is the method of choice for finding shortest paths in an edge—and/or vertex-weighted graph. Given a particular start vertex, it finds the shortest path from $s$ to every other vertex in the graph, including your desired destination $t$.  
+Dijkstra’s algorithm is the method of choice for finding shortest paths in an edge—and/or vertex-weighted graph. Given a particular start vertex, it finds the shortest path from $s$ to every other vertex in the graph, including your desired destination $t$.
 
-Suppose the shortest path from $s$ to $t$ in graph $G$ passes through a particular intermediate vertex $x$. Clearly, this path must contain the shortest path from $s$ to $x$ as its prefix, because if not, we could shorten our $s-to-t$ path by using the shorter $s-to-x$ prefix. Thus, we must compute the shortest path from $s$ to $x$ before we ﬁnd the path from $s$ to $t$.  
+Suppose the shortest path from $s$ to $t$ in graph $G$ passes through a particular intermediate vertex $x$. Clearly, this path must contain the shortest path from $s$ to $x$ as its prefix, because if not, we could shorten our $s-to-t$ path by using the shorter $s-to-x$ prefix. Thus, we must compute the shortest path from $s$ to $x$ before we ﬁnd the path from $s$ to $t$.
 
-Dijkstra’s algorithm proceeds in a series of rounds, where each round establishes the shortest path from $s$ to $some$ new vertex. Specifically, $x$ is the vertex that minimizes $dist(s,v_i)+w(v_i,x)$ over all unfinished $1 \leq i \leq n$, where $w(i,j)$ is the length of the edge from $i$ to $j$, and $dist(i,j)$ is the length of the shortest path between them.  
+Dijkstra’s algorithm proceeds in a series of rounds, where each round establishes the shortest path from $s$ to $some$ new vertex. Specifically, $x$ is the vertex that minimizes $dist(s,v_i)+w(v_i,x)$ over all unfinished $1 \leq i \leq n$, where $w(i,j)$ is the length of the edge from $i$ to $j$, and $dist(i,j)$ is the length of the shortest path between them.
 
-This suggests a dynamic programming-like strategy. The shortest path from $s$ to itself is trivial unless there are negative weight edges, so $dist(s,s) = 0$. If $(s,y)$ is the lightest edge incident to $s$, then this implies that $dist(s,y)=w(s,y)$. Once we determine the shortest path to a node $x$, we check all the outgoing edges of $x$ to see whether there is a better path from $s$ to some unknown vertex through $x$.  
+This suggests a dynamic programming-like strategy. The shortest path from $s$ to itself is trivial unless there are negative weight edges, so $dist(s,s) = 0$. If $(s,y)$ is the lightest edge incident to $s$, then this implies that $dist(s,y)=w(s,y)$. Once we determine the shortest path to a node $x$, we check all the outgoing edges of $x$ to see whether there is a better path from $s$ to some unknown vertex through $x$.
 
 The basic idea is very similar to Prim’s algorithm, the difference between both algorithms is how they rate the desirability of each outside vertex. In the minimum spanning tree problem, all we cared about was the weight of the next potential tree edge. In shortest path, we want to include the closest outside vertex (in shortest-path distance) to $s$. This is a function of both the new edge weight and the distance from $s$ to the tree vertex it is adjacent to.
 
@@ -276,15 +276,15 @@ void dijkstra(graph *g, int start) // WAS prim(g,start)
 }
 ```
 
-This algorithm finds more than just the shortest path from $s$ to $t$. It finds the shortest path from $s$ to all other vertices. This defines a shortest path spanning tree rooted in $s$. For undirected graphs, this would be the breadth-first search tree, but in general it provides the shortest path from s to all other vertices.  
+This algorithm finds more than just the shortest path from $s$ to $t$. It finds the shortest path from $s$ to all other vertices. This defines a shortest path spanning tree rooted in $s$. For undirected graphs, this would be the breadth-first search tree, but in general it provides the shortest path from s to all other vertices.
 
-Dijkstra's algorithm then yields a complexity of $O(n^2)$.  
+Dijkstra's algorithm then yields a complexity of $O(n^2)$.
 
 Dijkstra works correctly only on graphs without negative-cost edge, however most applications do not feature negative-weight edges, making this discussion academic.
 
 ### All-Pairs Shortest Path
 
-We could solve _all-pairs shortest path_ by calling Dijkstra’s algorithm from each of the $n$ possible starting vertices. But Floyd’s all-pairs shortest-path algorithm is a slick way to construct this $n\*n$ distance matrix from the original weight matrix of the graph.  
+We could solve _all-pairs shortest path_ by calling Dijkstra’s algorithm from each of the $n$ possible starting vertices. But Floyd’s all-pairs shortest-path algorithm is a slick way to construct this $n\*n$ distance matrix from the original weight matrix of the graph.
 
 Floyd’s algorithm is best employed on an adjacency matrix data structure, which is no extravagance since we must store all $n^2$ pairwise distances anyway.
 
@@ -296,11 +296,11 @@ typedef struct
 } adjacency_matrix;
 ```
 
-We should initialize each non-edge to ```MAXINT```. This way we can both test whether it is present and automatically ignore it in shortest-path computations, since only real edges will be used.  
+We should initialize each non-edge to `MAXINT`. This way we can both test whether it is present and automatically ignore it in shortest-path computations, since only real edges will be used.
 
-The Floyd-Warshall algorithm starts by numbering the vertices of the graph from $1$ to $n$. We use these numbers not to label the vertices, but to order them. Define $W[i,j]^k$ to be the length of the shortest path from $i$ to $j$ using only vertices numbered from $1,2,...,k$ as possible intermediate vertices.  
+The Floyd-Warshall algorithm starts by numbering the vertices of the graph from $1$ to $n$. We use these numbers not to label the vertices, but to order them. Define $W[i,j]^k$ to be the length of the shortest path from $i$ to $j$ using only vertices numbered from $1,2,...,k$ as possible intermediate vertices.
 
-We will perform $n$ iterations, where the $k$th iteration allows only the first $k$ vertices as possible intermediate steps on the path between each pair of vertices $x$ and $y$.  
+We will perform $n$ iterations, where the $k$th iteration allows only the first $k$ vertices as possible intermediate steps on the path between each pair of vertices $x$ and $y$.
 
 At each iteration, allowing the $kth$ vertex as a stop helps only if there is a short path that goes through $k$, so
 $W[i,j]^k = min(W[i,j]^{k−1},W[i,k]^{k−1} + W[k,j]^{k−1})$
@@ -327,9 +327,9 @@ The Floyd-Warshall all-pairs shortest path runs in $O(n^3)$ time, which is asymp
 
 #### Transitive Closure
 
-Floyd’s algorithm has another important application, that of computing _transitive closure_. In analyzing a directed graph, we are often interested in which vertices are reachable from a given node.  
+Floyd’s algorithm has another important application, that of computing _transitive closure_. In analyzing a directed graph, we are often interested in which vertices are reachable from a given node.
 
-The vertices reachable from any single node can be computed using breadth-first or depth-first searches. But the whole batch can be computed using an all-pairs shortest-path. If the shortest path from $i$ to $j$ remains ```MAXINT``` after running Floyd’s algorithm, you can be sure no directed path exists from $i$ to $j$.
+The vertices reachable from any single node can be computed using breadth-first or depth-first searches. But the whole batch can be computed using an all-pairs shortest-path. If the shortest path from $i$ to $j$ remains `MAXINT` after running Floyd’s algorithm, you can be sure no directed path exists from $i$ to $j$.
 
 ## Network Flows and Bipartite Matching
 
@@ -337,9 +337,9 @@ Edge-weighted graphs can be interpreted as a network of pipes, where the weight 
 
 ### Bipartite Matching
 
-While the network flow problem is of independent interest, its primary importance is in to solving other important graph problems. A classic example is bipartite matching. A _matching_ in a graph $G =(V,E)$ is a subset of edges $E' \subset E$ such that no two edges of $E'$ share a vertex. A matching pairs oﬀ certain vertices such that every vertex is in, at most, one such pair.  
+While the network flow problem is of independent interest, its primary importance is in to solving other important graph problems. A classic example is bipartite matching. A _matching_ in a graph $G =(V,E)$ is a subset of edges $E' \subset E$ such that no two edges of $E'$ share a vertex. A matching pairs oﬀ certain vertices such that every vertex is in, at most, one such pair.
 
-Graph $G$ is _bipartite_ or _two-colorable_ if the vertices can be divided into two sets, $L$ and $R$, such that all edges in $G$ have one vertex in $L$ and one vertex in $R$.  
+Graph $G$ is _bipartite_ or _two-colorable_ if the vertices can be divided into two sets, $L$ and $R$, such that all edges in $G$ have one vertex in $L$ and one vertex in $R$.
 
 The largest bipartite matching can be readily found using network flow. Create a _source_ node $s$ that is connected to every vertex in $L$ by an edge of weight $1$. Create a _sink_ node $t$ and connect it to every vertex in $R$ by an edge of weight $1$. Finally, assign each edge in the bipartite graph $G$ a weight of $1$. Now, the maximum possible flow from $s$ to $t$ defines the largest matching in $G$. Certainly we can find a flow as large as the matching by using only the matching edges and their source-to-sink connections. Further, there can be no greater possible flow. How can we ever hope to get more than one flow unit through any vertex?
 
@@ -349,11 +349,11 @@ Traditional network flow algorithms are based on the idea of _augmenting paths_,
 The key structure is the _residual flow graph_, denoted as $R(G,f)$, where $G$ is the input graph and $f$ is the current flow through $G$. This directed, edge-weighted $R(G,f)$ contains the same vertices as $G$. For each edge $(i,j)$ in $G$ with capacity $c(i,j)$ and ﬂow $f(i,j)$, $R(G,f)$ may contain two edges:
 
 - $(i)$ an edge $(i,j)$ with weight $c(i,j)−f(i,j)$, if $c(i,j)−f(i,j) > 0$
-- $(ii)$ an edge $(j,i)$ with weight $f(i,j)$, if $f(i,j) > 0$  
+- $(ii)$ an edge $(j,i)$ with weight $f(i,j)$, if $f(i,j) > 0$
 
-The presence of edge $(i,j)$ in the residual graph indicates that positive flow can be pushed from $i$ to $j$. The weight of the edge gives the exact amount that can be pushed. A path in the residual flow graph from $s$ to $t$ implies that more flow can be pushed from $s$ to $t$ and the minimum edge weight on this path defines the amount of extra flow that can be pushed.  
+The presence of edge $(i,j)$ in the residual graph indicates that positive flow can be pushed from $i$ to $j$. The weight of the edge gives the exact amount that can be pushed. A path in the residual flow graph from $s$ to $t$ implies that more flow can be pushed from $s$ to $t$ and the minimum edge weight on this path defines the amount of extra flow that can be pushed.
 
-__The maximum ﬂow from s to t always equals the weight of the minimum s-t cut. Thus, flow algorithms can be used to solve general edge and vertex connectivity problems in graphs.__
+**The maximum ﬂow from s to t always equals the weight of the minimum s-t cut. Thus, flow algorithms can be used to solve general edge and vertex connectivity problems in graphs.**
 
 For each edge in the residual flow graph, we must keep track of both the amount of ﬂow currently going through the edge, as well as its remaining residual capacity. Thus, we must modify our edge structure to accommodate the extra fields:
 
@@ -448,17 +448,17 @@ augment_path(flow_graph *g, int start, int end, int parents[], int volume)
 }
 ```
 
-The augmenting path algorithm above eventually converges on the the optimal solution. However each augmenting path may add only a little to the total ﬂow, so, in principle, the algorithm might take an arbitrarily long time to converge.  
+The augmenting path algorithm above eventually converges on the the optimal solution. However each augmenting path may add only a little to the total ﬂow, so, in principle, the algorithm might take an arbitrarily long time to converge.
 
 However, always selecting a shortest unweighted augmenting path guarantees that $O(n^3)$ augmentations suffice for optimization. In fact, this is what is implemented above, since a breadth-first search from the source is used to ﬁnd the next augmenting path.
 
 ## Design Graphs not Algorithms
 
-Proper modeling is the key to making effective use of graph algorithms. We have defined several graph properties, and developed algorithms for computing them.  
+Proper modeling is the key to making effective use of graph algorithms. We have defined several graph properties, and developed algorithms for computing them.
 
 These classical graph problems provide a framework for modeling most applications. The secret is learning to design graphs, not algorithms. We have already seen a few instances of this idea:
 
 - The maximum spanning tree can be found by negating the edge weights of the input graph $G$ and using a minimum spanning tree algorithm on the result. The most negative weight spanning tree will define the maximum weight tree in $G$.
 - To solve bipartite matching, we constructed a special network ﬂow graph such that the maximum flow corresponds to a maximum cardinality matching.
 
-__Designing novel graph algorithms is very hard, so don’t do it. Instead, try to design graphs that enable you to use classical algorithms to model your problem.__
+**Designing novel graph algorithms is very hard, so don’t do it. Instead, try to design graphs that enable you to use classical algorithms to model your problem.**

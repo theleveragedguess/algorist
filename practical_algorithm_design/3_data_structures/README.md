@@ -4,8 +4,8 @@
 
 Data structures can be neatly classified as either _contiguous_ or _linked_ depending or whether they are based on arrays or pointers.
 
-* _Contiguous-allocated structures_ — single slabs of memory, arrays, matrices, heaps, and hash tables.
-* _Linked Data structures_ — distinct chunks of memory glued by pointers, lists, trees, and graph adjacency lists.
+- _Contiguous-allocated structures_ — single slabs of memory, arrays, matrices, heaps, and hash tables.
+- _Linked Data structures_ — distinct chunks of memory glued by pointers, lists, trees, and graph adjacency lists.
 
 ### Arrays
 
@@ -13,9 +13,9 @@ The fundamental contiguously-allocated data structure.
 
 Advantages:
 
-* _Constant-time access given the index_
-* _Space efficiency_
-* _Memory locality_
+- _Constant-time access given the index_
+- _Space efficiency_
+- _Memory locality_
 
 Downside: fixed size.
 
@@ -79,53 +79,53 @@ void delete_list(list **l, item_type x)
 
 Linked lists have it at:
 
-* Overflow occurs only when memory is full.
-* Insertions and deletions are _simpler_ for contiguous lists.
-* With large records, moving pointer is easier and faster.
+- Overflow occurs only when memory is full.
+- Insertions and deletions are _simpler_ for contiguous lists.
+- With large records, moving pointer is easier and faster.
 
 Arrays have it at:
 
-* More pointer space for linked structures.
-* Linked lists do not allow efficient random access to items.
-* Better memory locality and cache performance.
+- More pointer space for linked structures.
+- Linked lists do not allow efficient random access to items.
+- Better memory locality and cache performance.
 
 Both structures are recursive objects, good for divide-and-conquer.
 
 ## Stacks and Queues
 
-* _Stacks_, LIFO push and pop.
-* _Queues_, FIFO enqueue and dequeue.
+- _Stacks_, LIFO push and pop.
+- _Queues_, FIFO enqueue and dequeue.
 
 ## Dictionaries
 
-* _Search(D, k)_
-* _Insert(D, x)_
-* _Delete(D, x)_
+- _Search(D, k)_
+- _Insert(D, x)_
+- _Delete(D, x)_
 
 _Some implements_:
 
-* _Max(D)_ or _Min(D)_
-* _Predecessor(D, x)_
+- _Max(D)_ or _Min(D)_
+- _Predecessor(D, x)_
 
-Dictionary operation    | Unsorted Array   | Sorted Array
----                     | ---              | ---
-_Search(L, k)_          | $O(n)$           | $O(\log{n})$
-_Insert(L, x)_          | $O(1)$           | $O(n)$
-_Delete(L, x)_          | $O(1)*$          | $O(n)$
-_Successor(L, x)_       | $O(n)$           | $O(1)$
-_Predecessor(L, x)_     | $O(n)$           | $O(1)$
-_Minimum(L)_            | $O(n)$           | $O(1)$
-_Maximum(L)_            | $O(n)$           | $O(1)$
+| Dictionary operation | Unsorted Array | Sorted Array |
+| -------------------- | -------------- | ------------ |
+| _Search(L, k)_       | $O(n)$         | $O(\log{n})$ |
+| _Insert(L, x)_       | $O(1)$         | $O(n)$       |
+| _Delete(L, x)_       | $O(1)*$        | $O(n)$       |
+| _Successor(L, x)_    | $O(n)$         | $O(1)$       |
+| _Predecessor(L, x)_  | $O(n)$         | $O(1)$       |
+| _Minimum(L)_         | $O(n)$         | $O(1)$       |
+| _Maximum(L)_         | $O(n)$         | $O(1)$       |
 
-Dictionary operation | Singly-linked unsorted List | Doubly-linked unsorted List | Singly-linked sorted List | Doubly-linked sorted List
----                 | ---       | ---       | ---       | ---
-_Search(L, k)_      | $O(n)$    | $O(n)$    | $O(n)$    | $O(n)$
-_Insert(L, x)_      | $O(1)$    | $O(1)$    | $O(n)$    | $O(n)$
-_Delete(L, x)_      | $O(n)*$   | $O(1)$    | $O(n)*$   | $O(1)$
-_Successor(L, x)_   | $O(n)$    | $O(n)$    | $O(1)$    | $O(1)$
-_Predecessor(L, x)_ | $O(n)$    | $O(n)$    | $O(n)*$   | $O(1)$
-_Minimum(L)_        | $O(n)$    | $O(n)$    | $O(1)$    | $O(1)$
-_Maximum(L)_        | $O(n)$    | $O(n)$    | $O(1)*$   | $O(1)$
+| Dictionary operation | Singly-linked unsorted List | Doubly-linked unsorted List | Singly-linked sorted List | Doubly-linked sorted List |
+| -------------------- | --------------------------- | --------------------------- | ------------------------- | ------------------------- |
+| _Search(L, k)_       | $O(n)$                      | $O(n)$                      | $O(n)$                    | $O(n)$                    |
+| _Insert(L, x)_       | $O(1)$                      | $O(1)$                      | $O(n)$                    | $O(n)$                    |
+| _Delete(L, x)_       | $O(n)*$                     | $O(1)$                      | $O(n)*$                   | $O(1)$                    |
+| _Successor(L, x)_    | $O(n)$                      | $O(n)$                      | $O(1)$                    | $O(1)$                    |
+| _Predecessor(L, x)_  | $O(n)$                      | $O(n)$                      | $O(n)*$                   | $O(1)$                    |
+| _Minimum(L)_         | $O(n)$                      | $O(n)$                      | $O(1)$                    | $O(1)$                    |
+| _Maximum(L)_         | $O(n)$                      | $O(n)$                      | $O(1)*$                   | $O(1)$                    |
 
 ## Binary Search Trees
 
@@ -196,11 +196,11 @@ void insert_tree(tree **l, item_type x, tree *parent)
 
 ### Basic operations
 
-* _Searching_ — $O(h)$ where _h_ denotes the height of the tree.
-* _Finding Minimum and Maximum Elements_ — Minimum the leftmost element and Maximum is the rightmost element $O(h)$.
-* _Traversal_ — $O(n)$
-* _Insertion_ — $O(h)$
-* _Deletion_ — $O(h)$
+- _Searching_ — $O(h)$ where _h_ denotes the height of the tree.
+- _Finding Minimum and Maximum Elements_ — Minimum the leftmost element and Maximum is the rightmost element $O(h)$.
+- _Traversal_ — $O(n)$
+- _Insertion_ — $O(h)$
+- _Deletion_ — $O(h)$
 
 ### How good Are Binary Search Tree
 
@@ -220,17 +220,17 @@ Picking the wrong data structure for the job can be disastrous in terms of perfo
 
 _Priority queues_ are data structures that provide more flexibility than simple sorting, because they allow new elements to enter a system at arbitrary intervals.
 
-* _Insert(Q, x)_
-* _Find-Minimum/Maximum(Q)_
-* _Delete-Minimum/Maximum(Q)_
+- _Insert(Q, x)_
+- _Find-Minimum/Maximum(Q)_
+- _Delete-Minimum/Maximum(Q)_
 
 Building algorithms around around data structures such as dictionaries and priorities queues leads to both clean structure and good performance.
 
-Priority queue operation | Unsorted Array | Sorted Array | Balanced Binary Search tree
----                 | ---     | ---     | ---
-_Insert(Q, x)_      | $O(1)$  | $O(n)$  | $O(\log{n})$
-_Find-Minimum(Q)_   | $O(1)$  | $O(1)$  | $O(1)$
-_Delete-Minimum(Q)_ | $O(n)$  | $O(1)$  | $O(\log{n})$
+| Priority queue operation | Unsorted Array | Sorted Array | Balanced Binary Search tree |
+| ------------------------ | -------------- | ------------ | --------------------------- |
+| _Insert(Q, x)_           | $O(1)$         | $O(n)$       | $O(\log{n})$                |
+| _Find-Minimum(Q)_        | $O(1)$         | $O(1)$       | $O(1)$                      |
+| _Delete-Minimum(Q)_      | $O(n)$         | $O(1)$       | $O(\log{n})$                |
 
 The trick for a constant time Find-Minimum is using an extra variable to store a pointer/index to the minimum entry.
 
@@ -240,9 +240,9 @@ A hash function is a mathematical function that maps keys to integers. Using it 
 
 $H(S) = \sum_{i=0}^{|S|} α^{|S| - (i+1)}char(S_i)$
 _where_
-$α$ is the the size of the alphabet on which a given string $S$ is written.  
+$α$ is the the size of the alphabet on which a given string $S$ is written.
 
-```char(c)``` a function that maps each symbol of the alphabet to a unique integer from $0$ to $α - 1$.
+`char(c)` a function that maps each symbol of the alphabet to a unique integer from $0$ to $α - 1$.
 
 $H(S)$ maps each string to a unique (but large) integer by treating the characters of the string as "digits" in a base-$α$ number system.
 By selecting a good m number (ideally a large prime number not too close to $2^{i-1}$) we could produce uniformly distributed hash values with $H(S)\bmod m$.
@@ -252,22 +252,21 @@ By selecting a good m number (ideally a large prime number not too close to $2^{
 _Chaining_ is the easiest approach to collision resolution. Which is an array of $m$ linked lists. the _ith_ list will contain all the items that hash to the value of $i$. Chaining is natural but has a lot of pointer memory.
 _Open Addressing_ maintains an array of elements (not buckets) and inserts elements of similar hash into contiguous places.
 
-
-Chaining with doubly linked lists | Hash table (expected) | Hash table (worst case)
----                 | ---       | ---
-_Search(L, k)_      | $O(n/m)$  | $O(n)$
-_Insert(L, x)_      | $O(1)$    | $O(1)$
-_Delete(L, x)_      | $O(1)$    | $O(1)$
-_Successor(L, x)_   | $O(n+m)$  | $O(n+m)$
-_Predecessor(L, x)_ | $O(n+m)$  | $O(n+m)$
-_Minimum(L)_        | $O(n+m)$  | $O(n+m)$
-_Maximum(L)_        | $O(n+m)$  | $O(n+m)$
+| Chaining with doubly linked lists | Hash table (expected) | Hash table (worst case) |
+| --------------------------------- | --------------------- | ----------------------- |
+| _Search(L, k)_                    | $O(n/m)$              | $O(n)$                  |
+| _Insert(L, x)_                    | $O(1)$                | $O(1)$                  |
+| _Delete(L, x)_                    | $O(1)$                | $O(1)$                  |
+| _Successor(L, x)_                 | $O(n+m)$              | $O(n+m)$                |
+| _Predecessor(L, x)_               | $O(n+m)$              | $O(n+m)$                |
+| _Minimum(L)_                      | $O(n+m)$              | $O(n+m)$                |
+| _Maximum(L)_                      | $O(n+m)$              | $O(n+m)$                |
 
 Hashing is a fundamental idea in randomized algorithms, yielding linear expected-time algorithms for problems otherwise $\Theta(n\log{n})$, or $\Theta(n^2)$ in the worst case.
 
 ## Specialized Data Structures
 
-* _String data structures_ — most likely array of characters.
-* _Geometric data structures_ — collections of data points and regions.
-* _Graph data structures_ — typically represented with either adjacency matrices or adjacency lists.
-* _Set data structures_ —  typically represented with dictionaries, or _bit vectors_ for subsets holding ones for $i$ in the subsets.
+- _String data structures_ — most likely array of characters.
+- _Geometric data structures_ — collections of data points and regions.
+- _Graph data structures_ — typically represented with either adjacency matrices or adjacency lists.
+- _Set data structures_ — typically represented with dictionaries, or _bit vectors_ for subsets holding ones for $i$ in the subsets.
