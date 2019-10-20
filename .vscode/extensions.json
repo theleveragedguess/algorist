@@ -1,8 +1,3 @@
 {
-  "recommendations": [
-    "ms-vscode.cpptools",
-    "twxs.cmake",
-    "goessner.mdmath",
-    "davidanson.vscode-markdownlint"
-  ]
+  "recommendations": ["goessner.mdmath", "davidanson.vscode-markdownlint"]
 }

@@ -405,8 +405,8 @@ There are three steps involved in solving a problem by dynamic programming:
 
 ## The Partition Problem
 
-_Problem_: Integer Partition without Rearrangement  
-_Input_: An arrangement S of non negative numbers $\lbrace s_1,...,s_n\rbrace$ and an integer $k$.  
+_Problem_: Integer Partition without Rearrangement
+_Input_: An arrangement S of non negative numbers $\lbrace s_1,...,s_n\rbrace$ and an integer $k$.
 _Output_: Partition $S$ into $k$ or fewer ranges, to minimize the maximum sum over all the ranges, without reordering any of the numbers.
 
 This so-called linear partition problem arises often in parallel process. We seek to balance the work done across processors to minimize the total elapsed run time.

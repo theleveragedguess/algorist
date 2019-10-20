@@ -31,8 +31,8 @@ To solve problem $a$, we translate/reduce the a instance to an instance of $b$, 
 
 The Hamiltonian cycle problem is one of the most famous in graph theory. It seeks a tour that visits each vertex of a given graph exactly once.
 
-_Problem_: Hamiltonian Cycle  
-_Input_: An unweighted graph $G$.  
+_Problem_: Hamiltonian Cycle
+_Input_: An unweighted graph $G$.
 _Output_: Does there exist a simple tour that visits each vertex of $G$ without repetition?
 
 The following reduction from Hamiltonian cycle to traveling salesman shows that the similarities are greater than the differences:
@@ -51,14 +51,14 @@ HamiltonianCycle(G =(V,E))
 
 The vertex cover problem, asks for a small set of vertices that contacts each edge in a graph.
 
-_Problem_: Vertex Cover  
-_Input_: A graph $G =(V,E)$ and integer $k \leq |V|$.  
+_Problem_: Vertex Cover
+_Input_: A graph $G =(V,E)$ and integer $k \leq |V|$.
 _Output_: Is there a subset $S$ of at most $k$ vertices such that every $e \in E$ contains at least one vertex in $S$?
 
 A set of vertices $S$ of graph $G$ is independent if there are no edges $(x,y)$ where both $x \in S$ and $y \in S$.
 
-_Problem_: Independent Set  
-_Input_: A graph $G$ and integer $k \leq |V|$.  
+_Problem_: Independent Set
+_Input_: A graph $G$ and integer $k \leq |V|$.
 _Output_: Does there exist an independent set of $k$ vertices in $G$?
 
 This gives us a reduction between the two problems:
@@ -74,8 +74,8 @@ VertexCover(G,k)
 
 A social clique is a group of mutual friends who all hang around together. A graph-theoretic _clique_ is a complete sub-graph where each vertex pair has an edge between them.
 
-_Problem_: Maximum Clique  
- _Input_: A graph $G = (V,E)$ and integer $k ≤ |V|$.  
+_Problem_: Maximum Clique
+ _Input_: A graph $G = (V,E)$ and integer $k ≤ |V|$.
  _Output_: Does the graph contain a clique of $k$ vertices; i.e. , is there a subset $S \subset V$, where $|S| \leq k$, such that every pair of vertices in $S$ defines an edge of $G$?
 
 A reduction between Maximum Clique and Independent Set follows by reversing the roles of edges and non-edges — an operation known as _complementing_ the graph:
@@ -91,16 +91,16 @@ IndependentSet(G,k)
 
 To demonstrate the hardness of all problems using reductions, we must start with a single problem that is absolutely, certifiably, undeniably hard. The mother of all NP-complete problems is a logic problem named _satisfiability_:
 
-_Problem_: Satisfiability  
-_Input_: A set of Boolean variables $V$ and a set of clauses $C$ over $V$.  
+_Problem_: Satisfiability
+_Input_: A set of Boolean variables $V$ and a set of clauses $C$ over $V$.
 _Output_: Does there exist a satisfying truth assignment for $C$—i.e. , a way to set the variables $v_1,...,v_n$ true or false so that each clause contains at least one true literal?
 
 For a combination of social and technical reasons, it is well accepted that satisfiability is a hard problem; one for which no worst-case polynomial-time algorithm exists. Literally every top-notch algorithm expert in the world (and countless lesser lights) have directly or indirectly tried to come up with a fast algorithm to test whether a given set of clauses is satisfiable. All have failed. Furthermore, many strange and impossible-to-believe things in the field of computational complexity have been shown to be true if there exists a fast satisfiability algorithm. satisfiability is a hard problem, and we should feel comfortable accepting this.
 
 ### 3-Satisfiability
 
-_Problem_: 3-Satisfiability (3-SAT)  
-_Input_: A collection of clauses $C$ where each clause contains exactly 3 literals, over a set of Boolean variables $V$.  
+_Problem_: 3-Satisfiability (3-SAT)
+_Input_: A collection of clauses $C$ where each clause contains exactly 3 literals, over a set of Boolean variables $V$.
 _Output_: Is there a truth assignment to $V$ such that each clause is satisfied?
 
 Since this is a restricted case of satisfiability, the hardness of 3-SAT implies that satisfiability is hard. We can show the hardness of 3-SAT using a reduction that translates every instance of satisfiability into an instance of 3-SAT without changing whether it is satisfiable.
@@ -120,14 +120,14 @@ Below a few useful class of problems that can serve as reductions to many others
 
 ### Integer Programming
 
-**Problem**: Integer Programming  
-**Input**: A set of integer variables $V$ , a set of inequalities over $V$ , a maximization function $f(V)$, and an integer $B$.  
+**Problem**: Integer Programming
+**Input**: A set of integer variables $V$ , a set of inequalities over $V$ , a maximization function $f(V)$, and an integer $B$.
 **Output**: Does there exist an assignment of integers to $V$ such that all inequalities are true and $f(V ) \ge B$?
 
 ### Vertex Cover
 
-**Problem**: Vertex Cover  
-**Input**: A graph $G =(V,E)$ and integer $k \leq |V|$.  
+**Problem**: Vertex Cover
+**Input**: A graph $G =(V,E)$ and integer $k \leq |V|$.
 **Output**: Is there a subset $S$ of at most $k$ vertices such that every $e \in E$ has at least one vertex in $S$?
 
 **A small set of NP-complete problems (3-SAT, vertex cover, integer partition, and Hamiltonian cycle) suffice to prove the hardness of most other hard problems.**
